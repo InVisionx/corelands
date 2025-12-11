@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=3 format=3 uid="uid://d2jcxay5q3vt4"]
+
+[ext_resource type="Script" uid="uid://ew1akp20d68q" path="res://Resources/ArmorItem.gd" id="1_0a3cx"]
+[ext_resource type="Texture2D" uid="uid://e7cp221qlmdb" path="res://Items/Combat/ObsidianArmor/T1/t1_obsidian_boots_sprite.png" id="1_fgawq"]
+
+[resource]
+script = ExtResource("1_0a3cx")
+armor_scene_path = "uid://cssnylrgytdrl"
+mesh_node_path = NodePath("Armature/GeneralSkeleton/Boots")
+id = "t1obsidianboots"
+display_name = "Obsidian Boots"
+icon = ExtResource("1_fgawq")
+item_type = 2
+equip_slot = "boots"
+metadata/_custom_type_script = "uid://ew1akp20d68q"

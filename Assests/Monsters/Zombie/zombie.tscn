@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://cxi4p71x2cgs2"]
+
+[ext_resource type="Script" uid="uid://bxh2rusuxy8ns" path="res://Assests/Monsters/Zombie/zombie.gd" id="1_eul18"]
+[ext_resource type="Script" uid="uid://b2affrttqbtaa" path="res://Scripts/clickable.gd" id="2_qnkw0"]
+[ext_resource type="Script" uid="uid://diwefdtdwrtv1" path="res://Scripts/npc_movement.gd" id="3_3imlp"]
+[ext_resource type="Script" uid="uid://cav04k0qvsd86" path="res://Scripts/npc_combat_ai.gd" id="4_15n7n"]
+[ext_resource type="PackedScene" uid="uid://dxompd5x43ss0" path="res://Assests/Monsters/Zombie/zombie_model.tscn" id="5_tc1v2"]
+[ext_resource type="PackedScene" uid="uid://blgaw6flv2gwc" path="res://Scenes/health_bar.tscn" id="6_wnh6i"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_40hyy"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wnh6i"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Zombie" type="CharacterBody3D" node_paths=PackedStringArray("interaction")]
+script = ExtResource("1_eul18")
+interaction = NodePath("Click")
+max_hp = 20
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_40hyy")
+
+[node name="Click" type="Node3D" parent="."]
+script = ExtResource("2_qnkw0")
+interaction_type = "enemy"
+interact_range = 2.5
+
+[node name="NPCMovement" type="Node3D" parent="."]
+script = ExtResource("3_3imlp")
+model = "zombie_model"
+
+[node name="NPCCombatAI" type="Node3D" parent="."]
+script = ExtResource("4_15n7n")
+model = "zombie_model"
+attack_speed = 4.0
+
+[node name="zombie_model" parent="." instance=ExtResource("5_tc1v2")]
+
+[node name="HealthBar" parent="." instance=ExtResource("6_wnh6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+texture = SubResource("ViewportTexture_wnh6i")

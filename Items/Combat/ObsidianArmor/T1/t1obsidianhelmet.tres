@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=3 format=3 uid="uid://drilbl2f0qnnn"]
+
+[ext_resource type="Texture2D" uid="uid://c0fvwffv3vdau" path="res://Items/Combat/ObsidianArmor/T1/t1_obsidian_helmet_sprite.png" id="1_6j1k8"]
+[ext_resource type="Script" uid="uid://ew1akp20d68q" path="res://Resources/ArmorItem.gd" id="1_7xs7x"]
+
+[resource]
+script = ExtResource("1_7xs7x")
+armor_scene_path = "uid://cssnylrgytdrl"
+mesh_node_path = NodePath("Armature/GeneralSkeleton/Helmet")
+id = "t1obsidianhelmet"
+display_name = "Obsidian Helm"
+icon = ExtResource("1_6j1k8")
+item_type = 2
+equip_slot = "helm"
+metadata/_custom_type_script = "uid://ew1akp20d68q"

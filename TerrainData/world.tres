@@ -1,0 +1,68 @@
+[gd_resource type="Terrain3DAssets" load_steps=18 format=3 uid="uid://ge06curwc2eh"]
+
+[ext_resource type="PackedScene" uid="uid://bpjkh6kt1u1oq" path="res://Assests/Trees/Ash Tree/ash_tree.tscn" id="1_sxq2m"]
+[ext_resource type="Texture2D" uid="uid://bis8g4nqv4xhv" path="res://Materials/GraveyardFloor/graveyardfloor_packed_albedo_height.png" id="1_vv0jt"]
+[ext_resource type="Texture2D" uid="uid://eys5kkwwmnl7" path="res://Materials/GraveyardFloor/graveyard_floor_normal.png" id="2_0lmrr"]
+[ext_resource type="Texture2D" uid="uid://brgnfsnluyfpa" path="res://Materials/BaseFloor/basefloor_packed_albedo_height.png" id="3_dnhos"]
+[ext_resource type="Texture2D" uid="uid://b0n515lixi11b" path="res://Materials/BaseFloor/base_floor_normal.png" id="4_sxq2m"]
+[ext_resource type="Texture2D" uid="uid://blu1wihp5nwxi" path="res://Materials/AshDirt/ashdirt_packed_albedo_height.png" id="5_dnhos"]
+[ext_resource type="Texture2D" uid="uid://bscbtrxwykq28" path="res://Materials/AshDirt/ash_dirt_normal.png" id="6_sxq2m"]
+[ext_resource type="Texture2D" uid="uid://qt68qvtjmyvi" path="res://Materials/AshPathway/ashenpathway_packed_albedo_height.png" id="8_84jv8"]
+[ext_resource type="Texture2D" uid="uid://dp6d50yswuube" path="res://Materials/AshPathway/ashen_pathway_normal.png" id="9_4ou16"]
+[ext_resource type="Texture2D" uid="uid://digkmrm622afe" path="res://Materials/GraveyardDirt/graveyarddirt_packed_albedo_height.png" id="10_x1iks"]
+[ext_resource type="Texture2D" uid="uid://dfmyjjlord7rp" path="res://Materials/GraveyardDirt/graveyard_dirt_normal.png" id="11_4uojl"]
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_84jv8"]
+name = "ash_tree"
+scene_file = ExtResource("1_sxq2m")
+density = 3.4199429
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_ikia7"]
+name = "graveyardfloor_packed_albedo_height"
+albedo_texture = ExtResource("1_vv0jt")
+normal_texture = ExtResource("2_0lmrr")
+ao_strength = 2.0
+uv_scale = 1.0
+detiling_rotation = 0.1
+detiling_shift = 0.1
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_7yui6"]
+name = "basefloor_packed_albedo_height"
+id = 1
+albedo_texture = ExtResource("3_dnhos")
+normal_texture = ExtResource("4_sxq2m")
+normal_depth = 1.0
+ao_strength = 0.1
+uv_scale = 1.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_n33gj"]
+name = "ashdirt_packed_albedo_height"
+id = 2
+albedo_texture = ExtResource("5_dnhos")
+normal_texture = ExtResource("6_sxq2m")
+uv_scale = 2.0
+detiling_rotation = 0.1
+detiling_shift = 0.1
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_4uojl"]
+name = "ashenpathway_packed_albedo_height"
+id = 3
+albedo_texture = ExtResource("8_84jv8")
+normal_texture = ExtResource("9_4ou16")
+uv_scale = 1.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_vw3pw"]
+name = "graveyarddirt_packed_albedo_height"
+id = 4
+albedo_texture = ExtResource("10_x1iks")
+normal_texture = ExtResource("11_4uojl")
+uv_scale = 1.0
+detiling_rotation = 0.1
+detiling_shift = 0.1
+
+[resource]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_84jv8")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_ikia7"), SubResource("Terrain3DTextureAsset_7yui6"), SubResource("Terrain3DTextureAsset_n33gj"), SubResource("Terrain3DTextureAsset_4uojl"), SubResource("Terrain3DTextureAsset_vw3pw")])

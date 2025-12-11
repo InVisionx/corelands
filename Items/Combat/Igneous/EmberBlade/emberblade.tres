@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://bkn1sybnmvuod"]
+
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_5m2ah"]
+[ext_resource type="Texture2D" uid="uid://dv378bh7tag01" path="res://Items/Combat/Igneous/EmberBlade/emberblade_sprite.png" id="1_paeqv"]
+[ext_resource type="PackedScene" uid="uid://cegdmif2wpbqm" path="res://Items/Combat/Igneous/EmberBlade/ember_blade.tscn" id="2_1muey"]
+
+[resource]
+script = ExtResource("1_5m2ah")
+is2h = true
+id = "emberblade"
+display_name = "Ember Blade"
+icon = ExtResource("1_paeqv")
+prefab = ExtResource("2_1muey")
+item_type = 1
+equip_slot = "weapon"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

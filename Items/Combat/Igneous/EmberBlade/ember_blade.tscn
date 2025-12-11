@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://cegdmif2wpbqm"]
+
+[ext_resource type="PackedScene" uid="uid://c1dbl0fexa1yw" path="res://Items/Combat/Igneous/EmberBlade/EmberBlade.fbx" id="1_t4gt4"]
+[ext_resource type="Texture2D" uid="uid://ddmmkkknqx270" path="res://Items/Combat/Igneous/EmberBlade/EmberBlade_texture.png" id="2_cag43"]
+[ext_resource type="Texture2D" uid="uid://b70xknq7xnijk" path="res://Items/Combat/Igneous/EmberBlade/EmberBlade_metallic.png" id="3_l5h33"]
+[ext_resource type="Texture2D" uid="uid://j6w6pqyoyp4a" path="res://Items/Combat/Igneous/EmberBlade/EmberBlade_normal.png" id="4_s5fha"]
+[ext_resource type="Texture2D" uid="uid://bs3oikbe4ef0i" path="res://Items/Combat/Igneous/EmberBlade/EmberBlade_roughness.png" id="5_uqwq2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rke1d"]
+albedo_texture = ExtResource("2_cag43")
+metallic = 1.0
+metallic_texture = ExtResource("3_l5h33")
+roughness = 0.5
+roughness_texture = ExtResource("5_uqwq2")
+normal_enabled = true
+normal_scale = 1.5
+normal_texture = ExtResource("4_s5fha")
+
+[node name="EmberBlade" instance=ExtResource("1_t4gt4")]
+
+[node name="input" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_rke1d")
+
+[node name="AttackTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(0.27032828, -0.37710434, 0.18631943, -0.3079032, -0.026520895, 0.39305505, -0.28656283, -0.32724443, -0.24656197, -0.08988154, 0.04832387, -0.047743857)
+
+[node name="IdleTransform" type="Node3D" parent="." index="2"]
+transform = Transform3D(-0.10089153, -0.4315768, -0.23143546, -0.08241434, -0.2179625, 0.4423802, -0.48273054, 0.12741202, -0.027155092, 0.031205177, 0.09010708, 0.04280895)

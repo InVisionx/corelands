@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=3 format=3 uid="uid://cag6v8fcl1hbj"]
+
+[ext_resource type="Texture2D" uid="uid://botorakcxyw3f" path="res://Items/Combat/ObsidianArmor/T1/t1_obsidian_chestplate_sprite.png" id="1_pi6pu"]
+[ext_resource type="Script" uid="uid://ew1akp20d68q" path="res://Resources/ArmorItem.gd" id="1_utp0j"]
+
+[resource]
+script = ExtResource("1_utp0j")
+armor_scene_path = "uid://cssnylrgytdrl"
+mesh_node_path = NodePath("Armature/GeneralSkeleton/Chestplate")
+id = "t1obsidianchestplate"
+display_name = "Obsidian Chestplate"
+icon = ExtResource("1_pi6pu")
+item_type = 2
+equip_slot = "chest"
+metadata/_custom_type_script = "uid://ew1akp20d68q"

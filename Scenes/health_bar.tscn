@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://blgaw6flv2gwc"]
+
+[ext_resource type="Texture2D" uid="uid://daen2kv4v2x28" path="res://Materials/UI/health_red.png" id="1_m34ix"]
+[ext_resource type="Texture2D" uid="uid://bcmmquvt4ipnb" path="res://Materials/UI/health_green.png" id="2_qay8w"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_m34ix"]
+viewport_path = NodePath("SubViewport")
+
+[node name="HealthBar" type="Sprite3D"]
+billboard = 1
+texture = SubResource("ViewportTexture_m34ix")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(75, 6)
+render_target_update_mode = 4
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+nine_patch_stretch = true
+texture_under = ExtResource("1_m34ix")
+texture_progress = ExtResource("2_qay8w")

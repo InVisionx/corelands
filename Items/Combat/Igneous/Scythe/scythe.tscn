@@ -1,0 +1,24 @@
+[gd_scene load_steps=7 format=3 uid="uid://q4xbmiwoxy7v"]
+
+[ext_resource type="PackedScene" uid="uid://jjy44e2mgg7d" path="res://Items/Combat/Igneous/Scythe/Scythe.fbx" id="1_1wpvg"]
+[ext_resource type="Texture2D" uid="uid://dfehg4ax0b3mq" path="res://Items/Combat/Igneous/Scythe/Scythe_texture.png" id="2_mqyqd"]
+[ext_resource type="Texture2D" uid="uid://d28tq205kgs3o" path="res://Items/Combat/Igneous/Scythe/Scythe_metallic.png" id="3_5pfon"]
+[ext_resource type="Texture2D" uid="uid://cf7fkr4kjqbb3" path="res://Items/Combat/Igneous/Scythe/Scythe_normal.png" id="4_swswd"]
+[ext_resource type="Texture2D" uid="uid://ck31rxf6lyael" path="res://Items/Combat/Igneous/Scythe/Scythe_roughness.png" id="5_608fw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kcshy"]
+albedo_texture = ExtResource("2_mqyqd")
+metallic = 1.0
+metallic_texture = ExtResource("3_5pfon")
+roughness_texture = ExtResource("5_608fw")
+normal_enabled = true
+normal_scale = 2.0
+normal_texture = ExtResource("4_swswd")
+
+[node name="Scythe" instance=ExtResource("1_1wpvg")]
+
+[node name="Mesh_0_003" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_kcshy")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(-0.25298533, -0.75336576, 0.09186101, -0.7137409, 0.20324866, -0.2987708, 0.2580163, -0.17643695, -0.7364087, 0.1054396, 0.08669114, 0.051692367)

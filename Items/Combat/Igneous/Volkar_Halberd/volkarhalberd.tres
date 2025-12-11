@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://dhp6ir1t5ngo6"]
+
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_ndhc1"]
+[ext_resource type="Texture2D" uid="uid://dll2v8vsknglf" path="res://Items/Combat/Igneous/Volkar_Halberd/Volkar_Halberd_sprite.png" id="1_s0snx"]
+[ext_resource type="PackedScene" uid="uid://crbe8tyd4x1ps" path="res://Items/Combat/Igneous/Volkar_Halberd/volkar_halberd.tscn" id="2_m5ntl"]
+
+[resource]
+script = ExtResource("1_ndhc1")
+is2h = true
+id = "volkharhalberd"
+display_name = "Volkhar Halberd"
+icon = ExtResource("1_s0snx")
+prefab = ExtResource("2_m5ntl")
+item_type = 1
+equip_slot = "weapon"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

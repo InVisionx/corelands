@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://bijkbtnq5j1ng"]
+
+[ext_resource type="Texture2D" uid="uid://jhn77xcx5htp" path="res://Items/Combat/ObsidianArmor/materials/t20_obsidian_texture.png" id="1_ajtm2"]
+[ext_resource type="Texture2D" uid="uid://dvaookl418vui" path="res://Items/Combat/ObsidianArmor/materials/_1118044026_texture_normal.png" id="2_frhst"]
+[ext_resource type="Texture2D" uid="uid://wmkibrol5b7k" path="res://Items/Combat/ObsidianArmor/materials/_1118044026_texture_roughness.png" id="3_kcwup"]
+
+[resource]
+albedo_texture = ExtResource("1_ajtm2")
+metallic_specular = 0.0
+roughness = 0.5
+roughness_texture = ExtResource("3_kcwup")
+normal_enabled = true
+normal_texture = ExtResource("2_frhst")

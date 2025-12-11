@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=3 format=3 uid="uid://b6w2slkpke1py"]
+
+[ext_resource type="Texture2D" uid="uid://e3blqf15opev" path="res://Items/Combat/IgneousArmor/materials/obsidian_platelegs_sprite.png" id="1_nus7o"]
+[ext_resource type="Script" uid="uid://ew1akp20d68q" path="res://Resources/ArmorItem.gd" id="2_j3fqg"]
+
+[resource]
+script = ExtResource("2_j3fqg")
+armor_scene_path = "uid://c1li2hk1xqkj4"
+mesh_node_path = NodePath("Armature/GeneralSkeleton/Platelegs")
+id = "igneousplatelegs"
+display_name = "Igneous Platelegs"
+icon = ExtResource("1_nus7o")
+equip_slot = "legs"
+metadata/_custom_type_script = "uid://ew1akp20d68q"

@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://xs5uxaerdlan"]
+
+[ext_resource type="Script" uid="uid://ba6exipj6wtgs" path="res://Scripts/chat_box.gd" id="1_kefbe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kefbe"]
+bg_color = Color(0.18431373, 0.19607843, 0.21960784, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.16470589, 0.17254902, 0.1882353, 1)
+
+[node name="ChatBox" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 6
+mouse_filter = 2
+script = ExtResource("1_kefbe")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kefbe")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="MessagesVBox" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ChatInput" type="LineEdit" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Chat"
+clear_button_enabled = true
+
+[node name="HideButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -247.0
+offset_top = 77.0
+offset_right = 243.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 8
+text = "Show Chat"
+
+[connection signal="pressed" from="HideButton" to="." method="_on_hide_button_pressed"]

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://l8xt4tv4d8in"]
+
+[ext_resource type="PackedScene" uid="uid://dnqm4rw1eed1" path="res://Items/Combat/ObsidianWeapons/Defender/Obsidian_Defender.fbx" id="1_2ne27"]
+[ext_resource type="Texture2D" uid="uid://jj5klveswb5i" path="res://Items/Combat/ObsidianWeapons/Defender/obsidian_defender_texture.png" id="2_f3ytl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3hxn"]
+albedo_texture = ExtResource("2_f3ytl")
+roughness = 0.58
+normal_enabled = true
+normal_scale = 2.0
+
+[node name="Obsidian_Defender" instance=ExtResource("1_2ne27")]
+
+[node name="Mesh0" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_j3hxn")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(-0.15272452, 0.04419441, -0.25440535, 0.05747864, 0.293976, 0.016562931, 0.25173685, -0.040311027, -0.15812524, -0.123377934, 0.11888611, -0.027706802)

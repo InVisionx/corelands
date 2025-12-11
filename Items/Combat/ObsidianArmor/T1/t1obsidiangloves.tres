@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=3 format=3 uid="uid://kmt7hb3rn81r"]
+
+[ext_resource type="Texture2D" uid="uid://s76k0v7heppu" path="res://Items/Combat/ObsidianArmor/T1/t1_obsidian_gloves_sprite.png" id="1_og454"]
+[ext_resource type="Script" uid="uid://ew1akp20d68q" path="res://Resources/ArmorItem.gd" id="1_olcme"]
+
+[resource]
+script = ExtResource("1_olcme")
+armor_scene_path = "uid://cssnylrgytdrl"
+mesh_node_path = NodePath("Armature/GeneralSkeleton/Gloves")
+id = "t1obsidiangloves"
+display_name = "Obsidian Gloves"
+icon = ExtResource("1_og454")
+item_type = 2
+equip_slot = "gloves"
+metadata/_custom_type_script = "uid://ew1akp20d68q"

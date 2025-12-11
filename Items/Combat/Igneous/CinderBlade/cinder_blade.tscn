@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmfv3fwhfyvb8"]
+
+[ext_resource type="PackedScene" uid="uid://pgk4a3y532y6" path="res://Items/Combat/Igneous/CinderBlade/CinderBlade.fbx" id="1_svqe1"]
+[ext_resource type="Texture2D" uid="uid://dimxskj0vmxyc" path="res://Items/Combat/Igneous/CinderBlade/CinderBlade_texture.png" id="2_nx032"]
+[ext_resource type="Texture2D" uid="uid://f40wdra3e3q7" path="res://Items/Combat/Igneous/CinderBlade/CinderBlade_metallic.png" id="3_08ted"]
+[ext_resource type="Texture2D" uid="uid://b13lafj2vyxjt" path="res://Items/Combat/Igneous/CinderBlade/CinderBlade_normal.png" id="3_smoox"]
+[ext_resource type="Texture2D" uid="uid://csay65ds3xbhr" path="res://Items/Combat/Igneous/CinderBlade/CinderBlade_roughness.png" id="4_hbqsf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftcv3"]
+albedo_texture = ExtResource("2_nx032")
+metallic = 1.0
+metallic_texture = ExtResource("3_08ted")
+roughness = 0.5
+roughness_texture = ExtResource("4_hbqsf")
+normal_enabled = true
+normal_scale = 1.5
+normal_texture = ExtResource("3_smoox")
+
+[node name="CinderBlade" instance=ExtResource("1_svqe1")]
+
+[node name="Mesh_0_006" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ftcv3")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(-0.11685551, -0.40483984, -0.26916432, -0.13526939, -0.23882274, 0.41793045, -0.466955, 0.1704943, -0.053709384, 0.02392459, 0.074162245, 0.03803906)
+
+[node name="AttackTransform" type="Node3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.109400034, 0.055580914, -0.02025479)

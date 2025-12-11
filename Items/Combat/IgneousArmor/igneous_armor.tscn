@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1li2hk1xqkj4"]
+
+[ext_resource type="PackedScene" uid="uid://d4jkhx3o3pw3d" path="res://Items/Combat/IgneousArmor/igneous_armor.fbx" id="1_y2s81"]
+[ext_resource type="Material" uid="uid://sismfg0e0oyv" path="res://Items/Combat/IgneousArmor/materials/obsidian_armor_mat.tres" id="2_vbrg7"]
+
+[node name="ObsidianArmor" instance=ExtResource("1_y2s81")]
+
+[node name="Boots" parent="Armature/GeneralSkeleton" index="1"]
+surface_material_override/0 = ExtResource("2_vbrg7")
+
+[node name="Chestplate" parent="Armature/GeneralSkeleton" index="2"]
+surface_material_override/0 = ExtResource("2_vbrg7")
+
+[node name="Gloves" parent="Armature/GeneralSkeleton" index="4"]
+surface_material_override/0 = ExtResource("2_vbrg7")
+
+[node name="Helmet" parent="Armature/GeneralSkeleton" index="5"]
+surface_material_override/0 = ExtResource("2_vbrg7")
+
+[node name="Platelegs" parent="Armature/GeneralSkeleton" index="6"]
+surface_material_override/0 = ExtResource("2_vbrg7")
+
+[node name="Icosphere" parent="." index="1"]
+visible = false

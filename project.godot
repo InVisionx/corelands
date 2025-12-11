@@ -1,0 +1,44 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="browser"
+run/main_scene="uid://0boakbawrrm"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+ProfileManager="*res://Autoloads/ProfileManager.gd"
+InventoryManager="*res://Autoloads/InventoryManager.gd"
+ItemDataBase="*res://Autoloads/ItemDB.gd"
+EquipmentManager="*res://Autoloads/EquipmentManager.gd"
+BankManager="*res://Autoloads/BankManager.gd"
+CombatManager="*res://Autoloads/CombatManager.gd"
+
+[display]
+
+window/vsync/vsync_mode=0
+
+[navigation]
+
+3d/default_cell_height=0.00999999999999999
+
+[physics]
+
+common/physics_ticks_per_second=30
+common/max_physics_steps_per_frame=4
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

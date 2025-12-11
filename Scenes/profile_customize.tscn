@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://ev4t6ou07sjw"]
+
+[ext_resource type="Script" uid="uid://cbki3dnfoy4uk" path="res://Scripts/profile_customize.gd" id="1_2kwv6"]
+[ext_resource type="PackedScene" uid="uid://4dddmsnkgyph" path="res://Player/player_customize.tscn" id="2_qvfrq"]
+[ext_resource type="Script" uid="uid://c5dmf8vbog6mk" path="res://Player/player_customize.gd" id="3_i7dsr"]
+
+[node name="ProfileCustomize" type="Node3D"]
+script = ExtResource("1_2kwv6")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0193598, 0)
+text = "WE ARE IN THE CUSTOMIZER"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9722281, 1.5173033)
+current = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PartSelect" type="OptionButton" parent="CanvasLayer"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_right = 32.0
+offset_bottom = 10.0
+grow_vertical = 2
+alignment = 1
+
+[node name="ColorSelect" type="OptionButton" parent="CanvasLayer"]
+custom_minimum_size = Vector2(117, 31)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 26.0
+offset_right = 32.0
+offset_bottom = 46.0
+grow_vertical = 2
+
+[node name="ConfirmButton" type="Button" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -82.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "CONFIRM"
+
+[node name="PlayerCustomize" parent="." instance=ExtResource("2_qvfrq")]
+script = ExtResource("3_i7dsr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.2070565)
+
+[connection signal="item_selected" from="CanvasLayer/PartSelect" to="." method="_on_part_selected"]
+[connection signal="item_selected" from="CanvasLayer/ColorSelect" to="." method="_on_color_selected"]
+
+[editable path="PlayerCustomize"]

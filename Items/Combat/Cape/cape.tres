@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://birwvy8hdnkvd"]
+
+[ext_resource type="Texture2D" uid="uid://kv1idj7vyurb" path="res://Items/Combat/Cape/cape_sprite.png" id="1_4nscp"]
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="1_crhy8"]
+[ext_resource type="PackedScene" uid="uid://cua5j1qdl1ywq" path="res://Items/Combat/Cape/cape.tscn" id="2_6owxi"]
+
+[resource]
+script = ExtResource("1_crhy8")
+id = "cape"
+display_name = "cape"
+icon = ExtResource("1_4nscp")
+prefab = ExtResource("2_6owxi")
+equip_slot = "cape"
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

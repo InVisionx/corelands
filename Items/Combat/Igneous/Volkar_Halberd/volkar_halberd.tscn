@@ -1,0 +1,24 @@
+[gd_scene load_steps=7 format=3 uid="uid://crbe8tyd4x1ps"]
+
+[ext_resource type="PackedScene" uid="uid://coxsncjcjvcvc" path="res://Items/Combat/Igneous/Volkar_Halberd/Volkhar_Halberd.fbx" id="1_rhv8v"]
+[ext_resource type="Texture2D" uid="uid://cc6jaf6n5l5l4" path="res://Items/Combat/Igneous/Volkar_Halberd/Volkhar_Halberd_texture.png" id="2_mkndh"]
+[ext_resource type="Texture2D" uid="uid://ddjpf5nwq15br" path="res://Items/Combat/Igneous/Volkar_Halberd/Volkhar_Halberd_normal.png" id="3_hbdgb"]
+[ext_resource type="Texture2D" uid="uid://bv3487f10hfli" path="res://Items/Combat/Igneous/Volkar_Halberd/Volkhar_Halberd_metallic.png" id="3_mkndh"]
+[ext_resource type="Texture2D" uid="uid://boiipfh6u4vtv" path="res://Items/Combat/Igneous/Volkar_Halberd/Volkhar_Halberd_roughness.png" id="4_418at"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yufd8"]
+albedo_texture = ExtResource("2_mkndh")
+metallic = 1.0
+metallic_texture = ExtResource("3_mkndh")
+roughness_texture = ExtResource("4_418at")
+normal_enabled = true
+normal_scale = 2.0
+normal_texture = ExtResource("3_hbdgb")
+
+[node name="VolkarHalberd" instance=ExtResource("1_rhv8v")]
+
+[node name="input" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_yufd8")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(0.5414184, -0.8274377, -0.1490405, -0.82573485, -0.48996866, -0.27945074, 0.1582029, 0.27436772, -0.94852215, 0.011392236, 0.07800722, 0.0641672)

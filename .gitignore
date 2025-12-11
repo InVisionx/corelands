@@ -1,0 +1,48 @@
+# Godot-specific ignored files
+.import/
+.godot/
+*.import
+*.md5
+*.tmp
+
+# Godot export builds
+export/
+export_presets.cfg~*
+
+# Godot caches
+*.translation
+*.stex
+*.ctex
+
+# Binary caches
+*.bin
+*.cache
+
+# Temporary and autosave files
+*.tmp
+*.temp
+*~
+
+# Platform-specific builds
+*.exe
+*.pdb
+*.dll
+*.dylib
+*.so
+*.apk
+*.aab
+*.zip
+
+# Web builds (optional)
+web_build/
+play/
+
+# Editor fold states
+*.tscn-editstate-*
+*.tscn-folding-*
+
+# Terrain3D/Bin (generated)
+addons/terrain_3d/bin/
+
+# Python virtual env if you use one
+venv/

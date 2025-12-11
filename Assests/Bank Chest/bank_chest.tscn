@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://deoke6ir5718b"]
+
+[ext_resource type="PackedScene" uid="uid://41r0v4c52afi" path="res://Assests/Bank Chest/bank chest.fbx" id="1_e8uv1"]
+[ext_resource type="Script" uid="uid://d2juqemk2gl6p" path="res://Assests/Bank Chest/bank_chest.gd" id="2_6gtk8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6gtk8"]
+size = Vector3(0.028356932, 0.025689699, 0.024999999)
+
+[node name="bank chest" instance=ExtResource("1_e8uv1")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="input" index="0"]
+script = ExtResource("2_6gtk8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="input/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0003478968, -0.00055236265, -0.00019530936)
+shape = SubResource("BoxShape3D_6gtk8")

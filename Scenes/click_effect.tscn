@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpsx3vxbkrid4"]
+
+[ext_resource type="Script" uid="uid://cgdpo6kfbfqyc" path="res://Scripts/click_effect.gd" id="1_j5wmo"]
+[ext_resource type="Texture2D" uid="uid://rodoptuc2oup" path="res://Materials/UI/circle.png" id="2_j5wmo"]
+
+[node name="ClickEffect" type="Control"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 3
+anchors_preset = 0
+pivot_offset = Vector2(15, 15)
+mouse_filter = 2
+script = ExtResource("1_j5wmo")
+start_scale = 1.0
+
+[node name="ClickEffect" type="TextureRect" parent="."]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_j5wmo")
+expand_mode = 1
+stretch_mode = 5

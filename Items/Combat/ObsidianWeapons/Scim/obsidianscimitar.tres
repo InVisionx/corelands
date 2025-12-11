@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://djh2wv0odeqoo"]
+
+[ext_resource type="Texture2D" uid="uid://cg2pqp08oqnoi" path="res://Items/Combat/ObsidianWeapons/Scim/obsidian_scim_sprite.png" id="1_2doav"]
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_lr8ex"]
+[ext_resource type="PackedScene" uid="uid://dq1p1776ynrjk" path="res://Items/Combat/ObsidianWeapons/Scim/obsidian_scim.tscn" id="2_qb2u7"]
+
+[resource]
+script = ExtResource("1_lr8ex")
+base_damage = 10.0
+accuracy = 30.0
+strength = 10.0
+id = "obsidianscimitar"
+display_name = "Obsidian Scimitar"
+icon = ExtResource("1_2doav")
+prefab = ExtResource("2_qb2u7")
+item_type = 1
+equip_slot = "weapon"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cua5j1qdl1ywq"]
+
+[ext_resource type="PackedScene" uid="uid://xwq64b1sp6xm" path="res://Items/Combat/Cape/cape.fbx" id="1_lcdsh"]
+[ext_resource type="Shader" uid="uid://dkrre24520vdm" path="res://Shaders/cape.gdshader" id="2_kosf3"]
+[ext_resource type="Texture2D" uid="uid://701ysv6w13g6" path="res://Items/Combat/Cape/unnamed (2).jpg" id="3_0tojr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p8j4q"]
+render_priority = 0
+shader = ExtResource("2_kosf3")
+shader_parameter/mask_texture = ExtResource("3_0tojr")
+shader_parameter/color_a = Color(0, 0, 0, 1)
+shader_parameter/color_b = Color(1, 1, 1, 1)
+shader_parameter/time_speed = 0.5
+shader_parameter/move_circle = false
+shader_parameter/move_vertical = true
+shader_parameter/uniform_scale = 0.535
+
+[node name="Untitled" instance=ExtResource("1_lcdsh")]
+
+[node name="Mesh0" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_p8j4q")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.9, 0, 0, 0, 1, -5.12024e-09, -1.3790053, 0.058568716)

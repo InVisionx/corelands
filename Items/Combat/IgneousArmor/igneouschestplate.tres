@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=3 format=3 uid="uid://bu7n4xvfstqw8"]
+
+[ext_resource type="Texture2D" uid="uid://c13bgvg78jlm2" path="res://Items/Combat/IgneousArmor/materials/obsidian_chestplate_sprite.png" id="1_aa546"]
+[ext_resource type="Script" uid="uid://ew1akp20d68q" path="res://Resources/ArmorItem.gd" id="2_j61jp"]
+
+[resource]
+script = ExtResource("2_j61jp")
+armor_scene_path = "uid://c1li2hk1xqkj4"
+mesh_node_path = NodePath("Armature/GeneralSkeleton/Chestplate")
+id = "igneouschestplate"
+display_name = "Igneous Chestplate"
+icon = ExtResource("1_aa546")
+item_type = 2
+equip_slot = "chest"
+metadata/_custom_type_script = "uid://ew1akp20d68q"

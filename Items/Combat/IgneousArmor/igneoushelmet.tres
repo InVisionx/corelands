@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=3 format=3 uid="uid://cjt322ksxwxxb"]
+
+[ext_resource type="Texture2D" uid="uid://72hqeupqsc3r" path="res://Items/Combat/IgneousArmor/materials/obsidian_helmet_sprite.png" id="1_eddqd"]
+[ext_resource type="Script" uid="uid://ew1akp20d68q" path="res://Resources/ArmorItem.gd" id="2_cxw7x"]
+
+[resource]
+script = ExtResource("2_cxw7x")
+armor_scene_path = "uid://c1li2hk1xqkj4"
+mesh_node_path = NodePath("Armature/GeneralSkeleton/Helmet")
+id = "igneoushelmet"
+display_name = "Igneous Helmet"
+icon = ExtResource("1_eddqd")
+equip_slot = "helm"
+metadata/_custom_type_script = "uid://ew1akp20d68q"

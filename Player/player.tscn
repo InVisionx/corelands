@@ -1,0 +1,137 @@
+[gd_scene load_steps=13 format=3 uid="uid://cbllke041tykf"]
+
+[ext_resource type="Script" uid="uid://epse2n6q4uku" path="res://Player/player.gd" id="1_4ntmi"]
+[ext_resource type="PackedScene" uid="uid://ct34bja6hgcy3" path="res://Player/player_model.tscn" id="1_l8h54"]
+[ext_resource type="PackedScene" uid="uid://cmrrlwgvbhjgs" path="res://Scenes/inventory_ui.tscn" id="3_btcbx"]
+[ext_resource type="Script" uid="uid://bljtt5cc54ftm" path="res://Scripts/player_camera.gd" id="3_gwnis"]
+[ext_resource type="Script" uid="uid://ce81v27udnwv1" path="res://Player/animation_player.gd" id="3_od3ui"]
+[ext_resource type="Script" uid="uid://uwu28wnbteim" path="res://Scripts/ui_debug.gd" id="4_fhl08"]
+[ext_resource type="PackedScene" uid="uid://c3cewnuy47k17" path="res://Scenes/equipment_ui.tscn" id="5_k53q1"]
+[ext_resource type="PackedScene" uid="uid://xs5uxaerdlan" path="res://Scenes/chat_box.tscn" id="7_vtle1"]
+[ext_resource type="PackedScene" uid="uid://vctkds25cnty" path="res://Scenes/teleports.tscn" id="9_00tjw"]
+[ext_resource type="Script" uid="uid://ckjhb6g038uoi" path="res://Scripts/performance.gd" id="10_apopc"]
+[ext_resource type="Script" uid="uid://dan02tg2ddi82" path="res://Player/interaction_manager.gd" id="10_x3vf3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x3vf3"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_4ntmi")
+face_offset_degrees = 180.0
+
+[node name="PlayerModel" parent="." instance=ExtResource("1_l8h54")]
+
+[node name="WeaponAttach" parent="PlayerModel/Armature/GeneralSkeleton" index="2"]
+transform = Transform3D(0.07860344, -0.1540537, 0.9849308, 0.48294282, -0.8584304, -0.17280951, 0.8721167, 0.48924866, 0.0069236904, -0.28499293, 0.96488386, -0.21160036)
+
+[node name="OffhandAttach" parent="PlayerModel/Armature/GeneralSkeleton" index="3"]
+transform = Transform3D(0.26804164, -0.25480044, -0.929102, -0.41754115, 0.838387, -0.35038117, 0.86822426, 0.4818552, 0.118333176, 0.26614755, 1.3458359, 0.1656048)
+
+[node name="AnimationPlayer" parent="PlayerModel" index="2"]
+script = ExtResource("3_od3ui")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_x3vf3")
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
+script = ExtResource("3_gwnis")
+target = NodePath("../CameraTarget")
+
+[node name="UI_Layer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="UI_Layer"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("4_fhl08")
+
+[node name="InventoryUI" parent="UI_Layer/UI" instance=ExtResource("3_btcbx")]
+layout_mode = 1
+offset_left = -66.0
+offset_top = -93.0
+offset_right = -106.0
+offset_bottom = -133.0
+
+[node name="EquipmentUI" parent="UI_Layer/UI" instance=ExtResource("5_k53q1")]
+layout_mode = 1
+offset_left = -42.0
+offset_top = -318.0
+offset_right = -82.0
+offset_bottom = -358.0
+
+[node name="ChatBox" parent="UI_Layer/UI" instance=ExtResource("7_vtle1")]
+layout_mode = 1
+offset_left = -1204.0
+offset_top = -65.0
+offset_right = -1204.0
+offset_bottom = -65.0
+font_size = 10
+
+[node name="Teleports" parent="UI_Layer/UI" instance=ExtResource("9_00tjw")]
+layout_mode = 1
+offset_left = -15.0
+offset_top = -468.0
+offset_right = -15.0
+offset_bottom = -468.0
+
+[node name="Label" type="Label" parent="UI_Layer/UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -643.0
+offset_top = -213.0
+offset_right = -594.0
+offset_bottom = -190.0
+grow_horizontal = 2
+text = "debug"
+script = ExtResource("10_apopc")
+
+[node name="OverheadMessage" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0830407, 0)
+billboard = 1
+
+[node name="CameraTarget" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5849468, 0)
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(45, 45)
+offset_right = 8.0
+offset_bottom = 8.0
+text = "attack"
+
+[node name="Button2" type="Button" parent="."]
+custom_minimum_size = Vector2(45, 45)
+offset_left = 63.0
+offset_top = 1.0
+offset_right = 120.0
+offset_bottom = 46.0
+text = "teleport"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 0.3
+path_max_distance = 20.01
+
+[node name="Button3" type="Button" parent="."]
+offset_left = 148.0
+offset_top = 9.0
+offset_right = 195.0
+offset_bottom = 40.0
+text = "bank"
+
+[node name="InteractionManager" type="Node3D" parent="."]
+script = ExtResource("10_x3vf3")
+
+[connection signal="pressed" from="Button" to="." method="start_attack"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]
+
+[editable path="PlayerModel"]

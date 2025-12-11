@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr18x5vnalkrg"]
+
+[ext_resource type="PackedScene" uid="uid://x01hlbyutmbe" path="res://Items/Combat/ObsidianArmor/ObsidianArmor.fbx" id="1_ybtu5"]
+[ext_resource type="Material" uid="uid://kcilya4xk21r" path="res://Items/Combat/ObsidianArmor/materials/obsidian_t30_mat.tres" id="2_ekuot"]
+
+[node name="ObsidianArmor" instance=ExtResource("1_ybtu5")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Boots" parent="Armature/GeneralSkeleton" index="1"]
+surface_material_override/0 = ExtResource("2_ekuot")
+
+[node name="Chestplate" parent="Armature/GeneralSkeleton" index="2"]
+surface_material_override/0 = ExtResource("2_ekuot")
+
+[node name="Face" parent="Armature/GeneralSkeleton" index="3"]
+surface_material_override/0 = ExtResource("2_ekuot")
+
+[node name="Gloves" parent="Armature/GeneralSkeleton" index="4"]
+surface_material_override/0 = ExtResource("2_ekuot")
+
+[node name="Helmet" parent="Armature/GeneralSkeleton" index="5"]
+surface_material_override/0 = ExtResource("2_ekuot")
+
+[node name="Platelegs" parent="Armature/GeneralSkeleton" index="6"]
+surface_material_override/0 = ExtResource("2_ekuot")
+
+[node name="Icosphere" parent="." index="1"]
+visible = false

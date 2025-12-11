@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://bj8ochfaj8hpf"]
+
+[ext_resource type="Texture2D" uid="uid://chc0pm8m17qij" path="res://Items/Combat/ObsidianWeapons/Defender/obsidian_defender_sprite.png" id="1_ku88j"]
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_we8u2"]
+[ext_resource type="PackedScene" uid="uid://l8xt4tv4d8in" path="res://Items/Combat/ObsidianWeapons/Defender/obsidian_defender.tscn" id="2_jl5h3"]
+
+[resource]
+script = ExtResource("1_we8u2")
+offhand = true
+id = "obsidiandefender"
+display_name = "Obsidian Defender"
+icon = ExtResource("1_ku88j")
+prefab = ExtResource("2_jl5h3")
+item_type = 1
+equip_slot = "offhand"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

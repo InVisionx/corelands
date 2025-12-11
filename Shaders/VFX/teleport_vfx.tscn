@@ -1,0 +1,164 @@
+[gd_scene load_steps=13 format=3 uid="uid://b2wn3ac0pggmj"]
+
+[ext_resource type="Shader" uid="uid://kkt4g124cxa1" path="res://Shaders/grow_mask.gdshader" id="1_0cv1j"]
+[ext_resource type="Script" uid="uid://d0hv55fsa33ri" path="res://Shaders/VFX/teleport_vfx.gd" id="1_b1ntb"]
+[ext_resource type="Shader" uid="uid://drpkbywwqq6lq" path="res://Shaders/lifetime_process.gdshader" id="2_0l3tk"]
+[ext_resource type="Texture2D" uid="uid://k2qf3rubl6cv" path="res://Shaders/Shader Textures/unnamed (2).jpg" id="2_b1ntb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q44nb"]
+shader = ExtResource("2_0l3tk")
+shader_parameter/lifetime_override = 0.0
+shader_parameter/direction = Vector3(1, 0, 0)
+shader_parameter/spread = 45.0
+shader_parameter/flatness = 0.0
+shader_parameter/inherit_emitter_velocity_ratio = 0.0
+shader_parameter/initial_linear_velocity_min = 0.0
+shader_parameter/initial_linear_velocity_max = 0.0
+shader_parameter/directional_velocity_min = 1.0
+shader_parameter/directional_velocity_max = 1.0
+shader_parameter/angular_velocity_min = 0.0
+shader_parameter/angular_velocity_max = 0.0
+shader_parameter/orbit_velocity_min = 0.0
+shader_parameter/orbit_velocity_max = 0.0
+shader_parameter/radial_velocity_min = 0.0
+shader_parameter/radial_velocity_max = 0.0
+shader_parameter/linear_accel_min = 0.0
+shader_parameter/linear_accel_max = 0.0
+shader_parameter/radial_accel_min = 0.0
+shader_parameter/radial_accel_max = 0.0
+shader_parameter/tangent_accel_min = 0.0
+shader_parameter/tangent_accel_max = 0.0
+shader_parameter/damping_min = 0.0
+shader_parameter/damping_max = 0.0
+shader_parameter/initial_angle_min = 0.0
+shader_parameter/initial_angle_max = 0.0
+shader_parameter/scale_min = 1.0
+shader_parameter/scale_max = 1.0
+shader_parameter/hue_variation_min = 0.0
+shader_parameter/hue_variation_max = 0.0
+shader_parameter/anim_speed_min = 0.0
+shader_parameter/anim_speed_max = 0.0
+shader_parameter/anim_offset_min = 0.0
+shader_parameter/anim_offset_max = 0.0
+shader_parameter/lifetime_randomness = 0.0
+shader_parameter/emission_shape_offset = Vector3(0, 0, 0)
+shader_parameter/emission_shape_scale = Vector3(1, 1, 1)
+shader_parameter/velocity_pivot = Vector3(0, 0, 0)
+shader_parameter/color_value = Color(1, 1, 1, 1)
+shader_parameter/gravity = Vector3(0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hcshl"]
+render_priority = 0
+shader = ExtResource("1_0cv1j")
+shader_parameter/mask_tex = ExtResource("2_b1ntb")
+shader_parameter/tint_color = Color(1.8247963, 1.8247963, 1.8247963, 1)
+shader_parameter/lifetime = 4.00000018674012
+shader_parameter/finish_early = 1.0000000475
+shader_parameter/fade_strength = 0.2000000095
+shader_parameter/spin_speed = 3.0000006174999996
+shader_parameter/max_radius = 1.0000000475
+shader_parameter/end_fade = 0.5
+shader_parameter/use_vertical_gradient = false
+shader_parameter/flip_vertical_gradient = false
+shader_parameter/invert_gradient = true
+shader_parameter/beam_height = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_q44nb"]
+material = SubResource("ShaderMaterial_hcshl")
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0l3tk"]
+shader = ExtResource("2_0l3tk")
+shader_parameter/lifetime_override = 0.0
+shader_parameter/direction = Vector3(0, 0, 0)
+shader_parameter/spread = 45.0
+shader_parameter/flatness = 0.0
+shader_parameter/inherit_emitter_velocity_ratio = 0.0
+shader_parameter/initial_linear_velocity_min = 0.0
+shader_parameter/initial_linear_velocity_max = 0.0
+shader_parameter/directional_velocity_min = 0.0
+shader_parameter/directional_velocity_max = 0.0
+shader_parameter/angular_velocity_min = 0.0
+shader_parameter/angular_velocity_max = 0.0
+shader_parameter/orbit_velocity_min = 0.0
+shader_parameter/orbit_velocity_max = 0.0
+shader_parameter/radial_velocity_min = 0.0
+shader_parameter/radial_velocity_max = 0.0
+shader_parameter/linear_accel_min = 0.0
+shader_parameter/linear_accel_max = 0.0
+shader_parameter/radial_accel_min = 0.0
+shader_parameter/radial_accel_max = 0.0
+shader_parameter/tangent_accel_min = 0.0
+shader_parameter/tangent_accel_max = 0.0
+shader_parameter/damping_min = 0.0
+shader_parameter/damping_max = 0.0
+shader_parameter/initial_angle_min = 0.0
+shader_parameter/initial_angle_max = 0.0
+shader_parameter/scale_min = 0.0
+shader_parameter/scale_max = 0.0
+shader_parameter/hue_variation_min = 0.0
+shader_parameter/hue_variation_max = 0.0
+shader_parameter/anim_speed_min = 0.0
+shader_parameter/anim_speed_max = 0.0
+shader_parameter/anim_offset_min = 0.0
+shader_parameter/anim_offset_max = 0.0
+shader_parameter/lifetime_randomness = 0.0
+shader_parameter/emission_shape_offset = Vector3(0, 0, 0)
+shader_parameter/emission_shape_scale = Vector3(1, 1, 1)
+shader_parameter/velocity_pivot = Vector3(0, 0, 0)
+shader_parameter/color_value = Color(1, 1, 1, 1)
+shader_parameter/gravity = Vector3(0, 0, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0cv1j"]
+noise_type = 3
+frequency = 0.0307
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b1ntb"]
+noise = SubResource("FastNoiseLite_0cv1j")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kncai"]
+render_priority = 0
+shader = ExtResource("1_0cv1j")
+shader_parameter/mask_tex = SubResource("NoiseTexture2D_b1ntb")
+shader_parameter/tint_color = Color(1.8247963, 1.8247963, 1.8247963, 1)
+shader_parameter/lifetime = 3.0000001392401203
+shader_parameter/finish_early = 0.5
+shader_parameter/fade_strength = 0.10000000475
+shader_parameter/spin_speed = 0.5000004987499995
+shader_parameter/max_radius = 1.0
+shader_parameter/end_fade = 0.5
+shader_parameter/use_vertical_gradient = true
+shader_parameter/flip_vertical_gradient = true
+shader_parameter/invert_gradient = false
+shader_parameter/beam_height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hcshl"]
+material = SubResource("ShaderMaterial_kncai")
+top_radius = 0.9
+bottom_radius = 0.9
+height = 10.0
+cap_top = false
+cap_bottom = false
+
+[node name="TeleportVFX" type="Node3D"]
+script = ExtResource("1_b1ntb")
+
+[node name="Ring" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.3711392e-08, -1.0000001, 0, 1.0000001, -4.3711392e-08, 0, 0, 0)
+emitting = false
+amount = 1
+lifetime = 1.8
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ShaderMaterial_q44nb")
+draw_pass_1 = SubResource("QuadMesh_q44nb")
+
+[node name="Beam" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+emitting = false
+amount = 1
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ShaderMaterial_0l3tk")
+draw_pass_1 = SubResource("CylinderMesh_hcshl")

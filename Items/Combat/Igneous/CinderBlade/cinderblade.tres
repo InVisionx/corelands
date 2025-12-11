@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://cg1pb88x1laav"]
+
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_5byqh"]
+[ext_resource type="Texture2D" uid="uid://djeeon0a7noib" path="res://Items/Combat/Igneous/CinderBlade/cinderblade_sprite.png" id="1_yklwn"]
+[ext_resource type="PackedScene" uid="uid://bmfv3fwhfyvb8" path="res://Items/Combat/Igneous/CinderBlade/cinder_blade.tscn" id="2_xxjl7"]
+
+[resource]
+script = ExtResource("1_5byqh")
+is2h = true
+id = "cinderblade"
+display_name = "Cinder Blade"
+icon = ExtResource("1_yklwn")
+prefab = ExtResource("2_xxjl7")
+item_type = 1
+equip_slot = "weapon"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

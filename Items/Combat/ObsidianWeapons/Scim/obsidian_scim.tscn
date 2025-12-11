@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dq1p1776ynrjk"]
+
+[ext_resource type="PackedScene" uid="uid://dt1vc0d4gpliv" path="res://Items/Combat/ObsidianWeapons/Scim/Obsidian_Scim_T1.fbx" id="1_bws4b"]
+[ext_resource type="Texture2D" uid="uid://yueyu73n21ca" path="res://Items/Combat/ObsidianWeapons/Scim/obsidian_scim.png" id="2_osh7h"]
+[ext_resource type="Texture2D" uid="uid://b6xht3ppgumau" path="res://Items/Combat/ObsidianWeapons/Scim/obsidian_scim_normal.png" id="3_k8dg4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_278qc"]
+albedo_texture = ExtResource("2_osh7h")
+roughness = 0.66
+normal_enabled = true
+normal_texture = ExtResource("3_k8dg4")
+
+[node name="Obsidian_Scim_T1" instance=ExtResource("1_bws4b")]
+
+[node name="Mesh0" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_278qc")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(-0.015546169, 0.48272792, 0.12935255, -0.4993773, -0.02005707, 0.014833122, 0.01950959, -0.12873028, 0.48275033, -0.011606574, 0.11152297, 0.03852722)
