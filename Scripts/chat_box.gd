@@ -20,7 +20,6 @@ func _on_text_submitted(text: String):
 
 	# ---------------------------------------------------------
 	# 🛠️ COMMAND INTERCEPTOR
-	# Checks for "::" prefix. If found, runs command and stops chat.
 	# ---------------------------------------------------------
 	if text.begins_with("::"):
 		_handle_command(text)
@@ -37,28 +36,27 @@ func _on_text_submitted(text: String):
 # 💻 COMMAND LOGIC
 # ---------------------------------------------------------
 func _handle_command(text: String):
-	# 1. Permission Check (Case-insensitive)
 	var username = ProfileManager.current_profile.get("username", "").to_lower()
 	
 	if username == "icey":
 		_add_local_message("System", "❌ You do not have permission to use commands.")
 		return
 
-	# 2. Parse text: "::equip sword" -> command: "equip", arg: "sword"
-	var raw_cmd = text.substr(2) 
-	var parts = raw_cmd.split(" ", true, 1) 
+	var raw_cmd = text.substr(2)
+	var parts = raw_cmd.split(" ", true, 1)
 	var command = parts[0].to_lower()
 	var arg = ""
-	
-	if parts.size() > 1:
-		arg = parts[1].replace('"', '') # Strip quotes if user typed ::equip "sword"
 
-	# 3. Router
+	if parts.size() > 1:
+		arg = parts[1].replace('"', '')
+
 	match command:
 		"equip":
 			_cmd_equip(arg)
 		"give":
 			_cmd_give(arg)
+		"clear":
+			_cmd_clear()
 		_:
 			_add_local_message("System", "Unknown command: " + command)
 
@@ -67,15 +65,11 @@ func _cmd_equip(item_id: String):
 		_add_local_message("System", "Usage: ::equip item_id")
 		return
 
-	# Validate ID exists in DB
 	if not ItemDataBase.get_item(item_id):
 		_add_local_message("System", "❌ Item ID not found: " + item_id)
 		return
 
-	# ⚡ DIRECT CALL TO AUTOLOAD
-	# This acts as a "Spawn & Equip" (Cheat). It does not require the item in inventory.
 	EquipmentManager.equip_item(item_id)
-	
 	_add_local_message("System", "⚡ Force Equipped: " + item_id)
 
 func _cmd_give(item_id: String):
@@ -87,11 +81,24 @@ func _cmd_give(item_id: String):
 		_add_local_message("System", "❌ Item ID not found.")
 		return
 		
-	# ⚡ DIRECT CALL TO INVENTORY MANAGER
-	# Assumes InventoryManager has add_item(item_dictionary, quantity)
 	InventoryManager.add_item({"id": item_id}, 1)
-	
 	_add_local_message("System", "📦 Spawned: " + item_id)
+
+func _cmd_clear():
+	var inventory = InventoryManager._get_inventory()
+
+	if inventory.size() == 0:
+		_add_local_message("System", "Inventory already empty.")
+		return
+
+	for i in range(inventory.size()):
+		inventory[i] = null
+
+	ProfileManager.current_profile["inventory"] = inventory
+	ProfileManager.save_profile()
+	InventoryManager.emit_signal("inventory_updated")
+
+	_add_local_message("System", "🧹 Inventory cleared.")
 
 # ---------------------------------------------------------
 # 🎨 UI & VISUALS
@@ -99,9 +106,8 @@ func _cmd_give(item_id: String):
 func _add_local_message(sender: String, message: String):
 	var lbl := Label.new()
 	
-	# Style System messages differently
 	if sender == "System":
-		lbl.modulate = Color(1, 1, 0) # Yellow
+		lbl.modulate = Color(1, 1, 0)
 	
 	lbl.text = "%s: %s" % [sender, message]
 	lbl.autowrap_mode = TextServer.AUTOWRAP_OFF
@@ -121,7 +127,6 @@ func _apply_font_to_control(ctrl: Control) -> void:
 # 🗨️ Overhead message handling
 # -----------------------------------------
 func _show_overhead_message(message: String) -> void:
-	# Find local player via Group
 	var player_root = get_tree().get_first_node_in_group("local_player")
 	if not player_root:
 		return
@@ -133,7 +138,6 @@ func _show_overhead_message(message: String) -> void:
 	overhead_label.text = message
 	overhead_label.visible = true
 
-	# Reset timer
 	if overhead_label.has_meta("chat_timer"):
 		var old_timer = overhead_label.get_meta("chat_timer")
 		if is_instance_valid(old_timer):

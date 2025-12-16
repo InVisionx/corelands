@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=3 format=3 uid="uid://co4n51abal1vm"]
+
+[ext_resource type="Script" uid="uid://ew1akp20d68q" path="res://Resources/ArmorItem.gd" id="1_giphm"]
+[ext_resource type="Texture2D" uid="uid://bpuehvcs3paju" path="res://Items/Combat/Gravewood/Armor/gravewood_helmet_sprite.png" id="1_nfl3x"]
+
+[resource]
+script = ExtResource("1_giphm")
+armor_scene_path = "uid://yh70b4ol1mbp"
+mesh_node_path = NodePath("Armature/GeneralSkeleton/head")
+id = "gravewoodhelmet"
+display_name = "Gravewood Helmet"
+icon = ExtResource("1_nfl3x")
+item_type = 2
+equip_slot = "helm"
+metadata/_custom_type_script = "uid://ew1akp20d68q"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=3 format=3 uid="uid://vscls6r4oqf3"]
+
+[ext_resource type="Script" uid="uid://ew1akp20d68q" path="res://Resources/ArmorItem.gd" id="1_mjup6"]
+[ext_resource type="Texture2D" uid="uid://cwqmoyuddgvli" path="res://Items/Combat/Gravewood/Armor/gravewood_platelegs_sprite.png" id="1_x35ak"]
+
+[resource]
+script = ExtResource("1_mjup6")
+armor_scene_path = "uid://yh70b4ol1mbp"
+mesh_node_path = NodePath("Armature/GeneralSkeleton/legs")
+id = "gravewoodplatelegs"
+display_name = "Gravewood Platelegs"
+icon = ExtResource("1_x35ak")
+item_type = 2
+equip_slot = "legs"
+metadata/_custom_type_script = "uid://ew1akp20d68q"

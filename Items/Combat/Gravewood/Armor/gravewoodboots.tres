@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=3 format=3 uid="uid://13g07qxhfhp0"]
+
+[ext_resource type="Texture2D" uid="uid://bfic4xkywasas" path="res://Items/Combat/Gravewood/Armor/gravewood_boots_sprite.png" id="1_sleo5"]
+[ext_resource type="Script" uid="uid://ew1akp20d68q" path="res://Resources/ArmorItem.gd" id="2_peqvv"]
+
+[resource]
+script = ExtResource("2_peqvv")
+armor_scene_path = "uid://yh70b4ol1mbp"
+mesh_node_path = NodePath("Armature/GeneralSkeleton/boots")
+id = "gravewoodboots"
+display_name = "Gravewood Boots"
+icon = ExtResource("1_sleo5")
+item_type = 2
+equip_slot = "boots"
+metadata/_custom_type_script = "uid://ew1akp20d68q"

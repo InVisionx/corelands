@@ -30,3 +30,5 @@ func _ready():
 	# Optional: Set position
 	if has_node("SpawnPoint"):
 		player.global_position = $SpawnPoint.global_position
+	else:
+		player.global_position = Vector3(0,0.1,0)

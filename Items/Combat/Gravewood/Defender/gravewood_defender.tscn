@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkgusmfp0fybl"]
+
+[ext_resource type="PackedScene" uid="uid://cmtkocgcjx5tk" path="res://Items/Combat/Gravewood/Defender/gravewood defender.glb" id="1_w3tbh"]
+[ext_resource type="Texture2D" uid="uid://dwotk88qxxkf6" path="res://Items/Combat/Gravewood/Defender/gravewood defender_0.png" id="2_6w1wx"]
+[ext_resource type="Texture2D" uid="uid://cpa5ng7wsl03h" path="res://Items/Combat/Gravewood/Defender/gravewood defender_normal.png" id="3_gs3xb"]
+[ext_resource type="Texture2D" uid="uid://d0ifwewp0fvq4" path="res://Items/Combat/Gravewood/Defender/gravewood defender_roughness.png" id="4_hxu1m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7rpn2"]
+albedo_texture = ExtResource("2_6w1wx")
+metallic_specular = 0.0
+roughness = 0.0
+roughness_texture = ExtResource("4_hxu1m")
+normal_enabled = true
+normal_scale = 1.5
+normal_texture = ExtResource("3_gs3xb")
+
+[node name="gravewood defender" instance=ExtResource("1_w3tbh")]
+
+[node name="input" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7rpn2")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(-0.028807824, -0.1794509, 0.083471484, -0.19598548, 0.03761377, 0.013224988, -0.027564561, -0.07989107, -0.1812667, -0.15132047, 0.12390435, -0.030799448)

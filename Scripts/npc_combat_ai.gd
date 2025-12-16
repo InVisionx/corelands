@@ -42,7 +42,7 @@ func _physics_process(delta):
 		movement.return_to_last_wander_point()
 		return
 
-	# If attacking, freeze movement
+	# Freeze movement during attack
 	if is_attacking:
 		_face_target(delta)
 		npc.velocity = Vector3.ZERO
@@ -89,17 +89,17 @@ func _face_target(delta):
 	if dir.length_squared() < 0.001:
 		return
 
-	var model = npc.get_node(model)
-	var original_scale = model.scale
+	var model_node = npc.get_node(model)
+	var original_scale = model_node.scale
 
 	var target_basis = Basis.looking_at(dir, Vector3.UP)
 	target_basis = target_basis.rotated(Vector3.UP, PI)
 
-	var current_quat = model.basis.orthonormalized().get_rotation_quaternion()
+	var current_quat = model_node.basis.orthonormalized().get_rotation_quaternion()
 	var target_quat = target_basis.get_rotation_quaternion()
 
 	var next_quat = current_quat.slerp(target_quat, delta * 10.0)
-	model.basis = Basis(next_quat).scaled(original_scale)
+	model_node.basis = Basis(next_quat).scaled(original_scale)
 
 
 func _attack_if_ready():
@@ -109,8 +109,8 @@ func _attack_if_ready():
 	is_attacking = true
 	movement.disabled = true
 	npc.velocity = Vector3.ZERO
-	npc.get_node("NavigationAgent3D").target_position = npc.global_position
 
+	npc.get_node("NavigationAgent3D").target_position = npc.global_position
 	anim.play("Attack")
 	attack_timer = attack_speed
 
@@ -130,3 +130,14 @@ func _deal_attack_damage():
 	if target and target.has_method("take_damage"):
 		var dmg = randi_range(0, base_damage)
 		target.take_damage(dmg, npc)
+
+
+# ---------------------------------------------------------
+# NEW — Allow respawn to reset NPC combat logic
+# ---------------------------------------------------------
+func reset_state():
+	target = null
+	is_attacking = false
+	attack_timer = 0.0
+	movement.disabled = false
+	movement.is_wandering = true

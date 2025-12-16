@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1ta73epg1dou"]
+
+[ext_resource type="PackedScene" uid="uid://h4yn5eqspged" path="res://Items/Combat/Gravewood/Sword/Gravewood Sword.glb" id="1_w8cik"]
+[ext_resource type="Texture2D" uid="uid://dys7wery5ldgl" path="res://Items/Combat/Gravewood/Sword/Gravewood Sword_texture_0.png" id="2_w8cik"]
+[ext_resource type="Texture2D" uid="uid://c5awdb0oa2lpy" path="res://Items/Combat/Gravewood/Sword/Gravewood Sword_normal.png" id="3_xc7eg"]
+[ext_resource type="Texture2D" uid="uid://pobi7dguoqjl" path="res://Items/Combat/Gravewood/Sword/Gravewood Sword_roughness.png" id="4_eqi68"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2871e"]
+albedo_texture = ExtResource("2_w8cik")
+metallic_specular = 0.0
+roughness_texture = ExtResource("4_eqi68")
+normal_enabled = true
+normal_scale = 1.5
+normal_texture = ExtResource("3_xc7eg")
+
+[node name="Gravewood Sword" instance=ExtResource("1_w8cik")]
+
+[node name="Mesh1_0" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2871e")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(-0.5525971, -0.031441472, 0.07631249, -0.23362254, 0.061621517, -0.1816214, 0.007559665, -0.3939725, -0.03449775, 0.28023455, 0.21803546, 0.011003166)

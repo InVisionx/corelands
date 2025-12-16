@@ -30,4 +30,5 @@ func set_item(id, qty: int) -> void:
 
 func clear() -> void:
 	slot_icon.texture = null
+	slot_icon.tooltip_text = ""   # 🔑 FIX
 	qty_label.text = ""

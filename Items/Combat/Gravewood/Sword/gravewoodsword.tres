@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://tvau6j7habkn"]
+
+[ext_resource type="Texture2D" uid="uid://cyextx82lthvp" path="res://Items/Combat/Gravewood/Sword/gravewood_sword_sprite.png" id="1_gr4th"]
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_tgn4v"]
+[ext_resource type="PackedScene" uid="uid://d1ta73epg1dou" path="res://Items/Combat/Gravewood/Sword/gravewood_sword.tscn" id="2_s7epw"]
+
+[resource]
+script = ExtResource("1_tgn4v")
+base_damage = 10.0
+accuracy = 30.0
+strength = 10.0
+id = "gravewoodsword"
+display_name = "Gravewood Sword"
+icon = ExtResource("1_gr4th")
+prefab = ExtResource("2_s7epw")
+item_type = 1
+equip_slot = "weapon"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

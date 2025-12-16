@@ -154,27 +154,26 @@ func save_profile():
 	if current_username == "":
 		return
 
-	print("☁️ Saving profile...")
 	var safe_name = current_username.uri_encode()
 	var url = SUPABASE_URL + "/rest/v1/profiles?username=eq.%s" % safe_name
+
 	var body_data = { "game_data": current_profile }
+	var json_body = JSON.stringify(body_data)
 
 	var http := HTTPRequest.new()
-	# FIX: Explicitly disable GZIP on the node
-	http.accept_gzip = false 
+	http.accept_gzip = false
 	add_child(http)
-	
-	http.request(url, headers_WRITE, HTTPClient.METHOD_PATCH, JSON.stringify(body_data))
+
+	http.request(url, headers_WRITE, HTTPClient.METHOD_PATCH, json_body)
 
 	var result = await http.request_completed
 	http.queue_free()
 
-	var code = result[1]
-	if code == 200 or code == 204:
-		print("💾 Save Successful!")
+	var status_code = result[1]
+
+	if status_code == 200 or status_code == 204:
 		emit_signal("save_completed", true)
 	else:
-		print("❌ Save failed:", code)
 		emit_signal("save_completed", false)
 
 # ----------------------------------

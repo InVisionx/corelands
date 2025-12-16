@@ -13,6 +13,8 @@ config_version=5
 config/name="browser"
 run/main_scene="uid://0boakbawrrm"
 config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="uid://cs4b45pvi7ixy"
 config/icon="res://icon.svg"
 
 [autoload]

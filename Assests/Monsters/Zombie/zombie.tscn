@@ -16,6 +16,7 @@ viewport_path = NodePath("SubViewport")
 script = ExtResource("1_eul18")
 interaction = NodePath("Click")
 max_hp = 20
+respawn_time = 5.0
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 

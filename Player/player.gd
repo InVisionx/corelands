@@ -62,7 +62,6 @@ func find_clickable(node):
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		emit_signal("stop_interactions")
 		# Click effect
 		var click_2d_effect = preload("res://Scenes/click_effect.tscn")
 		var fx2d = click_2d_effect.instantiate()
@@ -91,6 +90,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		if result.has("position"):
+			emit_signal("stop_interactions")
+			
 			var click_pos: Vector3 = result.position
 
 			# Snap click to nearest navmesh point so the agent can always find a path
@@ -167,6 +168,10 @@ func _on_animation_finished(anim_name: String):
 		anim_player.on_teleport_finished()
 	elif anim_name.ends_with("Attack"):
 		anim_player.on_attack_finished()
+
+func is_attack_anim_playing() -> bool:
+	return anim_player.current_animation.contains("Attack") \
+		and anim_player.is_playing()
 
 func take_damage(dmg, npc):
 	pass

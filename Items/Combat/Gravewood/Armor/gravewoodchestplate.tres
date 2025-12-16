@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=3 format=3 uid="uid://ddjwgvo2j5qum"]
+
+[ext_resource type="Script" uid="uid://ew1akp20d68q" path="res://Resources/ArmorItem.gd" id="1_2tlxc"]
+[ext_resource type="Texture2D" uid="uid://cw2qesk5wmhjf" path="res://Items/Combat/Gravewood/Armor/gravewood_chestplate_sprite.png" id="1_bufqm"]
+
+[resource]
+script = ExtResource("1_2tlxc")
+armor_scene_path = "uid://yh70b4ol1mbp"
+mesh_node_path = NodePath("Armature/GeneralSkeleton/chest")
+id = "gravewoodchestplate"
+display_name = "Gravewood Chestplate"
+icon = ExtResource("1_bufqm")
+item_type = 2
+equip_slot = "chest"
+metadata/_custom_type_script = "uid://ew1akp20d68q"

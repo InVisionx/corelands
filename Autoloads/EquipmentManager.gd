@@ -24,14 +24,13 @@ func set_player(player: Node) -> void:
 	anim_player = player.get_node_or_null("PlayerModel/AnimationPlayer")
 
 # -------------------------------------------------
-# GET EQUIPPED FROM JSON
+# GET EQUIPPED FROM PROFILE
 # -------------------------------------------------
 func _get_equipped(slot_key: String) -> String:
 	var equip_array = ProfileManager.current_profile.get("equipment", [])
 	for slot in equip_array:
 		if slot["slot"] == slot_key:
-			var item_id = slot["item"]
-			return item_id if item_id != null else ""
+			return slot["item"] if slot["item"] != null else ""
 	return ""
 
 # -------------------------------------------------
@@ -46,7 +45,7 @@ func _clear_slot_prefab(slot_key: String) -> void:
 			c.queue_free()
 
 # -------------------------------------------------
-# CLEAR ARMOR MESH FROM SKELETON
+# CLEAR ARMOR FROM SKELETON
 # -------------------------------------------------
 func _clear_armor_from_skeleton(item_id: String) -> void:
 	var skeleton: Skeleton3D = player_ref.get_node("PlayerModel/Armature/GeneralSkeleton")
@@ -55,13 +54,9 @@ func _clear_armor_from_skeleton(item_id: String) -> void:
 			c.queue_free()
 
 # -------------------------------------------------
-# EQUIP ARMOR (SKINNED MESH)
+# EQUIP ARMOR (SKINNED)
 # -------------------------------------------------
-func _equip_armor(item: ItemData, slot_key: String) -> void:
-	if not (item is ArmorItem):
-		push_warning("Tried to equip armor on non-armor: %s" % item.id)
-		return
-
+func _equip_armor(item: ArmorItem, slot_key: String) -> void:
 	var skeleton: Skeleton3D = player_ref.get_node("PlayerModel/Armature/GeneralSkeleton")
 
 	var armor_scene = load(item.armor_scene_path)
@@ -70,8 +65,8 @@ func _equip_armor(item: ItemData, slot_key: String) -> void:
 		return
 
 	var inst = armor_scene.instantiate()
-
 	var mesh: MeshInstance3D = inst.get_node(item.mesh_node_path)
+
 	if not mesh:
 		push_warning("Armor mesh not found: %s" % str(item.mesh_node_path))
 		inst.queue_free()
@@ -79,7 +74,6 @@ func _equip_armor(item: ItemData, slot_key: String) -> void:
 
 	mesh.get_parent().remove_child(mesh)
 	mesh.set_owner(null)
-
 	mesh.name = item.id
 	skeleton.add_child(mesh)
 	mesh.set_skeleton_path(NodePath(".."))
@@ -87,7 +81,7 @@ func _equip_armor(item: ItemData, slot_key: String) -> void:
 	inst.queue_free()
 
 # -------------------------------------------------
-# EQUIP PREFAB (WEAPONS, CAPES, AMULETS)
+# EQUIP PREFAB (WEAPONS / CAPES / AMULETS)
 # -------------------------------------------------
 func _equip_prefab(item: ItemData, slot_key: String) -> void:
 	if not item.prefab:
@@ -108,53 +102,109 @@ func _equip_prefab(item: ItemData, slot_key: String) -> void:
 		inst.transform = idle.transform
 
 # -------------------------------------------------
-# EQUIP MASTER FUNCTION
+# EQUIP ITEM (SLOT-AWARE, SAFE, BUG-FIXED)
 # -------------------------------------------------
-func equip_item(item_id: String) -> void:
+# -------------------------------------------------
+# EQUIP ITEM (SLOT-AWARE, SAFE, UI-CORRECT)
+# -------------------------------------------------
+# -------------------------------------------------
+# EQUIP ITEM (SLOT-AWARE, SAFE, TRUE SWAP)
+# -------------------------------------------------
+func equip_item(item_id: String, from_inventory_slot: int = -1) -> bool:
 	if not player_ref:
-		return
+		return false
 
 	var item: ItemData = ItemDataBase.get_item(item_id)
-	if item == null:
+	if not item:
 		push_warning("Invalid item_id: " + item_id)
-		return
+		return false
 
 	var slot_key := item.equip_slot
 	var equip_array = ProfileManager.current_profile.get("equipment", [])
 
-	# --- TWO-HAND LOGIC ---
-	if slot_key == "weapon" and item is WeaponItem:
-		var w: WeaponItem = item
-		if w.is2h:
-			unequip_slot("offhand")
-			if anim_player:
-				anim_player.has_2h = true
+	# -------------------------------------------------
+	# TWO-HAND SAFETY
+	# -------------------------------------------------
+	if slot_key == "weapon" and item is WeaponItem and item.is2h:
+		if not unequip_slot("offhand"):
+			return false
+		if anim_player:
+			anim_player.has_2h = true
 
 	if slot_key == "offhand":
 		var main = _get_equipped("weapon")
 		if main != "":
-			var m_item: ItemData = ItemDataBase.get_item(main)
-			if m_item and m_item is WeaponItem and m_item.is2h:
-				unequip_slot("weapon")
+			var main_item = ItemDataBase.get_item(main)
+			if main_item is WeaponItem and main_item.is2h:
+				if not unequip_slot("weapon"):
+					return false
 		if anim_player:
 			anim_player.has_2h = false
 
-	# --------------------------
-	# REMOVE OLD ITEM IN SLOT
-	# --------------------------
+	# -------------------------------------------------
+	# FIND EQUIP SLOT
+	# -------------------------------------------------
+	var old_id := ""
+	var old_item: ItemData = null
 	var found := false
 
 	for slot in equip_array:
 		if slot["slot"] == slot_key:
 			found = true
+			old_id = slot["item"] if slot["item"] != null else ""
+			old_item = ItemDataBase.get_item(old_id) if old_id != "" else null
 
-			if slot["item"] != null:
-				var old_id = slot["item"]
-				var old_item = ItemDataBase.get_item(old_id)
+			# -------------------------------------------------
+			# INVENTORY → EQUIP (TRUE SLOT SWAP)
+			# -------------------------------------------------
+			if from_inventory_slot >= 0:
+				var clicked := InventoryManager.get_slot(from_inventory_slot)
+				if clicked.is_empty() or clicked.get("id", "") != item_id:
+					push_warning("Inventory desync, abort equip.")
+					return false
 
-				InventoryManager.add_item({"id": old_id}, 1)
+				var consumed_slot_empty := false
 
-				if old_item and old_item.item_type == ItemData.ItemType.ARMOR:
+				# Consume ONE item from inventory slot
+				if clicked.get("qty", 1) > 1:
+					clicked["qty"] -= 1
+					InventoryManager.set_slot(from_inventory_slot, clicked)
+				else:
+					InventoryManager.clear_slot(from_inventory_slot)
+					consumed_slot_empty = true
+
+				# Put old equipped item BACK INTO SAME SLOT if possible
+				if old_id != "":
+					if consumed_slot_empty:
+						# Perfect swap
+						InventoryManager.set_slot(from_inventory_slot, {
+							"id": old_id,
+							"qty": 1
+						})
+					else:
+						# Stack still exists → fallback
+						if not InventoryManager.add_item({"id": old_id}, 1):
+							# Rollback inventory removal
+							if clicked.get("qty", 1) > 1:
+								clicked["qty"] += 1
+								InventoryManager.set_slot(from_inventory_slot, clicked)
+							else:
+								InventoryManager.set_slot(from_inventory_slot, clicked)
+							return false
+
+			# -------------------------------------------------
+			# PROGRAMMATIC EQUIP (NO INVENTORY SLOT)
+			# -------------------------------------------------
+			else:
+				if old_id != "":
+					if not InventoryManager.add_item({"id": old_id}, 1):
+						return false
+
+			# -------------------------------------------------
+			# CLEAR OLD VISUALS
+			# -------------------------------------------------
+			if old_id != "":
+				if old_item is ArmorItem:
 					_clear_armor_from_skeleton(old_id)
 				elif ATTACH_PATHS.has(slot_key):
 					_clear_slot_prefab(slot_key)
@@ -162,29 +212,32 @@ func equip_item(item_id: String) -> void:
 			slot["item"] = item_id
 			break
 
-	# If slot not found, add it fresh
+	# Slot did not exist yet
 	if not found:
 		equip_array.append({"slot": slot_key, "item": item_id})
 
-	# Save modified equipment array
+	# -------------------------------------------------
+	# SAVE PROFILE
+	# -------------------------------------------------
 	ProfileManager.current_profile["equipment"] = equip_array
 	ProfileManager.save_profile()
 
-	# --------------------------
+	# -------------------------------------------------
 	# APPLY VISUALS
-	# --------------------------
-	if item.item_type == ItemData.ItemType.ARMOR:
+	# -------------------------------------------------
+	if item is ArmorItem:
 		_equip_armor(item, slot_key)
 	elif ATTACH_PATHS.has(slot_key):
 		_equip_prefab(item, slot_key)
 
 	emit_signal("equipment_changed", slot_key, item_id)
 	emit_signal("equipment_updated")
+	return true
 
 # -------------------------------------------------
-# UNEQUIP
+# UNEQUIP (SAFE)
 # -------------------------------------------------
-func unequip_slot(slot_key: String) -> void:
+func unequip_slot(slot_key: String) -> bool:
 	var equip_array = ProfileManager.current_profile.get("equipment", [])
 
 	for slot in equip_array:
@@ -192,22 +245,26 @@ func unequip_slot(slot_key: String) -> void:
 			var item_id = slot["item"]
 			var item = ItemDataBase.get_item(item_id)
 
-			if item and item.item_type == ItemData.ItemType.ARMOR:
+			if not InventoryManager.add_item({"id": item_id}, 1):
+				push_warning("Inventory full, cannot unequip: " + item_id)
+				return false
+
+			if item is ArmorItem:
 				_clear_armor_from_skeleton(item_id)
 			else:
 				_clear_slot_prefab(slot_key)
 
-			InventoryManager.add_item({"id": item_id}, 1)
 			slot["item"] = null
 
 			if slot_key == "weapon" and anim_player:
 				anim_player.has_2h = false
 
-			break
+			ProfileManager.save_profile()
+			emit_signal("equipment_changed", slot_key, "")
+			emit_signal("equipment_updated")
+			return true
 
-	ProfileManager.save_profile()
-	emit_signal("equipment_changed", slot_key, "")
-	emit_signal("equipment_updated")
+	return false
 
 # -------------------------------------------------
 # APPLY EQUIPPED ITEMS ON LOAD
@@ -216,20 +273,13 @@ func apply_equipped_items() -> void:
 	if not player_ref:
 		return
 
-	var equip_array = ProfileManager.current_profile.get("equipment", [])
-
-	# Clear only prefabs (weapons/offhand/cape/amulet)
 	for key in ATTACH_PATHS.keys():
 		_clear_slot_prefab(key)
 
-	# Do NOT clear skeleton meshes globally!
-	# Old system only cleared armor by ID when equipping/unequipping.
+	var equip_array = ProfileManager.current_profile.get("equipment", [])
 
-	# Reapply equipment one by one
 	for slot in equip_array:
-		var slot_key = slot["slot"]
 		var item_id = slot["item"]
-
 		if item_id == null or item_id == "":
 			continue
 
@@ -237,13 +287,12 @@ func apply_equipped_items() -> void:
 		if not item:
 			continue
 
-		if item.item_type == ItemData.ItemType.ARMOR:
-			_equip_armor(item, slot_key)
-		elif ATTACH_PATHS.has(slot_key):
-			_equip_prefab(item, slot_key)
+		if item is ArmorItem:
+			_equip_armor(item, slot["slot"])
+		elif ATTACH_PATHS.has(slot["slot"]):
+			_equip_prefab(item, slot["slot"])
 
-		# restore 2H status
-		if slot_key == "weapon" and item is WeaponItem and anim_player:
+		if slot["slot"] == "weapon" and item is WeaponItem and anim_player:
 			anim_player.has_2h = item.is2h
 
 	emit_signal("equipment_updated")

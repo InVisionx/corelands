@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://yh70b4ol1mbp"]
+
+[ext_resource type="PackedScene" uid="uid://bciq2do681eok" path="res://Items/Combat/Gravewood/Armor/gravewood_armor.fbx" id="1_xyipa"]
+[ext_resource type="Material" uid="uid://cix16rolk6ivb" path="res://Items/Combat/Gravewood/Armor/gravewood_armor_mat.tres" id="2_tmvdt"]
+
+[node name="gravewood_armor" instance=ExtResource("1_xyipa")]
+
+[node name="Base" parent="Armature/GeneralSkeleton" index="0"]
+visible = false
+
+[node name="boots" parent="Armature/GeneralSkeleton" index="2"]
+surface_material_override/0 = ExtResource("2_tmvdt")
+
+[node name="chest" parent="Armature/GeneralSkeleton" index="3"]
+surface_material_override/0 = ExtResource("2_tmvdt")
+
+[node name="gloves" parent="Armature/GeneralSkeleton" index="4"]
+surface_material_override/0 = ExtResource("2_tmvdt")
+
+[node name="head" parent="Armature/GeneralSkeleton" index="5"]
+surface_material_override/0 = ExtResource("2_tmvdt")
+
+[node name="legs" parent="Armature/GeneralSkeleton" index="6"]
+surface_material_override/0 = ExtResource("2_tmvdt")
