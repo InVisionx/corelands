@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dl306xxrb2vv3"]
+
+[ext_resource type="PackedScene" uid="uid://bm36lhah075e3" path="res://Items/Resources/Gravewood_Axe/Gravewood Pickaxe.glb" id="1_gb4wt"]
+
+[node name="Gravewood Pickaxe" instance=ExtResource("1_gb4wt")]
+
+[node name="AnimTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(-0.4679732, -0.012248119, 0.17564476, -0.17550965, -0.0073575885, -0.4681263, 0.014051976, -0.49979582, 0.0025869827, 0.1608282, 0.15624106, 0.012913048)

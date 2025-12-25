@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://dahgnaku0b8e2"]
+
+[ext_resource type="Texture2D" uid="uid://bgci4r4m8u8kq" path="res://Items/Resources/Ash_Log/ash_log_sprite.png" id="1_ydlnp"]
+[ext_resource type="PackedScene" uid="uid://cf21t2bnex1tx" path="res://Items/Resources/Ash_Log/ash_log.tscn" id="2_6mvhh"]
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="3_s2ckd"]
+
+[resource]
+script = ExtResource("3_s2ckd")
+id = "ashlog"
+display_name = "Ash Log"
+icon = ExtResource("1_ydlnp")
+prefab = ExtResource("2_6mvhh")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

@@ -1,12 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bpjkh6kt1u1oq"]
 
 [ext_resource type="PackedScene" uid="uid://b8uy8mlxil8gq" path="res://Assests/Trees/Ash Tree/AshTree.fbx" id="1_swf43"]
-[ext_resource type="Texture2D" uid="uid://cth4i88ah82ii" path="res://Assests/Trees/Ash Tree/ashtree.jpg" id="2_vvmra"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbb6x"]
-albedo_texture = ExtResource("2_vvmra")
-uv1_scale = Vector3(5, 5, 5)
-uv1_triplanar = true
+[ext_resource type="Material" uid="uid://ntxq6ubyn20d" path="res://Assests/Trees/Ash Tree/ash_tree.tres" id="2_swf43"]
+[ext_resource type="Script" uid="uid://2w0bsgywa354" path="res://Assests/Trees/Ash Tree/ash_tree.gd" id="3_vvmra"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_swf43"]
 points = PackedVector3Array(-0.225528, 1.5726712, 0.7219443, -0.017099917, 1.4216166, 0.66590005, 0.535125, 1.5083474, 0.47178584, 0.40956718, 1.7420763, 0.37574893, -0.16499305, 1.7814817, 0.47164983, -0.4524297, 1.5987483, 0.39778584, -0.33156854, -0.004708995, 0.22883701, -0.21049863, -0.00026621576, 0.34487027, -0.10414499, -0.0031636804, 0.37180418, 0.061804295, -0.0039363382, 0.36282617, 0.21710777, -0.0110834185, 0.35276002, 0.2786864, -0.0006525442, 0.32637024, 0.34193498, 0.0074603576, -0.025538266, 0.50089145, 1.2531773, -0.032883883, 0.35946923, 1.7940375, 0.29562753, 0.16179132, 1.936979, 0.14354646, 0.10386562, 1.9261619, 0.20788848, -0.20079216, 1.9282867, -0.09817809, -0.53102076, 1.5910218, -0.08362293, -0.4843671, 1.3754504, 0.1997267, -0.37696975, 0.0041765645, 0.11062735, -0.32781118, -0.014946706, 0.09063095, -0.16102695, -0.01378772, 0.28338492, -0.15132049, -0.006640639, 0.3548004, -0.07492122, -0.010503925, 0.36677104, -0.28971592, -0.01513987, -0.040637553, 0.32826245, -0.008958612, -0.067435384, 0.3277406, -0.0074132965, -0.018464744, 0.38827556, 1.191751, -0.277193, 0.3098932, 1.2541431, -0.44981456, 0.08747947, 1.6557318, -0.66773397, 0.18871897, 1.5910218, -0.48613447, 0.08894062, 1.9300252, -0.09940237, -0.17052469, 1.9582272, -0.33255705, -0.3820839, 1.7963555, -0.46273738, -0.48165345, 1.476089, -0.2049613, -0.3391876, -0.005288488, -0.1607517, -0.15173799, -0.012242405, -0.17367452, -0.061353028, -0.010890255, -0.22346133, -0.16937661, -0.0074132965, -0.25189152, 0.11941683, -0.007992789, -0.32344308, 0.13705552, -0.0039363382, -0.32888427, -0.17480388, 1.3482141, -0.6058405, -0.24619338, 1.2017956, -0.53456104, -0.11844376, -0.0043226667, -0.3098401)
@@ -15,9 +11,14 @@ points = PackedVector3Array(-0.225528, 1.5726712, 0.7219443, -0.017099917, 1.421
 
 [node name="Mesh0" parent="." index="0"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
-surface_material_override/0 = SubResource("StandardMaterial3D_tbb6x")
+surface_material_override/0 = ExtResource("2_swf43")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Mesh0" index="0"]
+script = ExtResource("3_vvmra")
+gather_id = "ashlog"
+gather_interval = 0.6
+success_chance = 0.5
+interaction_type = "gather"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh0/StaticBody3D" index="0"]
 shape = SubResource("ConvexPolygonShape3D_swf43")

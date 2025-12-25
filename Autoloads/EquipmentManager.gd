@@ -56,7 +56,7 @@ func _clear_armor_from_skeleton(item_id: String) -> void:
 # -------------------------------------------------
 # EQUIP ARMOR (SKINNED)
 # -------------------------------------------------
-func _equip_armor(item: ArmorItem, slot_key: String) -> void:
+func _equip_armor(item: ArmorItem, _slot_key: String) -> void:
 	var skeleton: Skeleton3D = player_ref.get_node("PlayerModel/Armature/GeneralSkeleton")
 
 	var armor_scene = load(item.armor_scene_path)
@@ -84,6 +84,7 @@ func _equip_armor(item: ArmorItem, slot_key: String) -> void:
 # EQUIP PREFAB (WEAPONS / CAPES / AMULETS)
 # -------------------------------------------------
 func _equip_prefab(item: ItemData, slot_key: String) -> void:
+	print("in equip prefab")
 	if not item.prefab:
 		return
 
@@ -102,12 +103,6 @@ func _equip_prefab(item: ItemData, slot_key: String) -> void:
 		inst.transform = idle.transform
 
 # -------------------------------------------------
-# EQUIP ITEM (SLOT-AWARE, SAFE, BUG-FIXED)
-# -------------------------------------------------
-# -------------------------------------------------
-# EQUIP ITEM (SLOT-AWARE, SAFE, UI-CORRECT)
-# -------------------------------------------------
-# -------------------------------------------------
 # EQUIP ITEM (SLOT-AWARE, SAFE, TRUE SWAP)
 # -------------------------------------------------
 func equip_item(item_id: String, from_inventory_slot: int = -1) -> bool:
@@ -120,30 +115,51 @@ func equip_item(item_id: String, from_inventory_slot: int = -1) -> bool:
 		return false
 
 	var slot_key := item.equip_slot
-	var equip_array = ProfileManager.current_profile.get("equipment", [])
 
 	# -------------------------------------------------
-	# TWO-HAND SAFETY
+	# TWO-HAND SAFETY (FIXED LOGIC)
 	# -------------------------------------------------
-	if slot_key == "weapon" and item is WeaponItem and item.is2h:
-		if not unequip_slot("offhand"):
-			return false
+	
+	# 1. Safely get the is2h bool (works for Resource or Dictionary)
+	var is_two_handed: bool = false
+	if item.get("is2h"):
+		is_two_handed = item.get("is2h")
+	
+	# --- CASE A: Equipping a 2H Weapon ---
+	if slot_key == "weapon" and is_two_handed:
+		print("Attempting 2H Equip...")
+		
+		# CHECK: Is offhand actually occupied?
+		var current_offhand = _get_equipped("offhand")
+		if current_offhand != "":
+			# Only try to unequip if something is there
+			if not unequip_slot("offhand"):
+				print("Cannot unequip offhand (Inventory full?)")
+				return false
+		
 		if anim_player:
 			anim_player.has_2h = true
 
+
+	# --- CASE B: Equipping an Offhand (Shield) ---
 	if slot_key == "offhand":
+		# CHECK: Is main hand actually occupied?
 		var main = _get_equipped("weapon")
 		if main != "":
 			var main_item = ItemDataBase.get_item(main)
-			if main_item is WeaponItem and main_item.is2h:
+			# Check if that main hand item is 2H
+			if main_item and main_item.get("is2h"):
 				if not unequip_slot("weapon"):
 					return false
+					
 		if anim_player:
 			anim_player.has_2h = false
 
 	# -------------------------------------------------
-	# FIND EQUIP SLOT
+	# FETCH FRESH ARRAY (Crucial: Get state AFTER unequip logic)
 	# -------------------------------------------------
+	var equip_array = ProfileManager.current_profile.get("equipment", [])
+
 	var old_id := ""
 	var old_item: ItemData = null
 	var found := false
@@ -154,18 +170,15 @@ func equip_item(item_id: String, from_inventory_slot: int = -1) -> bool:
 			old_id = slot["item"] if slot["item"] != null else ""
 			old_item = ItemDataBase.get_item(old_id) if old_id != "" else null
 
-			# -------------------------------------------------
-			# INVENTORY → EQUIP (TRUE SLOT SWAP)
-			# -------------------------------------------------
+			# Inventory Swap Logic
 			if from_inventory_slot >= 0:
 				var clicked := InventoryManager.get_slot(from_inventory_slot)
 				if clicked.is_empty() or clicked.get("id", "") != item_id:
-					push_warning("Inventory desync, abort equip.")
 					return false
 
 				var consumed_slot_empty := false
 
-				# Consume ONE item from inventory slot
+				# Remove from inventory
 				if clicked.get("qty", 1) > 1:
 					clicked["qty"] -= 1
 					InventoryManager.set_slot(from_inventory_slot, clicked)
@@ -173,36 +186,27 @@ func equip_item(item_id: String, from_inventory_slot: int = -1) -> bool:
 					InventoryManager.clear_slot(from_inventory_slot)
 					consumed_slot_empty = true
 
-				# Put old equipped item BACK INTO SAME SLOT if possible
+				# Put old item back
 				if old_id != "":
 					if consumed_slot_empty:
-						# Perfect swap
-						InventoryManager.set_slot(from_inventory_slot, {
-							"id": old_id,
-							"qty": 1
-						})
+						InventoryManager.set_slot(from_inventory_slot, {"id": old_id, "qty": 1})
 					else:
-						# Stack still exists → fallback
+						# Fallback if slot wasn't empty
 						if not InventoryManager.add_item({"id": old_id}, 1):
-							# Rollback inventory removal
+							# Rollback
 							if clicked.get("qty", 1) > 1:
 								clicked["qty"] += 1
 								InventoryManager.set_slot(from_inventory_slot, clicked)
 							else:
 								InventoryManager.set_slot(from_inventory_slot, clicked)
 							return false
-
-			# -------------------------------------------------
-			# PROGRAMMATIC EQUIP (NO INVENTORY SLOT)
-			# -------------------------------------------------
 			else:
+				# Programmatic equip (no inventory source)
 				if old_id != "":
 					if not InventoryManager.add_item({"id": old_id}, 1):
 						return false
 
-			# -------------------------------------------------
-			# CLEAR OLD VISUALS
-			# -------------------------------------------------
+			# Clear Old Visuals
 			if old_id != "":
 				if old_item is ArmorItem:
 					_clear_armor_from_skeleton(old_id)
@@ -212,19 +216,15 @@ func equip_item(item_id: String, from_inventory_slot: int = -1) -> bool:
 			slot["item"] = item_id
 			break
 
-	# Slot did not exist yet
+	# Slot didn't exist, add it
 	if not found:
 		equip_array.append({"slot": slot_key, "item": item_id})
 
-	# -------------------------------------------------
-	# SAVE PROFILE
-	# -------------------------------------------------
+	# Save Profile
 	ProfileManager.current_profile["equipment"] = equip_array
 	ProfileManager.save_profile()
 
-	# -------------------------------------------------
-	# APPLY VISUALS
-	# -------------------------------------------------
+	# Apply New Visuals
 	if item is ArmorItem:
 		_equip_armor(item, slot_key)
 	elif ATTACH_PATHS.has(slot_key):
@@ -239,9 +239,11 @@ func equip_item(item_id: String, from_inventory_slot: int = -1) -> bool:
 # -------------------------------------------------
 func unequip_slot(slot_key: String) -> bool:
 	var equip_array = ProfileManager.current_profile.get("equipment", [])
-
+	
+	# Loop through slots to find the one we want to unequip
 	for slot in equip_array:
-		if slot["slot"] == slot_key and slot["item"] != null:
+		# Ensure we only try to unequip if there is actually an item there
+		if slot["slot"] == slot_key and slot["item"] != null and slot["item"] != "":
 			var item_id = slot["item"]
 			var item = ItemDataBase.get_item(item_id)
 
@@ -264,7 +266,9 @@ func unequip_slot(slot_key: String) -> bool:
 			emit_signal("equipment_updated")
 			return true
 
-	return false
+	# If we loop through and find NOTHING to unequip, we return TRUE.
+	# Returning TRUE means "The slot is clear (it was already empty)."
+	return true
 
 # -------------------------------------------------
 # APPLY EQUIPPED ITEMS ON LOAD

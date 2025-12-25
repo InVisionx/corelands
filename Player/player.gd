@@ -82,6 +82,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var result = get_world_3d().direct_space_state.intersect_ray(query)
 		if result.is_empty():
 			return
+		print("Ray hit: ", result.collider.name, " at ", result.position) # <--- ADD THIS
 
 		var collider = result["collider"]
 		var clickable = find_clickable(collider)
@@ -90,6 +91,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		if result.has("position"):
+			interaction_manager.target = null
+			
 			emit_signal("stop_interactions")
 			
 			var click_pos: Vector3 = result.position
@@ -164,10 +167,10 @@ func start_teleport():
 
 func _on_animation_finished(anim_name: String):
 	if anim_name == "Teleport":
+		# Keep the visual toggle here since the Player script handles Teleport VFX
 		$PlayerModel/Skeleton3D/WeaponAttach.visible = true
-		anim_player.on_teleport_finished()
-	elif anim_name.ends_with("Attack"):
-		anim_player.on_attack_finished()
+		# We set the bool directly instead of calling a deleted function
+		anim_player.anim_locked = false 
 
 func is_attack_anim_playing() -> bool:
 	return anim_player.current_animation.contains("Attack") \
@@ -176,3 +179,12 @@ func is_attack_anim_playing() -> bool:
 func take_damage(dmg, npc):
 	pass
 	#print("%s hit you for: %d" % [npc.name, dmg])
+
+
+func _on_button_3_pressed() -> void:
+	anim_player.is_mining = true
+	
+
+
+func _on_button_2_pressed() -> void:
+	anim_player.is_teleporting = true

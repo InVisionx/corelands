@@ -1,12 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://deoke6ir5718b"]
+[gd_scene load_steps=8 format=3 uid="uid://deoke6ir5718b"]
 
 [ext_resource type="PackedScene" uid="uid://41r0v4c52afi" path="res://Assests/Bank Chest/bank chest.fbx" id="1_e8uv1"]
 [ext_resource type="Script" uid="uid://d2juqemk2gl6p" path="res://Assests/Bank Chest/bank_chest.gd" id="2_6gtk8"]
+[ext_resource type="Texture2D" uid="uid://oxud64a255m" path="res://Assests/Bank Chest/bank chest_0.png" id="2_wibbs"]
+[ext_resource type="Texture2D" uid="uid://c6dgtu1i8bykg" path="res://Assests/Bank Chest/bank chest_normal.png" id="3_fqf7s"]
+[ext_resource type="Texture2D" uid="uid://mgxo72htd2re" path="res://Assests/Bank Chest/bank chest_roughness.png" id="4_48j3g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nfgmh"]
+albedo_color = Color(0.3854925, 0.38549247, 0.38549247, 1)
+albedo_texture = ExtResource("2_wibbs")
+roughness_texture = ExtResource("4_48j3g")
+normal_enabled = true
+normal_texture = ExtResource("3_fqf7s")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6gtk8"]
 size = Vector3(0.028356932, 0.025689699, 0.024999999)
 
 [node name="bank chest" instance=ExtResource("1_e8uv1")]
+
+[node name="input" parent="." index="0"]
+transform = Transform3D(75, 0, 0, 0, 75, 5.6623426e-06, 0, -5.6623426e-06, 75, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_nfgmh")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="input" index="0"]
 script = ExtResource("2_6gtk8")

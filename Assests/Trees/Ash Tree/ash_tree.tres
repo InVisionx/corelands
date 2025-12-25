@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://ntxq6ubyn20d"]
+
+[ext_resource type="Texture2D" uid="uid://cth4i88ah82ii" path="res://Assests/Trees/Ash Tree/ashtree.jpg" id="1_usinm"]
+
+[resource]
+albedo_texture = ExtResource("1_usinm")
+uv1_scale = Vector3(5, 5, 5)
+uv1_triplanar = true

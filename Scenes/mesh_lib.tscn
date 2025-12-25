@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2hwumde0aj0p"]
-
-[ext_resource type="PackedScene" uid="uid://bf4plkrxw5fex" path="res://Scenes/Meshes/hub_floor.tscn" id="1_pcvjf"]
-
-[node name="MeshLib" type="Node3D"]
-
-[node name="HubFloor" parent="." instance=ExtResource("1_pcvjf")]

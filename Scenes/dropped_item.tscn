@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://tc03h5b74fba"]
+
+[ext_resource type="Script" uid="uid://b5k2fuxklb77x" path="res://Scripts/dropped_item.gd" id="1_w6s0x"]
+[ext_resource type="Script" uid="uid://b2affrttqbtaa" path="res://Scripts/clickable.gd" id="2_4ljfv"]
+
+[node name="DroppedItem" type="RigidBody3D"]
+collision_layer = 4
+script = ExtResource("1_w6s0x")
+
+[node name="Visual" type="MeshInstance3D" parent="."]
+
+[node name="DroppedCollider" type="CollisionShape3D" parent="."]
+
+[node name="Click" type="Node3D" parent="."]
+script = ExtResource("2_4ljfv")
+interact_range = 0.1

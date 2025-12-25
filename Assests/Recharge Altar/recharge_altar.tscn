@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://coslbsved6vwi"]
+[gd_scene load_steps=16 format=3 uid="uid://coslbsved6vwi"]
 
 [ext_resource type="PackedScene" uid="uid://dj1087hjdh1mu" path="res://Assests/Recharge Altar/Recharge Altar.fbx" id="1_1ak4v"]
 [ext_resource type="Texture2D" uid="uid://dqmym2oqs7sh3" path="res://Assests/Recharge Altar/Recharge Altar_0.png" id="2_q7sev"]
@@ -10,10 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://byh6n7f4dhg87" path="res://Shaders/Shader Textures/runes_sheet.jpg" id="11_5pcpd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nhvtl"]
+albedo_color = Color(0.49354547, 0.49354553, 0.49354553, 1)
 albedo_texture = ExtResource("2_q7sev")
 roughness_texture = ExtResource("4_iswnq")
 normal_enabled = true
-normal_scale = 2.0
+normal_scale = 1.5
 normal_texture = ExtResource("3_882o8")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_fj65l"]
@@ -33,14 +34,6 @@ shader_parameter/swirl_speed = 0.800000038
 shader_parameter/swirl_scale = 0.45900001854262
 shader_parameter/intensity = 0.0
 shader_parameter/base_visibility = 0.3850000182875
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5pcpd"]
-lifetime_randomness = 0.5
-emission_shape_scale = Vector3(0.5, 0.5, 0.5)
-emission_shape = 1
-emission_sphere_radius = 1.0
-gravity = Vector3(0, 3, 0)
-anim_offset_max = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_elloq"]
 render_priority = 0
@@ -73,6 +66,7 @@ size = Vector2(0.5, 0.5)
 surface_material_override/0 = SubResource("StandardMaterial3D_nhvtl")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="input" index="0"]
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="input/StaticBody3D" index="0"]
 shape = SubResource("ConvexPolygonShape3D_fj65l")
@@ -83,9 +77,15 @@ cast_shadow = 0
 mesh = ExtResource("5_882o8")
 surface_material_override/0 = SubResource("ShaderMaterial_fj65l")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16052204, 0)
+[node name="GPUParticles3D" type="CPUParticles3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12658113, 0)
 amount = 20
-lifetime = 3.0
-process_material = SubResource("ParticleProcessMaterial_5pcpd")
-draw_pass_1 = SubResource("QuadMesh_ys4dt")
+lifetime = 5.0
+lifetime_randomness = 0.5
+fixed_fps = 30
+visibility_aabb = AABB(-4, -4, -4, 8, 8, 8)
+mesh = SubResource("QuadMesh_ys4dt")
+emission_shape = 1
+emission_sphere_radius = 0.5
+gravity = Vector3(0, 0.5, 0)
+anim_offset_max = 1.0

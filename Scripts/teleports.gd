@@ -12,7 +12,6 @@ func find_player() -> void:
 		player = get_tree().get_first_node_in_group("local_player")
 		if player == null:
 			await get_tree().create_timer(0.1).timeout  # check every 0.1s
-	print("✅ Player found for TeleportUI:", player)
 # -------------------------------------------------------------
 # 🔹 Universal teleport handler for all buttons
 # -------------------------------------------------------------

@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode unshaded, blend_add, cull_disabled, depth_draw_opaque;
+render_mode unshaded, blend_add, cull_disabled, depth_test_disabled;
 
 uniform sampler2D mask_tex : source_color;
 uniform vec4 tint_color : source_color = vec4(1.0, 0.6, 0.2, 1.0);
@@ -60,7 +60,7 @@ void fragment() {
 		gradient = smoothstep(visible_limit - fade_strength, visible_limit, v);
 		// fade from black→white normally (invisible→visible)
 		gradient = 1.0 - gradient;
-	} 
+	}
 	else {
 		// 🔷 Radial ring fade (center→edges default)
 		float dist = length(centered) * 2.0;
