@@ -12,7 +12,7 @@ signal stop_interactions
 @onready var interaction_manager = $InteractionManager
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-
+var in_mine_zone = false
 
 func _ready():
 	if multiplayer.get_unique_id() == get_multiplayer_authority():
@@ -33,9 +33,6 @@ func _ready():
 	agent.path_desired_distance = 0.35
 	agent.target_desired_distance = 0.2
 	agent.avoidance_enabled = false   # avoid weird pushing
-
-	anim_player.animation_finished.connect(_on_animation_finished)
-
 
 func find_clickable(node):
 	if node is Clickable:
@@ -164,27 +161,16 @@ func start_teleport():
 	var teleport_vfx = preload("res://Shaders/VFX/teleport_vfx.tscn").instantiate()
 	add_child(teleport_vfx)
 
-
-func _on_animation_finished(anim_name: String):
-	if anim_name == "Teleport":
-		# Keep the visual toggle here since the Player script handles Teleport VFX
-		$PlayerModel/Skeleton3D/WeaponAttach.visible = true
-		# We set the bool directly instead of calling a deleted function
-		anim_player.anim_locked = false 
-
 func is_attack_anim_playing() -> bool:
 	return anim_player.current_animation.contains("Attack") \
 		and anim_player.is_playing()
 
 func take_damage(dmg, npc):
-	pass
-	#print("%s hit you for: %d" % [npc.name, dmg])
-
+	if CombatManager.target == null:
+		CombatManager.start_attack(self, npc)
 
 func _on_button_3_pressed() -> void:
 	anim_player.is_mining = true
-	
 
-
-func _on_button_2_pressed() -> void:
-	anim_player.is_teleporting = true
+func _on_button_4_pressed() -> void:
+	anim_player.is_chopping = true

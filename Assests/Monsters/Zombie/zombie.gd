@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 signal damaged_by(attacker)
+signal died_event(mob)
 
 @export var interaction: Clickable
 @export var max_hp := 1
@@ -56,7 +57,10 @@ func die():
 	set_physics_process(false)
 
 	anim.play("Die")
+	print("waiting for death animation to finish")
 	await anim.animation_finished
+	
+	emit_signal("died_event", self)
 
 	# Hide but DO NOT delete
 	visible = false
@@ -66,6 +70,8 @@ func die():
 
 	# Wait respawn delay
 	await get_tree().create_timer(respawn_time).timeout
+	
+	if not is_inside_tree(): return
 	
 	anim.play("Idle")
 	respawn()

@@ -4,5 +4,8 @@
 
 [node name="Gravewood Pickaxe" instance=ExtResource("1_gb4wt")]
 
-[node name="AnimTransform" type="Node3D" parent="." index="1"]
+[node name="MineTransform" type="Node3D" parent="." index="1"]
 transform = Transform3D(-0.4679732, -0.012248119, 0.17564476, -0.17550965, -0.0073575885, -0.4681263, 0.014051976, -0.49979582, 0.0025869827, 0.1608282, 0.15624106, 0.012913048)
+
+[node name="ChopTransform" type="Node3D" parent="." index="2"]
+transform = Transform3D(-0.36471412, -0.33351764, 0.07582613, -0.28166518, 0.22998962, -0.34317562, 0.19403179, -0.29303715, -0.35564154, 0.0068180263, 0.09335947, 0.06816073)

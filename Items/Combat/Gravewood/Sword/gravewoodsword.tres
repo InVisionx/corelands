@@ -9,6 +9,7 @@ script = ExtResource("1_tgn4v")
 base_damage = 10.0
 accuracy = 30.0
 strength = 10.0
+speed = 0.8
 id = "gravewoodsword"
 display_name = "Gravewood Sword"
 icon = ExtResource("1_gr4th")

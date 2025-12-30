@@ -19,6 +19,11 @@ gather_id = "ashlog"
 gather_interval = 0.6
 success_chance = 0.5
 interaction_type = "gather"
+gather_subtype = "chop"
+interact_text = "Chop Ash Tree"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh0/StaticBody3D" index="0"]
 shape = SubResource("ConvexPolygonShape3D_swf43")
+
+[connection signal="mouse_entered" from="Mesh0/StaticBody3D" to="Mesh0/StaticBody3D" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Mesh0/StaticBody3D" to="Mesh0/StaticBody3D" method="_on_mouse_exited"]

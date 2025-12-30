@@ -14,3 +14,11 @@ func on_gather(_player):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+
+func _on_mouse_entered() -> void:
+	MouseTip.get_node("Label").display(interact_text)
+
+
+func _on_mouse_exited() -> void:
+	MouseTip.get_node("Label").stop_display()

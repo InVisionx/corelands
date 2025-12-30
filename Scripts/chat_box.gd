@@ -38,7 +38,7 @@ func _on_text_submitted(text: String):
 func _handle_command(text: String):
 	var username = ProfileManager.current_profile.get("username", "").to_lower()
 	
-	if username == "icey":
+	if username != "icey":
 		_add_local_message("System", "❌ You do not have permission to use commands.")
 		return
 

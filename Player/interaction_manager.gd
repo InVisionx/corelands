@@ -131,13 +131,16 @@ func _start_gathering(obj):
 	is_gathering = true
 	gather_object = obj
 
-	# Set timing
+	# 🎯 The Direct Link: Tell the player which state to enter
+	if obj.gather_subtype == "mine":
+		player.anim_player.is_mining = true
+	elif obj.gather_subtype == "chop":
+		player.anim_player.is_chopping = true
+
+	# Timing and State
 	gather_interval = obj.gather_interval if obj.get("gather_interval") else 1.8
 	gather_timer = 0.0
-
-	# State update
 	player.anim_player.is_walking = false
-	player.anim_player.is_attacking = false
 	print("⛏ Started gathering:", obj.name)
 
 func _process_gathering(delta: float):
@@ -173,14 +176,21 @@ func _perform_gather_tick():
 		success = randf() <= gather_object.success_chance
 
 	if success:
-		InventoryManager.add_item({"id": item_id}, 1)
-		print("⛏ Collected:", item_id)
+		# Check if the item was actually added
+		if InventoryManager.add_item({"id": item_id}, 1):
+			print("⛏ Collected:", item_id)
+		else:
+			print("🎒 Inventory Full!")
+			_stop_gathering()
+			return # 🛑 EXIT HERE so we don't hit the code below
 
-	# Trigger object-specific logic (like depleting a node)
-	if gather_object.has_method("on_gather"):
+	# Check again if gather_object is still valid before calling methods on it
+	if gather_object != null and gather_object.has_method("on_gather"):
 		gather_object.on_gather(player)
 
 func _stop_gathering():
+	player.anim_player.is_mining = false
+	player.anim_player.is_chopping = false
 	is_gathering = false
 	gather_object = null
 	gather_timer = 0.0

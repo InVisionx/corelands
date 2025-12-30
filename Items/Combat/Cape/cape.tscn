@@ -12,8 +12,13 @@ shader_parameter/color_a = Color(0, 0, 0, 1)
 shader_parameter/color_b = Color(1, 1, 1, 1)
 shader_parameter/time_speed = 0.5
 shader_parameter/move_circle = false
-shader_parameter/move_vertical = true
+shader_parameter/move_vertical = false
 shader_parameter/uniform_scale = 0.535
+shader_parameter/wind_strength = 1.0000000475
+shader_parameter/wind_speed_hz = 5.0000002375
+shader_parameter/wave_frequency = 5.0000002375
+shader_parameter/wind_direction = Vector2(1.5, 1)
+shader_parameter/use_vertex_color_mask = true
 
 [node name="Untitled" instance=ExtResource("1_lcdsh")]
 

@@ -1,28 +1,31 @@
 extends AnimationPlayer
 
-# Paths to your bone attachments
 const WEAPON_ATTACH = "../Armature/GeneralSkeleton/WeaponAttach"
 const OFFHAND_ATTACH = "../Armature/GeneralSkeleton/OffhandAttach"
-# Your multipurpose axe/pickaxe scene
+
 const AXE_SCENE = preload("res://Items/Resources/Gravewood_Axe/gravewood_pickaxe.tscn")
 const TELEPORT_SCENE = preload("res://Shaders/VFX/teleport_vfx.tscn")
 
-# Simple Booleans for your Player script to toggle
+var active_tool: Node3D = null
 var has_2h: bool = false
 var is_walking: bool = false
 var anim_locked: bool = false 
 
-# --- REACTIVE VARIABLE LOGIC ---
+# New variable to control attack playback speed dynamically
+var attack_speed: float = 1.0 
 
-# When you set this to true, the axe spawns and the animation plays once.
 var is_mining: bool = false:
 	set(value):
 		if value == is_mining: return 
 		is_mining = value
-		if is_mining:
-			_run_axe_sequence("Mine")
+		_handle_gathering_state("Mine" if is_mining else "")
+			
+var is_chopping: bool = false:
+	set(value):
+		if value == is_chopping: return
+		is_chopping = value
+		_handle_gathering_state("Chop" if is_chopping else "")
 
-# Same logic for attacking: setting this to true triggers the sequence.
 var is_attacking: bool = false:
 	set(value):
 		if value == is_attacking: return
@@ -35,85 +38,59 @@ var is_teleporting: bool = false:
 		if value == is_teleporting: return
 		is_teleporting = value
 		if is_teleporting:
-			anim_locked = true
-			
-			# 1. Spawn VFX 
-			# Using get_parent().get_parent() or owner ensures the VFX is in the world, 
-			# not stuck inside the player's model hierarchy.
-			var teleportvfx = TELEPORT_SCENE.instantiate()
-			var root_node = get_tree().current_scene # Or use owner
-			root_node.add_child(teleportvfx)
-			teleportvfx.global_position = get_parent().global_position
-			# 2. Trigger the burst
-			# We check for both GPU and CPU particles just in case
-			if teleportvfx is GPUParticles3D or teleportvfx is CPUParticles3D:
-				teleportvfx.emitting = true
-			else:
-				# If your VFX scene is a Node3D with particle children
-				for child in teleportvfx.get_children():
-					if child is GPUParticles3D or child is CPUParticles3D:
-						child.emitting = true
-			
-			# 2. Play Animation
-			#play("Teleport")
-			
-			#await animation_finished
-			
-			anim_locked = false
-			is_teleporting = false
-
-# --- CORE LOOP ---
+			_run_teleport_sequence()
 
 func _process(_delta):
-	# If an action (mining/attacking) is happening, let it finish.
 	if anim_locked: 
 		return
 
-	# Handle movement and idle states
 	if is_walking:
-		_play("Walk")
+		_play("Walk", 0.3)
 	else:
-		_play("2H_Idle" if has_2h else "Idle")
+		_play("2H_Idle" if has_2h else "Idle", 0.3)
 
-# --- ACTION SEQUENCES ---
+func _handle_gathering_state(anim_name: String):
+	if anim_name != "":
+		anim_locked = true
+		set_weapons_visibility(false)
+		
+		if not is_instance_valid(active_tool):
+			active_tool = AXE_SCENE.instantiate()
+			get_node(WEAPON_ATTACH).add_child(active_tool)
+		
+		var anim_ref = active_tool.get_node_or_null(anim_name + "Transform")
+		if anim_ref:
+			active_tool.transform = anim_ref.transform
 
-func _run_axe_sequence(anim_name: String):
-	anim_locked = true
-	set_weapons_visibility(false) # Hide equipped swords
+		_loop_gathering_animation(anim_name)
+	else:
+		if is_instance_valid(active_tool):
+			active_tool.queue_free()
+		active_tool = null
+		
+		set_weapons_visibility(true)
+		stop() 
+		anim_locked = false 
+		_play("Idle", 0.8)
+
+func _loop_gathering_animation(anim_name: String):
+	if anim_name == "Mine" and not is_mining: return
+	if anim_name == "Chop" and not is_chopping: return
 	
-	# 1. Spawn the Axe
-	var axe_instance = AXE_SCENE.instantiate()
-	get_node(WEAPON_ATTACH).add_child(axe_instance)
+	play(anim_name, 0.3, 1.8)
 	
-	# 2. Snap to the hand using the reference node in the axe scene
-	var anim_ref = axe_instance.get_node_or_null("AnimTransform")
-	if anim_ref:
-		axe_instance.transform = anim_ref.transform
-
-	# 3. Play Animation (Speed boost to hide DeepMotion jank)
-	play(anim_name, -1, 1.8)
-	seek(2.0, true) # Skip the first 2 seconds of the DeepMotion file
-
+	if anim_name == "Mine": seek(2.0, true)
+	if anim_name == "Chop": seek(1.2, true)
+	
 	await animation_finished
-
-	# 4. Cleanup and Unlock
-	if is_instance_valid(axe_instance): 
-		axe_instance.queue_free()
 	
-	set_weapons_visibility(true) # Show swords again
-	is_mining = false            # Reset the boolean
-	anim_locked = false          # Return control to _process
+	if (anim_name == "Chop" and not is_chopping) or (anim_name == "Mine" and not is_mining):
+		seek(0.0, true) 
+		stop()
+		return
 
-func _run_attack_sequence(anim_name: String):
-	anim_locked = true
-	play(anim_name, 0.3) # 0.3s blend time for smooth combat
-	
-	await animation_finished
-	
-	is_attacking = false
-	anim_locked = false
-
-# --- UTILITY FUNCTIONS ---
+	if anim_locked:
+		_loop_gathering_animation(anim_name)
 
 func _play(anim_name: String, blend: float = -1.0, speed: float = 1.0):
 	if current_animation == anim_name and is_playing():
@@ -128,4 +105,22 @@ func set_weapons_visibility(is_visible: bool):
 			for child in node.get_children():
 				if child is Node3D:
 					child.visible = is_visible
-					
+
+func _run_attack_sequence(anim_name: String):
+	anim_locked = true
+	# Use the custom attack_speed calculated in CombatManager
+	play(anim_name, 0.3, attack_speed) 
+	await animation_finished
+	is_attacking = false
+	anim_locked = false
+	attack_speed = 1.0
+
+func _run_teleport_sequence():
+	anim_locked = true
+	_play("Teleport")
+	await animation_finished
+	#var teleportvfx = TELEPORT_SCENE.instantiate()
+	#owner.add_child(teleportvfx) 
+	#teleportvfx.global_position = get_parent().global_position
+	anim_locked = false
+	is_teleporting = false

@@ -11,7 +11,7 @@ func _process(_delta):
 	var objects = Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME)
 	
 	# 4. Update the text
-	text = "FPS: %d\nDraw Calls: %d\nObjects: %d" % [fps, draw_calls, objects]
+	text = "-FPS: %d\n-Draw Calls: %d\n-Objects: %d" % [fps, draw_calls, objects]
 	
 	# Color coding for quick feedback
 	if draw_calls < 500:

@@ -21,6 +21,18 @@ face_offset_degrees = 180.0
 
 [node name="PlayerModel" parent="." instance=ExtResource("1_l8h54")]
 
+[node name="GeneralSkeleton" parent="PlayerModel/Armature" index="0"]
+bones/1/position = Vector3(-0.01858352, 0.87064046, -0.049801946)
+
+[node name="WeaponAttach" parent="PlayerModel/Armature/GeneralSkeleton" index="2"]
+transform = Transform3D(0.07860344, -0.1540537, 0.9849308, 0.48294282, -0.8584304, -0.17280951, 0.8721167, 0.48924866, 0.0069236904, -0.30889338, 0.95835215, -0.17490791)
+
+[node name="OffhandAttach" parent="PlayerModel/Armature/GeneralSkeleton" index="3"]
+transform = Transform3D(0.26804164, -0.25480044, -0.929102, -0.41754115, 0.838387, -0.35038117, 0.86822426, 0.4818552, 0.118333176, 0.24224707, 1.3393042, 0.20229724)
+
+[node name="CapeAttach" parent="PlayerModel/Armature/GeneralSkeleton" index="4"]
+transform = Transform3D(0.973181, -0.021694329, -0.22901498, 0.00052013877, 0.9957481, -0.09211579, 0.23003963, 0.089526266, 0.9690546, -0.026623927, 1.5031669, -0.016956687)
+
 [node name="AnimationPlayer" parent="PlayerModel" index="2"]
 script = ExtResource("3_od3ui")
 
@@ -70,12 +82,13 @@ offset_right = -1204.0
 offset_bottom = -65.0
 font_size = 10
 
-[node name="Teleports" parent="UI_Layer/UI" instance=ExtResource("9_00tjw")]
+[node name="Teleports" parent="UI_Layer/UI" node_paths=PackedStringArray("fade_overlay") instance=ExtResource("9_00tjw")]
 layout_mode = 1
-offset_left = -15.0
-offset_top = -468.0
-offset_right = -15.0
-offset_bottom = -468.0
+offset_left = -266.0
+offset_top = -17.0
+offset_right = -266.0
+offset_bottom = -17.0
+fade_overlay = NodePath("../../FadeOverlay")
 
 [node name="Label" type="Label" parent="UI_Layer/UI"]
 layout_mode = 1
@@ -87,8 +100,18 @@ offset_top = -213.0
 offset_right = -594.0
 offset_bottom = -190.0
 grow_horizontal = 2
-text = "debug"
+text = "debuG"
 script = ExtResource("10_apopc")
+
+[node name="FadeOverlay" type="ColorRect" parent="UI_Layer"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
 [node name="OverheadMessage" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0830407, 0)
@@ -122,11 +145,19 @@ offset_right = 195.0
 offset_bottom = 40.0
 text = "mine"
 
+[node name="Button4" type="Button" parent="."]
+offset_left = 205.0
+offset_top = 9.0
+offset_right = 252.0
+offset_bottom = 40.0
+text = "chop"
+
 [node name="InteractionManager" type="Node3D" parent="."]
 script = ExtResource("10_x3vf3")
 
 [connection signal="pressed" from="Button" to="." method="start_attack"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Button4" to="." method="_on_button_4_pressed"]
 
 [editable path="PlayerModel"]

@@ -1,59 +1,77 @@
 shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, unshaded;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, unshaded;
 
-// --- Uniforms for Input Textures and Colors ---
-uniform sampler2D mask_texture; // Black/White image: Black is Color A, White is Color B
+// --- Input Textures & Colors ---
+uniform sampler2D mask_texture;
+uniform vec4 color_a : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform vec4 color_b : source_color = vec4(0.0, 0.0, 1.0, 1.0);
 
-// CORRECTED: Using 'source_color' hint
-uniform vec4 color_a : source_color = vec4(1.0, 0.0, 0.0, 1.0); // Color for the black areas (Color A)
-uniform vec4 color_b : source_color = vec4(0.0, 0.0, 1.0, 1.0); // Color for the white areas (Color B)
+// --- Texture Movement ---
+uniform float time_speed = 0.5;
+uniform bool move_circle = false;
+uniform bool move_vertical = false;
+uniform float uniform_scale = 1.0;
 
-// --- Uniforms for UNIFIED Movement Controls ---
-uniform float time_speed = 0.5;      // Overall speed multiplier for animation
-uniform bool move_circle = false;     // Move the mask in a circular pattern (Oscillating)
-uniform bool move_vertical = false;   // Move the mask up/down (Continuous Scrolling)
+// --- Cape Physics ---
+uniform float wind_strength : hint_range(0.0, 2.0) = 0.2;
+uniform float wind_speed_hz : hint_range(0.0, 10.0) = 3.0;
+uniform float wave_frequency : hint_range(0.0, 10.0) = 4.0;
+uniform vec2 wind_direction = vec2(1.0, 0.0);
 
-// --- Uniforms for UNIFIED Scaling Control ---
-uniform float uniform_scale = 1.0;   // Scale (Tiling) for the mask
+// Vertex color mask
+uniform bool use_vertex_color_mask = false;
 
+// ------------------------------------------------
+// VERTEX
+// ------------------------------------------------
+void vertex() {
+	float influence = UV.y;
+	if (use_vertex_color_mask) {
+		influence = COLOR.r;
+	}
 
-// Function to calculate the modified UV for the mask
-vec2 get_animated_uv(vec2 base_uv) {
-    vec2 scaled_uv = base_uv * uniform_scale;
-    vec2 offset = vec2(0.0);
+	influence = pow(influence, 2.2);
 
-    // Get time with speed control
-    float t = TIME * time_speed;
+	float t = TIME * wind_speed_hz;
+	float phase = t - influence * 1.8;
 
-    // Vertical Movement (Continuous Scrolling)
-    if (move_vertical) {
-        // Moves the texture consistently down over time. 
-        // Use + t * 0.1 for consistent UP movement.
-        offset.y -= t * 0.1; 
-    }
+	float sway = sin(phase + UV.y * wave_frequency);
 
-    // Circular Movement (Oscillating)
-    if (move_circle) {
-        // Creates a circular offset path
-        offset.x += cos(t) * 0.1;
-        offset.y += sin(t) * 0.1;
-    }
+	float flutter = sin(
+		phase * 3.2 +
+		VERTEX.x * 4.0 +
+		VERTEX.y * 2.0
+	) * 0.35;
 
-    // `fract()` ensures UVs stay between 0.0 and 1.0 for clean, seamless tiling.
-    return fract(scaled_uv + offset);
+	float motion = (sway + flutter) * wind_strength * influence;
+
+	VERTEX.x += motion * wind_direction.x;
+	VERTEX.z += motion * wind_direction.y;
 }
 
+// ------------------------------------------------
+// FRAGMENT
+// ------------------------------------------------
+vec2 get_animated_uv(vec2 base_uv) {
+	vec2 scaled_uv = base_uv * uniform_scale;
+	vec2 offset = vec2(0.0);
+	float t = TIME * time_speed;
+
+	if (move_vertical) {
+		offset.y -= t * 0.1;
+	}
+
+	if (move_circle) {
+		offset.x += cos(t) * 0.1;
+		offset.y += sin(t) * 0.1;
+	}
+
+	return fract(scaled_uv + offset);
+}
 
 void fragment() {
-    // 1. Calculate the single, animated UV for the mask
-    vec2 animated_uv = get_animated_uv(UV);
-
-    // 2. Get the Mask Value using the animated UV
-    float mask_value = texture(mask_texture, animated_uv).r;
-
-    // 3. Blend the Colors using the mask
-    vec4 final_color = mix(color_a, color_b, mask_value);
-
-    // 4. Output the result
-    ALBEDO = final_color.rgb;
+	vec2 animated_uv = get_animated_uv(UV);
+	float mask_value = texture(mask_texture, animated_uv).r;
+	vec4 final_color = mix(color_a, color_b, mask_value);
+	ALBEDO = final_color.rgb;
 }

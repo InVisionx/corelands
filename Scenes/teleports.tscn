@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://vctkds25cnty"]
+[gd_scene load_steps=6 format=3 uid="uid://vctkds25cnty"]
 
 [ext_resource type="Script" uid="uid://kyj5kk2tgnus" path="res://Scripts/teleports.gd" id="1_6tg1o"]
 [ext_resource type="Texture2D" uid="uid://rxjje8ta60e6" path="res://Materials/UI/home_icon.png" id="1_kfor5"]
+[ext_resource type="Texture2D" uid="uid://mxwh6585drh7" path="res://Materials/UI/mining_zone_icon.png" id="3_7rr2m"]
+[ext_resource type="Texture2D" uid="uid://b0vch6edqhxfo" path="res://Materials/UI/tree_zone_icon.png" id="4_hhux2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfor5"]
 bg_color = Color(0.18431373, 0.19607843, 0.21960784, 1)
@@ -31,6 +33,7 @@ layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 columns = 4
 
 [node name="HomeTeleport" type="TextureButton" parent="PanelContainer/VBoxContainer/GridContainer"]
@@ -41,4 +44,20 @@ texture_normal = ExtResource("1_kfor5")
 ignore_texture_size = true
 stretch_mode = 5
 
+[node name="MiningTeleport" type="TextureButton" parent="PanelContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(40, 45)
+layout_mode = 2
+texture_normal = ExtResource("3_7rr2m")
+stretch_mode = 5
+
+[node name="TreeTeleport" type="TextureButton" parent="PanelContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(40, 45)
+layout_mode = 2
+tooltip_text = "Teleport to tree area"
+texture_normal = ExtResource("4_hhux2")
+ignore_texture_size = true
+stretch_mode = 5
+
 [connection signal="pressed" from="PanelContainer/VBoxContainer/GridContainer/HomeTeleport" to="." method="_on_home_teleport_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/GridContainer/MiningTeleport" to="." method="_on_mining_teleport_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/GridContainer/TreeTeleport" to="." method="_on_tree_teleport_pressed"]
