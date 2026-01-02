@@ -84,10 +84,10 @@ font_size = 10
 
 [node name="Teleports" parent="UI_Layer/UI" node_paths=PackedStringArray("fade_overlay") instance=ExtResource("9_00tjw")]
 layout_mode = 1
-offset_left = -266.0
-offset_top = -17.0
-offset_right = -266.0
-offset_bottom = -17.0
+offset_left = -132.0
+offset_top = -509.0
+offset_right = -132.0
+offset_bottom = -509.0
 fade_overlay = NodePath("../../FadeOverlay")
 
 [node name="Label" type="Label" parent="UI_Layer/UI"]

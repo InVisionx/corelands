@@ -42,14 +42,14 @@ func _on_slot_pressed(slot_name: String):
 	var slot_key = SLOT_MAP.get(slot_name, "")
 	if slot_key == "":
 		return
-	print("🧤 UI clicked unequip:", slot_key)
+	#print("🧤 UI clicked unequip:", slot_key)
 	EquipmentManager.unequip_slot(slot_key)
 
 # ----------------------------------------
 # 🔁 Refresh icons + tooltips
 # ----------------------------------------
 func _refresh_icons():
-	print("🔁 Refreshing equipment icons")
+	#print("🔁 Refreshing equipment icons")
 	if not ProfileManager.current_profile.has("equipment"):
 		return
 
@@ -79,4 +79,4 @@ func _refresh_icons():
 			child.texture_normal = default_icons.get(child.name, null)
 			child.tooltip_text = "Empty " + slot_type.capitalize() + " slot"
 
-	print("✅ Equipment icons + tooltips updated.\n")
+	#print("✅ Equipment icons + tooltips updated.\n")

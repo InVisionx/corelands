@@ -38,4 +38,5 @@ func on_click(_player):
 	if success:
 		queue_free()
 	else:
-		print("Inventory Full!")
+		pass
+		#print("Inventory Full!")

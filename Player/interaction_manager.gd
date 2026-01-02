@@ -141,7 +141,7 @@ func _start_gathering(obj):
 	gather_interval = obj.gather_interval if obj.get("gather_interval") else 1.8
 	gather_timer = 0.0
 	player.anim_player.is_walking = false
-	print("⛏ Started gathering:", obj.name)
+	#print("⛏ Started gathering:", obj.name)
 
 func _process_gathering(delta: float):
 	if gather_object == null:
@@ -153,7 +153,7 @@ func _process_gathering(delta: float):
 	var t2 = Vector2(gather_object.global_position.x, gather_object.global_position.z)
 	
 	if p2.distance_to(t2) > gather_object.interact_range + 0.5:
-		print("❌ Stopped gathering - moved away")
+		#print("❌ Stopped gathering - moved away")
 		_stop_gathering()
 		return
 
@@ -178,9 +178,10 @@ func _perform_gather_tick():
 	if success:
 		# Check if the item was actually added
 		if InventoryManager.add_item({"id": item_id}, 1):
-			print("⛏ Collected:", item_id)
+			pass
+			#print("⛏ Collected:", item_id)
 		else:
-			print("🎒 Inventory Full!")
+			#print("🎒 Inventory Full!")
 			_stop_gathering()
 			return # 🛑 EXIT HERE so we don't hit the code below
 

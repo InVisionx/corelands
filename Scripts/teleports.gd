@@ -26,7 +26,7 @@ func teleport_player(target_pos: Vector3, facing_y_deg: float, zone_name: String
 		
 	var anim = player.get_node_or_null("PlayerModel/AnimationPlayer")
 	if anim:
-		print("gonna try to play teleporting")
+		#print("gonna try to play teleporting")
 		anim.is_teleporting = true
 
 	# A. Hide weapon/model

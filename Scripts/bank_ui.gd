@@ -138,7 +138,7 @@ func _on_bank_slot_clicked(slot_index: int) -> void:
 
 	# 🧱 Skip placeholder slots
 	if slot.get("placeholder", false):
-		print("Clicked a placeholder — skipping")
+		#print("Clicked a placeholder — skipping")
 		return
 
 	var qty = slot.get("qty", 1)
@@ -170,5 +170,5 @@ func _on_inventory_slot_clicked(slot_index: int) -> void:
 # 🧭 Placeholder Toggle
 # -------------------------------
 func _on_placeholders_toggled(pressed: bool) -> void:
-	print("🧩 Placeholder mode:", pressed)
+	#print("🧩 Placeholder mode:", pressed)
 	BankManager.set_placeholders_enabled(pressed)

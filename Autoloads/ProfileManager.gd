@@ -40,7 +40,7 @@ var profiles: Array = []
 # 1. FETCH USER LIST
 # ----------------------------------
 func refresh_user_list():
-	print("☁️ Fetching User List...")
+	#print("☁️ Fetching User List...")
 
 	var url = SUPABASE_URL + "/rest/v1/profiles?select=username"
 
@@ -74,14 +74,14 @@ func refresh_user_list():
 			if row.has("username"):
 				profiles.append(row["username"])
 
-	print("✅ Loaded users:", profiles.size())
+	#print("✅ Loaded users:", profiles.size())
 	emit_signal("list_updated")
 
 # ----------------------------------
 # 2. LOAD PROFILE
 # ----------------------------------
 func load_cloud_profile(username: String):
-	print("☁️ Loading profile:", username)
+	#print("☁️ Loading profile:", username)
 	current_username = username
 	
 	var safe_name = username.uri_encode()
@@ -136,15 +136,18 @@ func load_cloud_profile(username: String):
 	if not raw_data.has("bank"):
 		raw_data["bank"] = _create_default_bank()
 		modified = true
+	if not raw_data.has("unlocks"):
+		raw_data["unlocks"] = _create_default_unlocks()
+		modified = true
 
 	current_profile = raw_data
 	current_profile["username"] = current_username
 
 	if modified:
-		print("🧩 Missing fields repaired. Saving...")
+		#print("🧩 Missing fields repaired. Saving...")
 		save_profile()
 
-	print("🎉 Profile Loaded")
+	#print("🎉 Profile Loaded")
 	emit_signal("login_completed", true)
 
 # ----------------------------------
@@ -201,3 +204,8 @@ func _create_default_equipment() -> Array:
 		{"slot": "amulet", "item": null},
 		{"slot": "cape", "item": null}
 	]
+
+func _create_default_unlocks() -> Dictionary:
+	return {
+		"mining_zone_tier": 0
+	}

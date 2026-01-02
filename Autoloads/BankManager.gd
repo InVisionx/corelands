@@ -39,13 +39,13 @@ func add_item(item: Dictionary, quantity: int = 1) -> bool:
 		push_warning("❌ add_item: Missing ID")
 		return false
 
-	print("🏦 add_item:", item_id, "qty:", quantity)
+	#print("🏦 add_item:", item_id, "qty:", quantity)
 
 	# --- 1️⃣ Always stack items if they already exist ---
 	for slot in bank:
 		if slot != null and slot.get("id", "") == item_id and not slot.get("placeholder", false):
 			slot["qty"] = slot.get("qty", 0) + quantity
-			print("🧱 Stacked", item_id, "→ New qty:", slot["qty"])
+			#print("🧱 Stacked", item_id, "→ New qty:", slot["qty"])
 			emit_signal("bank_updated")
 			_save()
 			return true
@@ -54,7 +54,7 @@ func add_item(item: Dictionary, quantity: int = 1) -> bool:
 	for i in range(bank.size()):
 		var slot = bank[i]
 		if slot != null and slot.get("placeholder", false) and slot.get("id", "") == item_id:
-			print("📦 Replacing placeholder:", item_id)
+			#print("📦 Replacing placeholder:", item_id)
 			bank[i] = {"id": item_id, "qty": quantity, "placeholder": false}
 			emit_signal("bank_updated")
 			_save()
@@ -63,7 +63,7 @@ func add_item(item: Dictionary, quantity: int = 1) -> bool:
 	# --- 3️⃣ Otherwise add to first empty slot ---
 	for i in range(bank.size()):
 		if bank[i] == null:
-			print("💠 Added new entry:", item_id)
+			#print("💠 Added new entry:", item_id)
 			bank[i] = {"id": item_id, "qty": quantity, "placeholder": false}
 			emit_signal("bank_updated")
 			_save()
@@ -116,9 +116,9 @@ func move_item(from_index: int, to_index: int) -> void:
 # 🖱️ SLOT CLICK HANDLER
 # -------------------------------
 func on_slot_clicked(slot_index: int) -> void:
-	print("📦 Bank slot clicked:", slot_index)
+	#print("📦 Bank slot clicked:", slot_index)
 	if _busy:
-		print("⚙️ Busy, ignoring click")
+		#print("⚙️ Busy, ignoring click")
 		return
 	_busy = true
 
@@ -199,7 +199,7 @@ func deposit_from_inventory(inv_slot_index: int, quantity: int = 1) -> bool:
 # -------------------------------
 func set_placeholders_enabled(state: bool) -> void:
 	placeholders_enabled = state
-	print("🏦 Placeholders enabled:", placeholders_enabled)
+	#print("🏦 Placeholders enabled:", placeholders_enabled)
 
 
 # -------------------------------

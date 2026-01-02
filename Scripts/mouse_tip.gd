@@ -1,5 +1,7 @@
 extends Label
 
+var blockers: Array = ["MiningZoneUI", "BankUI", "FurnanceUI"]
+
 func _ready():
 	# Hide it by default
 	hide()
@@ -14,6 +16,8 @@ func _process(_delta):
 
 # Call this to show the tooltip
 func display(text_to_show: String):
+	for ui in blockers:
+		if get_tree().root.find_child(ui, true, false): return
 	text = text_to_show
 	show()
 

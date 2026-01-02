@@ -3,28 +3,55 @@ extends Area3D
 @export var monster_scene: PackedScene
 @export var spawn_markers_container: Node3D
 
+var tier = 0
 var zone_active = false
-var spawned_monsters = [] # We keep track of them so we can delete them all later
+var spawned_monsters = [] 
+var current_rock = null 
 
+# --- ROCK VISUAL CONFIGURATION ---
+var tier_data = {
+	# Tier 0: Ossified Stone (Bone)
+	0: { "color": Color("e8dec5"), "met": 0.0, "rgh": 0.8, "emit": 0.0, "loot": "gravewoodsword" },
+	# Tier 1: Sanguinite (Blood)
+	1: { "color": Color("8a0303"), "met": 0.5, "rgh": 0.1, "emit": 0.2, "loot": "gravewoodsword" },
+	# Tier 2: Cold Iron (Witch Metal)
+	2: { "color": Color("4a5c52"), "met": 1.0, "rgh": 0.8, "emit": 0.0, "loot": "gravewoodsword" },
+	# Tier 3: Necrotite (Undead)
+	3: { "color": Color("00ff33"), "met": 1.0, "rgh": 0.2, "emit": 2.0, "loot": "gravewoodsword" },
+	# Tier 4: Obsidian (Void)
+	4: { "color": Color("1a052b"), "met": 1.0, "rgh": 0.0, "emit": 0.0, "loot": "gravewoodsword" }
+}
+
+func _ready():
+	var barrier = get_parent().find_child("BarrierBody", true, false)
+
+	if barrier:
+		print("✅ Found Barrier: ", barrier)
+		barrier.spawn_tier.connect(set_tier)
+	else:
+		print("❌ Could not find BarrierBody")
+	
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("local_player") or body.is_in_group("player"):
 		if "in_mine_zone" in body:
 			body.in_mine_zone = true
 			
 		if not zone_active:
-			spawn_wave()
+			spawn_wave(tier)
 			zone_active = true
 
 func _on_body_exited(body: Node3D) -> void:
 	if body.is_in_group("local_player") or body.is_in_group("player"):
 		if "in_mine_zone" in body:
 			body.in_mine_zone = false
+			clear_room()
 
-func spawn_wave():
+func spawn_wave(_tier):
+	print("spawning wave for tier : ", _tier)
 	if not monster_scene or not spawn_markers_container:
 		return
 		
-	spawned_monsters.clear() # Reset list
+	spawned_monsters.clear()
 	
 	for marker in spawn_markers_container.get_children():
 		if marker is Marker3D or marker is Node3D:
@@ -44,23 +71,129 @@ func spawn_wave():
 				
 			spawned_monsters.append(mob)
 
-func _on_monster_died(mob_who_died):
-	# --- THE ROLL ---
+func _on_monster_died(_mob_who_died):
 	var roll = randf()
-	var chance = 0.1
+	var chance = 1.0 # Guaranteed drop for testing
 	
 	if roll <= chance:
 		print("🎉 SUCCESSFUL ROLL! Clearing Room!")
-		clear_room()
+		var max_tier = ProfileManager.current_profile["unlocks"]["mining_zone_tier"]
+		if max_tier == tier:
+			ProfileManager.current_profile["unlocks"]["mining_zone_tier"] = tier + 1
+			print("unlocked tier : ", tier + 1)
+			ProfileManager.save_profile()
+		
+		clear_room_monsters_only() 
+		spawn_rock(tier)
 	else:
 		print("❌ Roll Failed. Continuing fight...")
 
 func clear_room():
-	print("🧹 Cleaning up ", spawned_monsters.size(), " monsters.")
+	print("🧹 Cleaning up Room (Monsters + Rock)")
 	
 	for mob in spawned_monsters:
 		if is_instance_valid(mob):
 			mob.queue_free()
-	
 	spawned_monsters.clear()
+	
+	if is_instance_valid(current_rock):
+		current_rock.queue_free()
+		current_rock = null
+		
 	zone_active = false
+
+func clear_room_monsters_only():
+	for mob in spawned_monsters:
+		if is_instance_valid(mob):
+			mob.queue_free()
+	spawned_monsters.clear()
+
+func set_tier(index) -> void:
+	print("manager got the signal and the tier is : ", index)
+	tier = index
+
+# --- VISUALS HELPER ---
+func configure_rock_visuals(rock_instance, tier_index):
+	var data = tier_data.get(tier_index, tier_data[0])
+	
+	var mesh_node = rock_instance.get_node_or_null("Mesh_0")
+	
+	if mesh_node:
+		var new_mat = mesh_node.get_active_material(0).duplicate()
+		new_mat.set_shader_parameter("ore_color", data["color"])
+		new_mat.set_shader_parameter("ore_metallic", data["met"])
+		new_mat.set_shader_parameter("ore_roughness", data["rgh"])
+		new_mat.set_shader_parameter("ore_emission_strength", data["emit"])
+		mesh_node.set_surface_override_material(0, new_mat)
+		print("💎 Applied Visuals for Tier: ", tier_index)
+	else:
+		print("❌ Error: Could not find Mesh_0 in rock scene")
+
+# --- ROCK SPAWNING ---
+func spawn_rock(index) -> void:
+	var rock_spawn = get_parent().find_child("RockSpawn", true, false)
+	var rock_scene = preload("res://Assests/Mining_Zone/ore_rock.tscn")
+	var rock = rock_scene.instantiate()
+	
+	# 1. Add to Scene
+	rock_spawn.get_parent().add_child(rock)
+	current_rock = rock
+	
+	# --- FIX IS HERE ---
+	# We get the data for this tier
+	var data = tier_data.get(index, tier_data[0])
+	
+	# Try to find the interactive node (OreRock) and set the 'gather_id'
+	var interactive_node = rock.get_node_or_null("Mesh_0/OreRock")
+	if interactive_node:
+		# Correct Syntax: directly assign the variable
+		interactive_node.gather_id = data["loot"] 
+		print("💰 Loot Set To: ", data["loot"])
+	else:
+		print("❌ Could not find node 'OreRock' to set loot!")
+	
+	# 2. Apply Visuals
+	configure_rock_visuals(rock, index)
+	
+	# 3. Calculate Height (AABB Logic)
+	var final_y = rock_spawn.global_position.y
+	var mesh = rock.get_node_or_null("Mesh_0")
+	if mesh:
+		var aabb = mesh.get_aabb()
+		var offset_from_floor = -aabb.position.y * mesh.scale.y
+		final_y += offset_from_floor
+	
+	# 4. Set Start Position (Underground)
+	var start_pos = rock_spawn.global_position
+	start_pos.y = final_y - 4.0 
+	rock.global_position = start_pos
+	
+	# 5. Player Safety Push
+	var player = get_tree().get_first_node_in_group("local_player")
+	if not player:
+		player = get_tree().get_first_node_in_group("player")
+		
+	if player:
+		var dist = player.global_position.distance_to(rock_spawn.global_position)
+		var safe_radius = 3.0 
+		
+		if dist < safe_radius:
+			print("⚠️ Player too close! Pushing away...")
+			var push_dir = (player.global_position - rock_spawn.global_position).normalized()
+			push_dir.y = 0
+			push_dir = push_dir.normalized()
+			if push_dir == Vector3.ZERO:
+				push_dir = Vector3.BACK 
+			var target_pos = rock_spawn.global_position + (push_dir * safe_radius)
+			target_pos.y = player.global_position.y 
+			
+			var p_tween = create_tween()
+			p_tween.set_trans(Tween.TRANS_CUBIC)
+			p_tween.set_ease(Tween.EASE_OUT)
+			p_tween.tween_property(player, "global_position", target_pos, 0.8)
+
+	# 6. Tween the Rock Up
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_QUINT)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(rock, "global_position:y", final_y, 1.5)

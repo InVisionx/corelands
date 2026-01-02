@@ -2,6 +2,8 @@ extends CharacterBody3D
 
 signal stop_interactions
 
+var ui_check: Array = ["MiningZoneUI", "BankUI", "FurnanceUI"]
+
 @export var username: String = ""
 @export var move_speed: float = 4.0
 @export var rotation_speed: float = 10.0      # Controls turning smoothness
@@ -22,7 +24,7 @@ func _ready():
 		add_to_group("player")
 		set_process_input(false)
 
-	print("Spawned player:", username)
+	#print("Spawned player:", username)
 
 	InventoryManager.set_player(self)
 	EquipmentManager.set_player(self)
@@ -59,6 +61,9 @@ func find_clickable(node):
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		for ui in ui_check:
+			var check = $UI_Layer.get_node_or_null(ui)
+			if check: check.queue_free()
 		# Click effect
 		var click_2d_effect = preload("res://Scenes/click_effect.tscn")
 		var fx2d = click_2d_effect.instantiate()
@@ -79,7 +84,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var result = get_world_3d().direct_space_state.intersect_ray(query)
 		if result.is_empty():
 			return
-		print("Ray hit: ", result.collider.name, " at ", result.position) # <--- ADD THIS
+		#print("Ray hit: ", result.collider.name, " at ", result.position) # <--- ADD THIS
 
 		var collider = result["collider"]
 		var clickable = find_clickable(collider)
@@ -165,7 +170,7 @@ func is_attack_anim_playing() -> bool:
 	return anim_player.current_animation.contains("Attack") \
 		and anim_player.is_playing()
 
-func take_damage(dmg, npc):
+func take_damage(_dmg, npc):
 	if CombatManager.target == null:
 		CombatManager.start_attack(self, npc)
 

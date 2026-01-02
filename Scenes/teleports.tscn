@@ -1,17 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://vctkds25cnty"]
+[gd_scene load_steps=7 format=3 uid="uid://vctkds25cnty"]
 
 [ext_resource type="Script" uid="uid://kyj5kk2tgnus" path="res://Scripts/teleports.gd" id="1_6tg1o"]
 [ext_resource type="Texture2D" uid="uid://rxjje8ta60e6" path="res://Materials/UI/home_icon.png" id="1_kfor5"]
+[ext_resource type="StyleBox" uid="uid://bo32xq4cdcmx1" path="res://Materials/UI/panel_ui_bg.tres" id="2_hhux2"]
 [ext_resource type="Texture2D" uid="uid://mxwh6585drh7" path="res://Materials/UI/mining_zone_icon.png" id="3_7rr2m"]
 [ext_resource type="Texture2D" uid="uid://b0vch6edqhxfo" path="res://Materials/UI/tree_zone_icon.png" id="4_hhux2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfor5"]
-bg_color = Color(0.18431373, 0.19607843, 0.21960784, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.16470589, 0.17254902, 0.1882353, 1)
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7rr2m"]
+thickness = 2
 
 [node name="Teleports" type="Control"]
 layout_mode = 3
@@ -26,18 +22,30 @@ script = ExtResource("1_6tg1o")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_kfor5")
+theme_override_styles/panel = ExtResource("2_hhux2")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Teleports"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_7rr2m")
+
 [node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer"]
+texture_filter = 3
 layout_mode = 2
 size_flags_vertical = 8
 columns = 4
 
 [node name="HomeTeleport" type="TextureButton" parent="PanelContainer/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(40, 45)
+modulate = Color(1.1638972, 1.1638972, 1.1638972, 1)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 tooltip_text = "Teleport to Hub"
 texture_normal = ExtResource("1_kfor5")
@@ -45,13 +53,17 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="MiningTeleport" type="TextureButton" parent="PanelContainer/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(40, 45)
+modulate = Color(1.1638972, 1.1638972, 1.1638972, 1)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+tooltip_text = "Teleport to mining area"
 texture_normal = ExtResource("3_7rr2m")
+ignore_texture_size = true
 stretch_mode = 5
 
 [node name="TreeTeleport" type="TextureButton" parent="PanelContainer/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(40, 45)
+modulate = Color(1.1638972, 1.1638972, 1.1638972, 1)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 tooltip_text = "Teleport to tree area"
 texture_normal = ExtResource("4_hhux2")

@@ -84,7 +84,6 @@ func _equip_armor(item: ArmorItem, _slot_key: String) -> void:
 # EQUIP PREFAB (WEAPONS / CAPES / AMULETS)
 # -------------------------------------------------
 func _equip_prefab(item: ItemData, slot_key: String) -> void:
-	print("in equip prefab")
 	if not item.prefab:
 		return
 
@@ -127,14 +126,12 @@ func equip_item(item_id: String, from_inventory_slot: int = -1) -> bool:
 	
 	# --- CASE A: Equipping a 2H Weapon ---
 	if slot_key == "weapon" and is_two_handed:
-		print("Attempting 2H Equip...")
-		
 		# CHECK: Is offhand actually occupied?
 		var current_offhand = _get_equipped("offhand")
 		if current_offhand != "":
 			# Only try to unequip if something is there
 			if not unequip_slot("offhand"):
-				print("Cannot unequip offhand (Inventory full?)")
+				#print("Cannot unequip offhand (Inventory full?)")
 				return false
 		
 		if anim_player:

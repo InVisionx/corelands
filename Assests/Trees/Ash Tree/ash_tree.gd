@@ -9,7 +9,8 @@ func _ready() -> void:
 	add_to_group(interaction_type)
 	
 func on_gather(_player):
-	print("in tick")
+	pass
+	#print("in tick")
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

@@ -26,7 +26,7 @@ func _ready():
 	health_bar.value = max_hp
 	health_bar.visible = false
 
-	print("NPC HP set to:", hp)
+	#print("NPC HP set to:", hp)
 
 
 func take_damage(amount, attacker=null):
@@ -35,7 +35,7 @@ func take_damage(amount, attacker=null):
 
 	hp -= amount
 	health_bar.value = hp
-	print("NPC HP:", hp)
+	#print("NPC HP:", hp)
 
 	if attacker != null:
 		emit_signal("damaged_by", attacker)
@@ -57,7 +57,7 @@ func die():
 	set_physics_process(false)
 
 	anim.play("Die")
-	print("waiting for death animation to finish")
+	#print("waiting for death animation to finish")
 	await anim.animation_finished
 	
 	emit_signal("died_event", self)
@@ -99,4 +99,4 @@ func respawn():
 	combat.reset_state()
 	set_physics_process(true)
 
-	print("NPC respawned with HP:", hp)
+	#print("NPC respawned with HP:", hp)

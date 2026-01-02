@@ -1,22 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://cxhpsckqfm3n3"]
 
 [ext_resource type="Script" uid="uid://b7j6r811lvvjr" path="res://Scripts/bank_ui.gd" id="1_s73o3"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s73o3"]
-bg_color = Color(0.18431373, 0.19607843, 0.21960784, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.16470589, 0.17254902, 0.1882353, 1)
+[ext_resource type="StyleBox" uid="uid://bo32xq4cdcmx1" path="res://Materials/UI/panel_ui_bg.tres" id="2_2l043"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s73o3"]
 
 [node name="BankUI" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_s73o3")
@@ -34,7 +29,7 @@ offset_right = 250.0
 offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_s73o3")
+theme_override_styles/panel = ExtResource("2_2l043")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2

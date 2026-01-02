@@ -1,0 +1,24 @@
+extends Clickable
+
+@export var gather_id: String = "ashlog"
+@export var gather_interval: float = 1.8
+@export var success_chance: float = 1.0
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	add_to_group(interaction_type)
+	
+func on_gather(_player):
+	print("in tick")
+	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+
+
+func _on_mouse_entered() -> void:
+	MouseTip.get_node("Label").display(interact_text)
+
+
+func _on_mouse_exited() -> void:
+	MouseTip.get_node("Label").stop_display()

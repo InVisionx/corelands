@@ -119,7 +119,7 @@ func drop_item(slot_index: int) -> void:
 	if not item_def:
 		return
 
-	print("Dropped:", item_def.display_name)
+	#print("Dropped:", item_def.display_name)
 
 	# =====================================================
 	# 1. SPAWN DROP SCENE (FROZEN)
