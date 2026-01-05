@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://cnji6wyk2hrw7"]
+
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_cgwou"]
+[ext_resource type="Texture2D" uid="uid://ddk8yhe5q7uls" path="res://icons/icon_viridium_scim.png" id="1_rv0rh"]
+[ext_resource type="PackedScene" uid="uid://clvyebuq0qauu" path="res://Items/Combat/Weapons/Viridium/Scim/viridium_scim.tscn" id="2_rl7gw"]
+
+[resource]
+script = ExtResource("1_cgwou")
+base_damage = 10.0
+accuracy = 10.0
+strength = 10.0
+speed = 1.8
+id = "viridiumscimitar"
+display_name = "Viridium Scimitar"
+icon = ExtResource("1_rv0rh")
+prefab = ExtResource("2_rl7gw")
+item_type = 1
+equip_slot = "weapon"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

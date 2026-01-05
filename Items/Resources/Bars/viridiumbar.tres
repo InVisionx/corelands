@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://cuc7rgmjd3mo4"]
+
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="1_7awrq"]
+[ext_resource type="Texture2D" uid="uid://c88b77wfa1ydq" path="res://icons/icon_ViridiumBar.png" id="1_abj38"]
+[ext_resource type="PackedScene" uid="uid://b2hkm5wnw188l" path="res://Items/Resources/Bars/bar_scenes/viridium_bar.tscn" id="2_jhcso"]
+
+[resource]
+script = ExtResource("1_7awrq")
+id = "viridiumbar"
+display_name = "Viridium Bar"
+icon = ExtResource("1_abj38")
+prefab = ExtResource("2_jhcso")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

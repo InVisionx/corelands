@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://js8qfc5bxtgq"]
+
+[ext_resource type="Texture2D" uid="uid://rtel3053sokj" path="res://icons/icon_IgneousBar.png" id="1_5essj"]
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="1_jw3nt"]
+[ext_resource type="PackedScene" uid="uid://bpad5x34cr521" path="res://Items/Resources/Bars/bar_scenes/igneous_bar.tscn" id="2_j6fo0"]
+
+[resource]
+script = ExtResource("1_jw3nt")
+id = "igneousbar"
+display_name = "Igneous Bar"
+icon = ExtResource("1_5essj")
+prefab = ExtResource("2_j6fo0")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

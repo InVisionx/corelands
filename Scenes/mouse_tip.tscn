@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bund1i6elwkkc"]
+[gd_scene load_steps=3 format=3 uid="uid://bund1i6elwkkc"]
 
+[ext_resource type="FontFile" uid="uid://c03x4syilxgyu" path="res://Assests/Fonts/diagoth.ttf" id="1_4a1u6"]
 [ext_resource type="Script" uid="uid://sp4x34arf822" path="res://Scripts/mouse_tip.gd" id="1_e7hgl"]
 
 [node name="MouseTip" type="CanvasLayer"]
@@ -8,11 +9,12 @@
 offset_top = 11.0
 offset_right = 40.0
 offset_bottom = 28.0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = -3
 theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("1_4a1u6")
+theme_override_font_sizes/font_size = 24
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("1_e7hgl")

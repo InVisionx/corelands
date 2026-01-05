@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://byxfbn80b4os2"]
+
+[ext_resource type="Texture2D" uid="uid://bv1jlumluc21x" path="res://icons/icon_PyriumOre.png" id="1_cda2q"]
+[ext_resource type="PackedScene" uid="uid://b6vctas6j8p42" path="res://Items/Resources/Ores/ore_scenes/pyrium_ore.tscn" id="2_h0rdj"]
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="3_cpglv"]
+
+[resource]
+script = ExtResource("3_cpglv")
+id = "pyriumore"
+display_name = "Pyrium Ore"
+icon = ExtResource("1_cda2q")
+prefab = ExtResource("2_h0rdj")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

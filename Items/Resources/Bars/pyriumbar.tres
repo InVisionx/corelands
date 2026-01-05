@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://1fgpdju3fr2p"]
+
+[ext_resource type="Texture2D" uid="uid://cukno3s2jotaw" path="res://icons/icon_PyriumBar.png" id="1_dl0ij"]
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="1_tr0ul"]
+[ext_resource type="PackedScene" uid="uid://lxkfyma5dfpq" path="res://Items/Resources/Bars/bar_scenes/pyrium_bar.tscn" id="2_eyk1w"]
+
+[resource]
+script = ExtResource("1_tr0ul")
+id = "pyriumbar"
+display_name = "Pyrium Bar"
+icon = ExtResource("1_dl0ij")
+prefab = ExtResource("2_eyk1w")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

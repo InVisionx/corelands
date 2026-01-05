@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://m7hhcs6xvejj"]
+
+[ext_resource type="Texture2D" uid="uid://dkpg1ah6cni54" path="res://icons/icon_SteelBar.png" id="1_4wuqv"]
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="1_ytxli"]
+[ext_resource type="PackedScene" uid="uid://datp08xd7e4fy" path="res://Items/Resources/Bars/bar_scenes/steel_bar.tscn" id="2_lbebc"]
+
+[resource]
+script = ExtResource("1_ytxli")
+id = "steelbar"
+display_name = "Steel Bar"
+icon = ExtResource("1_4wuqv")
+prefab = ExtResource("2_lbebc")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

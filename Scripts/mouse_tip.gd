@@ -10,9 +10,10 @@ func _ready():
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func _process(_delta):
-	if visible:
-		var mouse_pos = get_viewport().get_mouse_position()
-		global_position = mouse_pos - size - Vector2(1, 1)
+	pass
+	#if visible:
+		#var mouse_pos = get_viewport().get_mouse_position()
+		#global_position = mouse_pos - size - Vector2(1, 1)
 
 # Call this to show the tooltip
 func display(text_to_show: String):

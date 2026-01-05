@@ -15,7 +15,7 @@ var recipes = {
 	"smelt_tier2bar": {
 		"name": "tier2 baaaaaaaaaaaaaaaaaaaaaaaaaaaaaar",
 		"station": "furnace",
-		"inputs": {"tier2ore": 1},
+		"inputs": {"tier2ore": 1, "tier3ore": 2},
 		"output": "tier2bar",
 		"amount": 1,
 		"time": 1

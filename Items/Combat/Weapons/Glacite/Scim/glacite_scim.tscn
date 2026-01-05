@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0c7ngkmqtc6h"]
+
+[ext_resource type="PackedScene" uid="uid://chtiskb1u2b4g" path="res://Items/Combat/Weapons/Glacite/Scim/glacite_scim.glb" id="1_k0sut"]
+[ext_resource type="Texture2D" uid="uid://5e7tvy1cpc48" path="res://Items/Combat/Weapons/Glacite/Scim/glacite_scim_Image_0.jpg" id="2_2dbrp"]
+[ext_resource type="Texture2D" uid="uid://8gt7hq08svua" path="res://Items/Combat/Weapons/Glacite/Scim/glacite_scim_Image_1.jpg" id="3_hw0kc"]
+[ext_resource type="Texture2D" uid="uid://dkocwe3h1vwhc" path="res://Items/Combat/Weapons/Glacite/Scim/glacite_scim_Image_2.jpg" id="4_d6frc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hivrp"]
+albedo_texture = ExtResource("2_2dbrp")
+metallic = 0.7
+metallic_specular = 0.0
+metallic_texture = ExtResource("3_hw0kc")
+roughness_texture = ExtResource("3_hw0kc")
+normal_enabled = true
+normal_texture = ExtResource("4_d6frc")
+
+[node name="glacite_scim" instance=ExtResource("1_k0sut")]
+
+[node name="glacite_scim_mesh" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_hivrp")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(0.008304156, 0.47185716, 0.16517213, -0.48089755, -0.03760893, 0.1316172, 0.13663293, -0.1610477, 0.45320532, 0.022250667, 0.1166535, 0.0849075)

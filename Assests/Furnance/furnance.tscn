@@ -21,13 +21,13 @@ points = PackedVector3Array(-0.007125914, -0.7325882, 0.791292, 0.013405681, -0.
 [sub_resource type="QuadMesh" id="QuadMesh_ery2i"]
 size = Vector2(0.7, 0.7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_60brl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g8luk"]
 render_priority = 0
 shader = ExtResource("8_t73sb")
-shader_parameter/base_color = Color(1, 0.40018785, 0.09985284, 1)
-shader_parameter/pulse_speed = 2.0
-shader_parameter/intensity_min = 1.50000007125
-shader_parameter/intensity_max = 2.000000095
+shader_parameter/base_color = Color(1, 0.4, 0.1, 1)
+shader_parameter/pulse_speed = 1.5760000716001201
+shader_parameter/intensity_min = 2.0
+shader_parameter/intensity_max = 4.00000019
 
 [node name="furnance" instance=ExtResource("1_hixof")]
 
@@ -36,15 +36,16 @@ surface_material_override/0 = SubResource("StandardMaterial3D_xvtiw")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Mesh" index="0"]
 script = ExtResource("5_g8luk")
+interact_range = 3.0
 interact_text = "Use furnance"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D" index="0"]
 shape = SubResource("ConvexPolygonShape3D_xw80w")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0024057627, -0.3576142, 0.16360915)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0024057627, -0.3576142, 0.10920429)
 mesh = SubResource("QuadMesh_ery2i")
-surface_material_override/0 = SubResource("ShaderMaterial_60brl")
+surface_material_override/0 = SubResource("ShaderMaterial_g8luk")
 
 [connection signal="mouse_entered" from="Mesh/StaticBody3D" to="Mesh/StaticBody3D" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Mesh/StaticBody3D" to="Mesh/StaticBody3D" method="_on_mouse_exited"]

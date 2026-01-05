@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://ckv8fq7nxdtg"]
+
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="1_hydqp"]
+[ext_resource type="Texture2D" uid="uid://cpx4voxhjihuv" path="res://icons/icon_GlaciteBar.png" id="1_jbqts"]
+[ext_resource type="PackedScene" uid="uid://ddlpj1hhhfvmb" path="res://Items/Resources/Bars/bar_scenes/glacite_bar.tscn" id="2_57spo"]
+
+[resource]
+script = ExtResource("1_hydqp")
+id = "glacitebar"
+display_name = "Glacite Bar"
+icon = ExtResource("1_jbqts")
+prefab = ExtResource("2_57spo")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

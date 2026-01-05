@@ -10,12 +10,12 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_olt4u"]
 render_priority = 0
 shader = ExtResource("2_g844v")
-shader_parameter/base_color_tint = Color(0.34781694, 0.34781697, 0.3478169, 1)
+shader_parameter/base_color_tint = Color(0.1882353, 0.1882353, 0.1882353, 1)
 shader_parameter/base_texture = ExtResource("3_5s7ql")
 shader_parameter/base_normal_texture = ExtResource("3_u6qeb")
 shader_parameter/base_normal_strength = 2.0
 shader_parameter/base_roughness_texture = ExtResource("4_olt4u")
-shader_parameter/rock_roughness = 0.9
+shader_parameter/rock_roughness = 0.50000002375
 shader_parameter/rock_metallic = 0.0
 shader_parameter/ore_color = Color(1, 1, 1, 1)
 shader_parameter/ore_roughness = 1.0

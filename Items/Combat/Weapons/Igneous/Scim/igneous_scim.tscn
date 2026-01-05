@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://dl52s4ambiqsc"]
+
+[ext_resource type="PackedScene" uid="uid://bmhnlfbut4gef" path="res://Items/Combat/Weapons/Igneous/Scim/igneous_scim.glb" id="1_hxkdm"]
+[ext_resource type="Texture2D" uid="uid://bkt0csth10enp" path="res://Items/Combat/Weapons/Igneous/Scim/igneous_scim_Image_0.jpg" id="2_7drpm"]
+[ext_resource type="Texture2D" uid="uid://dgy7qf4k6hdxr" path="res://Items/Combat/Weapons/Igneous/Scim/igneous_scim_Image_1.jpg" id="3_0pu7l"]
+[ext_resource type="Texture2D" uid="uid://cys0h1bmyc7b8" path="res://Items/Combat/Weapons/Igneous/Scim/igneous_scim_Image_2.jpg" id="4_vu2cq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_88ft0"]
+albedo_texture = ExtResource("2_7drpm")
+metallic = 0.7
+metallic_specular = 0.0
+metallic_texture = ExtResource("3_0pu7l")
+roughness_texture = ExtResource("3_0pu7l")
+normal_enabled = true
+normal_texture = ExtResource("4_vu2cq")
+
+[node name="igneous_scim" instance=ExtResource("1_hxkdm")]
+
+[node name="igneous_scim_mesh" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_88ft0")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(0.008304156, 0.47185716, 0.16517213, -0.48089755, -0.03760893, 0.1316172, 0.13663293, -0.1610477, 0.45320532, 0.022250667, 0.1166535, 0.0849075)

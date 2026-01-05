@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://cb6l6mcijv7sv"]
+
+[ext_resource type="Texture2D" uid="uid://cnhwfbjhc8qpu" path="res://icons/icon_UmbriteOre.png" id="1_8qjtb"]
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="1_250bd"]
+[ext_resource type="PackedScene" uid="uid://b8b3kvibr4jpq" path="res://Items/Resources/Ores/ore_scenes/umbrite_ore.tscn" id="2_khfiq"]
+
+[resource]
+script = ExtResource("1_250bd")
+id = "umbriteore"
+display_name = "Umbrite Ore"
+icon = ExtResource("1_8qjtb")
+prefab = ExtResource("2_khfiq")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

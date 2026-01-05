@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddlpj1hhhfvmb"]
+
+[ext_resource type="PackedScene" uid="uid://c5xiugaeik8ug" path="res://Items/Resources/Bars/bar_scenes/bar.glb" id="1_7e00e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4lliw"]
+albedo_color = Color(0.29411766, 0.48235294, 0.54901963, 1)
+metallic = 1.0
+
+[node name="GlaciteBar" instance=ExtResource("1_7e00e")]
+
+[node name="Bar" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_4lliw")

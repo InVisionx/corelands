@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://crmtlhojgu6dt"]
+
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="1_4lc1o"]
+[ext_resource type="Texture2D" uid="uid://bnuuwconkdas" path="res://icons/icon_GlaciteOre.png" id="1_m3mpb"]
+[ext_resource type="PackedScene" uid="uid://b6uscvfv1lhle" path="res://Items/Resources/Ores/ore_scenes/glacite_ore.tscn" id="2_dl7h3"]
+
+[resource]
+script = ExtResource("1_4lc1o")
+id = "glaciteore"
+display_name = "Glacite Ore"
+icon = ExtResource("1_m3mpb")
+prefab = ExtResource("2_dl7h3")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

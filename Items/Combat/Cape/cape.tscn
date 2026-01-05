@@ -20,7 +20,7 @@ shader_parameter/wave_frequency = 5.0000002375
 shader_parameter/wind_direction = Vector2(1.5, 1)
 shader_parameter/use_vertex_color_mask = true
 
-[node name="Untitled" instance=ExtResource("1_lcdsh")]
+[node name="Cape" instance=ExtResource("1_lcdsh")]
 
 [node name="Mesh0" parent="." index="0"]
 surface_material_override/0 = SubResource("ShaderMaterial_p8j4q")

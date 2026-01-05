@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://clvyebuq0qauu"]
+
+[ext_resource type="PackedScene" uid="uid://1nlxwkumplif" path="res://Items/Combat/Weapons/Viridium/Scim/viridium_scim.glb" id="1_otujv"]
+[ext_resource type="Texture2D" uid="uid://bagoq2be1lcsf" path="res://Items/Combat/Weapons/Viridium/Scim/viridium_scim_Image_0.jpg" id="2_qtik5"]
+[ext_resource type="Texture2D" uid="uid://bq3eepmeolqfa" path="res://Items/Combat/Weapons/Viridium/Scim/viridium_scim_Image_1.jpg" id="3_h2in3"]
+[ext_resource type="Texture2D" uid="uid://cowh5diaud6fd" path="res://Items/Combat/Weapons/Viridium/Scim/viridium_scim_Image_2.jpg" id="4_xxilo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uu287"]
+albedo_texture = ExtResource("2_qtik5")
+metallic = 0.7
+metallic_specular = 0.0
+metallic_texture = ExtResource("3_h2in3")
+roughness_texture = ExtResource("3_h2in3")
+normal_enabled = true
+normal_texture = ExtResource("4_xxilo")
+
+[node name="viridium_scim" instance=ExtResource("1_otujv")]
+
+[node name="viridium_scim_mesh" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_uu287")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(0.008304156, 0.47185716, 0.16517213, -0.48089755, -0.03760893, 0.1316172, 0.13663293, -0.1610477, 0.45320532, 0.022250667, 0.1166535, 0.0849075)

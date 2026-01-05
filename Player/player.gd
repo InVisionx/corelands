@@ -152,20 +152,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	CombatManager.process(delta)
-
-# ----------------------------------
-# Combat / Teleport
-# ----------------------------------
+	
 func start_attack():
 	anim_player.is_attacking = true
-
-func start_teleport():
-	anim_player.is_teleporting = true
-	$PlayerModel/Skeleton3D/WeaponAttach.visible = false
-
-	var teleport_vfx = preload("res://Shaders/VFX/teleport_vfx.tscn").instantiate()
-	add_child(teleport_vfx)
-
+	
 func is_attack_anim_playing() -> bool:
 	return anim_player.current_animation.contains("Attack") \
 		and anim_player.is_playing()
@@ -173,9 +163,3 @@ func is_attack_anim_playing() -> bool:
 func take_damage(_dmg, npc):
 	if CombatManager.target == null:
 		CombatManager.start_attack(self, npc)
-
-func _on_button_3_pressed() -> void:
-	anim_player.is_mining = true
-
-func _on_button_4_pressed() -> void:
-	anim_player.is_chopping = true

@@ -10,16 +10,54 @@ var current_rock = null
 
 # --- ROCK VISUAL CONFIGURATION ---
 var tier_data = {
-	# Tier 0: Ossified Stone (Bone)
-	0: { "color": Color("e8dec5"), "met": 0.0, "rgh": 0.8, "emit": 0.0, "loot": "gravewoodsword" },
-	# Tier 1: Sanguinite (Blood)
-	1: { "color": Color("8a0303"), "met": 0.5, "rgh": 0.1, "emit": 0.2, "loot": "gravewoodsword" },
-	# Tier 2: Cold Iron (Witch Metal)
-	2: { "color": Color("4a5c52"), "met": 1.0, "rgh": 0.8, "emit": 0.0, "loot": "gravewoodsword" },
-	# Tier 3: Necrotite (Undead)
-	3: { "color": Color("00ff33"), "met": 1.0, "rgh": 0.2, "emit": 2.0, "loot": "gravewoodsword" },
-	# Tier 4: Obsidian (Void)
-	4: { "color": Color("1a052b"), "met": 1.0, "rgh": 0.0, "emit": 0.0, "loot": "gravewoodsword" }
+	# --- TIER 0: GREY (Standard) ---
+	0: { 
+		"color": Color("7a8a99"), # Blue-Grey Steel
+		"met": 1.0, "rgh": 0.6, "emit": 0.0, 
+		"loot": "steelore" 
+	},
+
+	# --- TIER 1: GREEN (Uncommon) ---
+	1: { 
+		"color": Color("586358"), # Murky Moss Green
+		"met": 0.6, "rgh": 0.8, "emit": 0.0, 
+		"loot": "viridiumore" 
+	},
+
+	# --- TIER 2: BLUE (Rare) ---
+	2: { 
+		"color": Color("4b7b8c"), # Icy Blue
+		"met": 0.9, "rgh": 0.3, "emit": 0.5, 
+		"loot": "glaciteore" 
+	},
+
+	# --- TIER 3: RED (Epic) ---
+	3: { 
+		"color": Color("8c2d2d"), # Deep Blood Red
+		"met": 0.8, "rgh": 0.5, "emit": 1.0, 
+		"loot": "pyriumore" 
+	},
+
+	# --- TIER 4: ORANGE (Legendary) ---
+	4: { 
+		"color": Color("CC5500"), # Burnt Orange (Updated)
+		"met": 1.0, "rgh": 0.2, "emit": 1.5, # Reduced to 1.5
+		"loot": "igneousore" 
+	},
+
+	# --- TIER 5: PURPLE (Mythic) ---
+	5: { 
+		"color": Color("5d3a66"), # Deep Void Purple
+		"met": 0.7, "rgh": 0.4, "emit": 1.5, # Reduced to 1.5
+		"loot": "umbriteore" 
+	},
+
+	# --- TIER 6: WHITE (Godly) ---
+	6: { 
+		"color": Color("dcdcdc"), # Pure White/Silver
+		"met": 1.0, "rgh": 0.1, "emit": 8.0, 
+		"loot": "astraliteore" 
+	}
 }
 
 func _ready():

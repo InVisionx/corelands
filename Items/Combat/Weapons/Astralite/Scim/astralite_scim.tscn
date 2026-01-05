@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://5882oxe26c3u"]
+
+[ext_resource type="PackedScene" uid="uid://dtad480uovcww" path="res://Items/Combat/Weapons/Astralite/Scim/astralite_scim.glb" id="1_dpqcm"]
+[ext_resource type="Texture2D" uid="uid://be3pj5h0eogf7" path="res://Items/Combat/Weapons/Astralite/Scim/astralite_scim_Image_0.jpg" id="2_wn45y"]
+[ext_resource type="Texture2D" uid="uid://cnboanoxrgiiy" path="res://Items/Combat/Weapons/Astralite/Scim/astralite_scim_Image_1.jpg" id="3_36lb6"]
+[ext_resource type="Texture2D" uid="uid://ccpcikt3lsn0m" path="res://Items/Combat/Weapons/Astralite/Scim/astralite_scim_Image_2.jpg" id="4_f3rtc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d80e4"]
+albedo_texture = ExtResource("2_wn45y")
+metallic = 0.7
+metallic_specular = 0.0
+metallic_texture = ExtResource("3_36lb6")
+roughness_texture = ExtResource("3_36lb6")
+normal_enabled = true
+normal_texture = ExtResource("4_f3rtc")
+
+[node name="astralite_scim" instance=ExtResource("1_dpqcm")]
+
+[node name="astralite_scim_mesh" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_d80e4")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(0.008304156, 0.47185716, 0.16517213, -0.48089755, -0.03760893, 0.1316172, 0.13663293, -0.1610477, 0.45320532, 0.022250667, 0.1166535, 0.0849075)

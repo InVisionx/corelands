@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://dmn4bgijtg2c6"]
+
+[ext_resource type="Texture2D" uid="uid://1kmlcupce1md" path="res://icons/icon_ViridiumOre.png" id="1_8camh"]
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="1_nkr5k"]
+[ext_resource type="PackedScene" uid="uid://10x01lf5ei3x" path="res://Items/Resources/Ores/ore_scenes/viridium_ore.tscn" id="2_fjqbd"]
+
+[resource]
+script = ExtResource("1_nkr5k")
+id = "viridiumore"
+display_name = "Viridium Ore"
+icon = ExtResource("1_8camh")
+prefab = ExtResource("2_fjqbd")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

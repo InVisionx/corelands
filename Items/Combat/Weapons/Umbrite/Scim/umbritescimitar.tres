@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://b1yobr8guvqox"]
+
+[ext_resource type="Texture2D" uid="uid://b1os1d0ibicho" path="res://icons/icon_umbrite_scim.png" id="1_l01fr"]
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_lm5kp"]
+[ext_resource type="PackedScene" uid="uid://v4g7i2urax5p" path="res://Items/Combat/Weapons/Umbrite/Scim/umbrite_scim.tscn" id="2_701cq"]
+
+[resource]
+script = ExtResource("1_lm5kp")
+base_damage = 10.0
+accuracy = 10.0
+strength = 10.0
+speed = 1.8
+id = "umbritescimitar"
+display_name = "Umbrite Scimitar"
+icon = ExtResource("1_l01fr")
+prefab = ExtResource("2_701cq")
+item_type = 1
+equip_slot = "weapon"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

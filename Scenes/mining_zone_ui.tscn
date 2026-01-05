@@ -64,3 +64,27 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_gkqy3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cpg6l")
 text = "tier 4 ore"
 flat = true
+
+[node name="Button5" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gkqy3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cpg6l")
+text = "tier 5 ore"
+flat = true
+
+[node name="Button6" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gkqy3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cpg6l")
+text = "tier 6 ore"
+flat = true
+
+[node name="Button7" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gkqy3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cpg6l")
+text = "tier 7 ore"
+flat = true

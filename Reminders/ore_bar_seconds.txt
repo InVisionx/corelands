@@ -1,0 +1,8 @@
+Tier,Mining Zone Ore,+,Catalyst (Adventure Source),=,Final Bar
+0,Iron Ore,,(None),→,Iron Bar
+1,Iron Ore,+,Coal (Caves / Vendor),→,Grave Steel
+2,Obsidian Shard,+,Volcanic Ash (Fire Imps / Burn Zone),→,Refined Obsidian
+3,Silver Ore,+,Moon Dust (Ghosts / Night Time),→,Witch-Silver
+4,Hellstone,+,Brimstone (Dungeons / Demons),→,Daemonite Ingot
+5,Sanguinite Ore,+,Vial of Blood (Vampires / Wolves),→,Sanguinite Bar
+6,Void Ore,+,Ectoplasm (Rift Bosses),→,Abyssal Bar

@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://v4g7i2urax5p"]
+
+[ext_resource type="PackedScene" uid="uid://22q8opxp8uod" path="res://Items/Combat/Weapons/Umbrite/Scim/umbrite_scim.glb" id="1_uvagv"]
+[ext_resource type="Texture2D" uid="uid://brr3xca7l165h" path="res://Items/Combat/Weapons/Umbrite/Scim/umbrite_scim_Image_0.jpg" id="2_q00i0"]
+[ext_resource type="Texture2D" uid="uid://4erql3fbfwwn" path="res://Items/Combat/Weapons/Umbrite/Scim/umbrite_scim_Image_1.jpg" id="3_qgiam"]
+[ext_resource type="Texture2D" uid="uid://bsrlw5nr7uvyx" path="res://Items/Combat/Weapons/Umbrite/Scim/umbrite_scim_Image_2.jpg" id="4_78yvt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_32dyi"]
+albedo_texture = ExtResource("2_q00i0")
+metallic = 0.7
+metallic_specular = 0.0
+metallic_texture = ExtResource("3_qgiam")
+roughness_texture = ExtResource("3_qgiam")
+normal_enabled = true
+normal_texture = ExtResource("4_78yvt")
+
+[node name="umbrite_scim" instance=ExtResource("1_uvagv")]
+
+[node name="umbrite_scim_mesh" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_32dyi")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(0.008304156, 0.47185716, 0.16517213, -0.48089755, -0.03760893, 0.1316172, 0.13663293, -0.1610477, 0.45320532, 0.022250667, 0.1166535, 0.0849075)

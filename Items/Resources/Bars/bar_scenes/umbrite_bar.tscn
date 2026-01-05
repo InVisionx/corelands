@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8qdnmptkyslj"]
+
+[ext_resource type="PackedScene" uid="uid://c5xiugaeik8ug" path="res://Items/Resources/Bars/bar_scenes/bar.glb" id="1_sny66"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2mqvb"]
+albedo_color = Color(0.3647059, 0.22745098, 0.4, 1)
+metallic = 1.0
+
+[node name="UmbriteBar" instance=ExtResource("1_sny66")]
+
+[node name="Bar" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2mqvb")

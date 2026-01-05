@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://dw5tikyjnsrag"]
+
+[ext_resource type="Texture2D" uid="uid://cejsrb8w082uk" path="res://icons/icon_IgneousOre.png" id="1_kjixq"]
+[ext_resource type="PackedScene" uid="uid://se63hbhgliku" path="res://Items/Resources/Ores/ore_scenes/igneous_ore.tscn" id="2_1t8mi"]
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="3_5w0gq"]
+
+[resource]
+script = ExtResource("3_5w0gq")
+id = "igneousore"
+display_name = "Igneous Ore"
+icon = ExtResource("1_kjixq")
+prefab = ExtResource("2_1t8mi")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

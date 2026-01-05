@@ -3,6 +3,8 @@ extends Clickable
 signal spawn_tier(index)
 
 @onready var ui_scene: PackedScene = preload("res://Scenes/mining_zone_ui.tscn")
+@onready var base_spawn: Marker3D = $"../../BaseSpawn"
+@onready var arena_spawn: Marker3D = $"../../ArenaSpawn"
 
 var body = null
 
@@ -37,13 +39,13 @@ func perform_teleport(index):
 		# ONLY emit this if we are actually starting a round!
 		emit_signal("spawn_tier", index) 
 		
-		target_pos = Vector3(-66.885, 0.52, -6.1)
+		target_pos = arena_spawn.global_position
 	else:
 		# --- LEAVING LOGIC ---
 		print("🏃 Exiting Mine.")
 		# Do NOT emit spawn_tier here.
 		
-		target_pos = Vector3(-66.885, 0.52, -4.0)
+		target_pos = base_spawn.global_position
 	
 	# --- MOVEMENT LOGIC ---
 	

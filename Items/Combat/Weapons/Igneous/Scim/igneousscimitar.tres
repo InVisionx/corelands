@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://cf1sdi5g6rjus"]
+
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_efsax"]
+[ext_resource type="Texture2D" uid="uid://dbfr01vw0od6w" path="res://icons/icon_igneous_scim.png" id="1_inkny"]
+[ext_resource type="PackedScene" uid="uid://dl52s4ambiqsc" path="res://Items/Combat/Weapons/Igneous/Scim/igneous_scim.tscn" id="2_pqmgh"]
+
+[resource]
+script = ExtResource("1_efsax")
+base_damage = 10.0
+accuracy = 10.0
+strength = 10.0
+speed = 1.8
+id = "igneousscimitar"
+display_name = "Igneous Scimitar"
+icon = ExtResource("1_inkny")
+prefab = ExtResource("2_pqmgh")
+item_type = 1
+equip_slot = "weapon"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

@@ -1,110 +1,150 @@
 shader_type spatial;
 render_mode blend_mix, cull_back, diffuse_burley, specular_schlick_ggx;
 
-// ----- Base Layer -----
+// CONTROLS
+uniform float triplanar_blend_sharpness : hint_range(1.0, 20.0) = 4.0;
+uniform float specular_smoothness : hint_range(0.0, 1.0) = 0.0; // Helps remove "sparkles" on rough surfaces
+
+// --- BASE LAYER ---
 group_uniforms BaseLayer;
-uniform sampler2D base_albedo : source_color;
-// NEW! Color tint for the base layer. Defaults to white (no change).
-uniform vec3 base_color_tint : source_color = vec3(1.0, 1.0, 1.0);
-uniform sampler2D base_normal : hint_normal;
-uniform sampler2D base_roughness;
-uniform sampler2D base_metallic;
-uniform vec2  base_scale = vec2(0.5);
-uniform float base_normal_strength   = 1.0;
-uniform float base_roughness_strength = 1.0;
-uniform float base_metallic_strength  = 1.0;
+uniform sampler2D base_albedo : source_color, filter_linear_mipmap_anisotropic;
+uniform sampler2D base_normal : hint_normal, filter_linear_mipmap_anisotropic;
+// G=Roughness, B=Metallic. Defaults to White so sliders work without texture.
+uniform sampler2D base_orm : hint_default_white, filter_linear_mipmap_anisotropic;
+uniform vec3 base_tint : source_color = vec3(1.0);
+uniform float base_roughness : hint_range(0.0, 1.0) = 1.0; // SLIDER ADDED
+uniform float base_metallic : hint_range(0.0, 1.0) = 0.0;  // SLIDER ADDED
+uniform float base_scale = 0.5;
+uniform float base_normal_strength = 1.0;
 
-// ----- Red Layer -----
+// --- RED LAYER ---
 group_uniforms RedLayer;
-uniform sampler2D red_albedo : source_color;
-// NEW! Color tint for the red painted layer.
-uniform vec3 red_color_tint : source_color = vec3(1.0, 1.0, 1.0);
-uniform sampler2D red_normal : hint_normal;
-uniform sampler2D red_roughness;
-uniform sampler2D red_metallic;
-uniform vec2  red_scale = vec2(0.5);
-uniform float red_normal_strength   = 1.0;
-uniform float red_roughness_strength = 1.0;
-uniform float red_metallic_strength  = 1.0;
+uniform sampler2D red_albedo : source_color, filter_linear_mipmap_anisotropic;
+uniform sampler2D red_normal : hint_normal, filter_linear_mipmap_anisotropic;
+uniform sampler2D red_orm : hint_default_white, filter_linear_mipmap_anisotropic;
+uniform vec3 red_tint : source_color = vec3(1.0);
+uniform float red_roughness : hint_range(0.0, 1.0) = 1.0; // SLIDER ADDED
+uniform float red_metallic : hint_range(0.0, 1.0) = 0.0;  // SLIDER ADDED
+uniform float red_scale = 0.5;
+uniform float red_normal_strength = 1.0;
 
-// ----- Blue Layer -----
+// --- BLUE LAYER ---
 group_uniforms BlueLayer;
-uniform sampler2D blue_albedo : source_color;
-// NEW! Color tint for the blue painted layer.
-uniform vec3 blue_color_tint : source_color = vec3(1.0, 1.0, 1.0);
-uniform sampler2D blue_normal : hint_normal;
-uniform sampler2D blue_roughness;
-uniform sampler2D blue_metallic;
-uniform vec2  blue_scale = vec2(0.5);
-uniform float blue_normal_strength   = 1.0;
-uniform float blue_roughness_strength = 1.0;
-uniform float blue_metallic_strength  = 1.0;
+uniform sampler2D blue_albedo : source_color, filter_linear_mipmap_anisotropic;
+uniform sampler2D blue_normal : hint_normal, filter_linear_mipmap_anisotropic;
+uniform sampler2D blue_orm : hint_default_white, filter_linear_mipmap_anisotropic;
+uniform vec3 blue_tint : source_color = vec3(1.0);
+uniform float blue_roughness : hint_range(0.0, 1.0) = 1.0; // SLIDER ADDED
+uniform float blue_metallic : hint_range(0.0, 1.0) = 0.0;  // SLIDER ADDED
+uniform float blue_scale = 0.5;
+uniform float blue_normal_strength = 1.0;
 
-// ----- DATA TO PASS FROM VERTEX TO FRAGMENT -----
 varying vec3 world_pos;
+varying vec3 world_normal;
 
 void vertex() {
-	// Calculate the world position of the vertex
 	world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	world_normal = normalize((MODEL_NORMAL_MATRIX * NORMAL));
+}
+
+vec3 triplanar_weights(vec3 n) {
+	vec3 w = pow(abs(n), vec3(triplanar_blend_sharpness));
+	return w / (w.x + w.y + w.z);
+}
+
+vec3 sample_triplanar_albedo(sampler2D tex, vec3 pos, vec3 w, float scale) {
+	vec3 x = texture(tex, pos.yz * scale).rgb;
+	vec3 y = texture(tex, pos.xz * scale).rgb;
+	vec3 z = texture(tex, pos.xy * scale).rgb;
+	return x * w.x + y * w.y + z * w.z;
+}
+
+// Samples the ORM texture (G = Roughness, B = Metallic)
+vec2 sample_triplanar_orm(sampler2D tex, vec3 pos, vec3 w, float scale) {
+	vec2 x = texture(tex, pos.yz * scale).gb;
+	vec2 y = texture(tex, pos.xz * scale).gb;
+	vec2 z = texture(tex, pos.xy * scale).gb;
+	return x * w.x + y * w.y + z * w.z;
+}
+
+vec3 sample_triplanar_normal(sampler2D tex, vec3 pos, vec3 w, float scale, float strength) {
+	vec3 tx = texture(tex, pos.yz * scale).xyz * 2.0 - 1.0;
+	vec3 ty = texture(tex, pos.xz * scale).xyz * 2.0 - 1.0;
+	vec3 tz = texture(tex, pos.xy * scale).xyz * 2.0 - 1.0;
+
+	tx.xy *= strength;
+	ty.xy *= strength;
+	tz.xy *= strength;
+
+	vec3 weights = w;
+	vec3 blend_normal =
+		vec3(0.0, tx.y, tx.x) * weights.x +
+		vec3(ty.y, 0.0, ty.x) * weights.y +
+		vec3(tz.x, tz.y, 0.0) * weights.z;
+
+	return normalize(blend_normal + world_normal);
 }
 
 void fragment() {
+	// Vertex Paint Weights
 	vec4 vcol = COLOR;
+	float w_r = vcol.r;
+	float w_b = vcol.b;
+	float w_base = max(0.0, 1.0 - (w_r + w_b));
 
-	// Use World Position (XZ) for UVs so scaling works
-	vec2 uv_base = world_pos.xz * base_scale;
-	vec2 uv_red  = world_pos.xz * red_scale;
-	vec2 uv_blue = world_pos.xz * blue_scale;
+	float total_layer_weight = w_base + w_r + w_b;
+	w_base /= total_layer_weight;
+	w_r /= total_layer_weight;
+	w_b /= total_layer_weight;
 
-	// Sample Textures AND APPLY TINT
-    // NEW! Multiply the sampled texture RGB by the tint RGB
-	vec3 base_col = texture(base_albedo, uv_base).rgb * base_color_tint;
-	vec3 red_col  = texture(red_albedo,  uv_red ).rgb * red_color_tint;
-	vec3 blue_col = texture(blue_albedo, uv_blue).rgb * blue_color_tint;
+	vec3 tri_w = triplanar_weights(world_normal);
 
-	float base_rough = texture(base_roughness, uv_base).r * base_roughness_strength;
-	float red_rough  = texture(red_roughness,  uv_red ).r * red_roughness_strength;
-	float blue_rough = texture(blue_roughness, uv_blue).r * blue_roughness_strength;
+	// --- BASE LAYER ---
+	vec3 base_col = sample_triplanar_albedo(base_albedo, world_pos, tri_w, base_scale) * base_tint;
+	vec2 base_orm_vals = sample_triplanar_orm(base_orm, world_pos, tri_w, base_scale);
+	// Apply Sliders
+	float base_r_final = base_orm_vals.r * base_roughness;
+	float base_m_final = base_orm_vals.g * base_metallic;
+	vec3 n_base = sample_triplanar_normal(base_normal, world_pos, tri_w, base_scale, base_normal_strength);
 
-	float base_met = texture(base_metallic, uv_base).r * base_metallic_strength;
-	float red_met  = texture(red_metallic,  uv_red ).r * red_metallic_strength;
-	float blue_met = texture(blue_metallic, uv_blue).r * blue_metallic_strength;
+	// --- RED LAYER ---
+	vec3 red_col = sample_triplanar_albedo(red_albedo, world_pos, tri_w, red_scale) * red_tint;
+	vec2 red_orm_vals = sample_triplanar_orm(red_orm, world_pos, tri_w, red_scale);
+	// Apply Sliders
+	float red_r_final = red_orm_vals.r * red_roughness;
+	float red_m_final = red_orm_vals.g * red_metallic;
+	vec3 n_red = sample_triplanar_normal(red_normal, world_pos, tri_w, red_scale, red_normal_strength);
 
-	vec3 n_base = texture(base_normal, uv_base).rgb * 2.0 - 1.0;
-	vec3 n_red  = texture(red_normal,  uv_red ).rgb * 2.0 - 1.0;
-	vec3 n_blue = texture(blue_normal, uv_blue).rgb * 2.0 - 1.0;
+	// --- BLUE LAYER ---
+	vec3 blue_col = sample_triplanar_albedo(blue_albedo, world_pos, tri_w, blue_scale) * blue_tint;
+	vec2 blue_orm_vals = sample_triplanar_orm(blue_orm, world_pos, tri_w, blue_scale);
+	// Apply Sliders
+	float blue_r_final = blue_orm_vals.r * blue_roughness;
+	float blue_m_final = blue_orm_vals.g * blue_metallic;
+	vec3 n_blue = sample_triplanar_normal(blue_normal, world_pos, tri_w, blue_scale, blue_normal_strength);
 
-	// Apply Normal Strength
-	n_base.xy *= base_normal_strength; n_base.z = sqrt(max(1.0 - dot(n_base.xy, n_base.xy), 0.0));
-	n_red.xy  *= red_normal_strength;  n_red.z  = sqrt(max(1.0 - dot(n_red.xy,  n_red.xy ), 0.0));
-	n_blue.xy *= blue_normal_strength; n_blue.z = sqrt(max(1.0 - dot(n_blue.xy, n_blue.xy), 0.0));
+	// --- FINAL BLEND ---
+	ALBEDO =
+		base_col * w_base +
+		red_col * w_r +
+		blue_col * w_b;
 
-	// --------------------------------------------------------------------
-	// FIXED BLENDING LOGIC (Linear)
-	// --------------------------------------------------------------------
-	float weight_r = vcol.r;
-	float weight_b = vcol.b;
-	float weight_base = max(0.0, 1.0 - (weight_r + weight_b));
+	ROUGHNESS =
+		base_r_final * w_base +
+		red_r_final * w_r +
+		blue_r_final * w_b;
 
-	// Re-normalize
-	float total = weight_base + weight_r + weight_b;
-	weight_base /= total;
-	weight_r    /= total;
-	weight_b    /= total;
-	// --------------------------------------------------------------------
+	METALLIC =
+		base_m_final * w_base +
+		red_m_final * w_r +
+		blue_m_final * w_b;
 
-	// Blend Normals
-	vec3 n_tan = normalize(n_base * weight_base + n_red * weight_r + n_blue * weight_b);
-	mat3 TBN = mat3(TANGENT, BINORMAL, NORMAL);
-	vec3 n_world = normalize(TBN * n_tan);
+	NORMAL = normalize(
+		n_base * w_base +
+		n_red * w_r +
+		n_blue * w_b
+	);
 
-	// Blend Albedo, Roughness, Metallic
-	vec3 final_col   = base_col * weight_base + red_col * weight_r + blue_col * weight_b;
-	float final_rough = base_rough * weight_base + red_rough * weight_r + blue_rough * weight_b;
-	float final_met   = base_met * weight_base + red_met * weight_r + blue_met * weight_b;
-
-	ALBEDO    = final_col;
-	ROUGHNESS = clamp(final_rough, 0.0, 1.0);
-	METALLIC  = clamp(final_met, 0.0, 1.0);
-	NORMAL    = n_world;
+	// Optional: SPECULAR anti-aliasing
+	SPECULAR = 0.5 + specular_smoothness;
 }

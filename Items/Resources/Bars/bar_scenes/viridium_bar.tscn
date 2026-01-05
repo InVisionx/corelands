@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2hkm5wnw188l"]
+
+[ext_resource type="PackedScene" uid="uid://c5xiugaeik8ug" path="res://Items/Resources/Bars/bar_scenes/bar.glb" id="1_wjppo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6maxk"]
+albedo_color = Color(0.34509805, 0.3882353, 0.34509805, 1)
+metallic = 1.0
+
+[node name="ViridiumBar" instance=ExtResource("1_wjppo")]
+
+[node name="Bar" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_6maxk")

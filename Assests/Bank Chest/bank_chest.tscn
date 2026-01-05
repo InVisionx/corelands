@@ -117,7 +117,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_nfgmh")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="input" index="0"]
 script = ExtResource("2_6gtk8")
-interact_range = 1.5
+interact_range = 1.1
 interact_text = "Open Bank"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="input/StaticBody3D" index="0"]

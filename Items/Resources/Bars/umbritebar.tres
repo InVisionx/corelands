@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://d3iwkto7b3fvy"]
+
+[ext_resource type="Texture2D" uid="uid://dv33o4evuamst" path="res://icons/icon_UmbriteBar.png" id="1_17ofx"]
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="1_wlfei"]
+[ext_resource type="PackedScene" uid="uid://b8qdnmptkyslj" path="res://Items/Resources/Bars/bar_scenes/umbrite_bar.tscn" id="2_110jw"]
+
+[resource]
+script = ExtResource("1_wlfei")
+id = "umbritebar"
+display_name = "Umbrite Bar"
+icon = ExtResource("1_17ofx")
+prefab = ExtResource("2_110jw")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

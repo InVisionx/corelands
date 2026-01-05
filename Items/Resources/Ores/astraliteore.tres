@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://dk0s2mqnsqj37"]
+
+[ext_resource type="Texture2D" uid="uid://do4y7jbntosoy" path="res://icons/icon_AstraliteOre.png" id="1_83q36"]
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="1_o6bqw"]
+[ext_resource type="PackedScene" uid="uid://ceugvivxrbhn1" path="res://Items/Resources/Ores/ore_scenes/astralite_ore.tscn" id="2_hvyee"]
+
+[resource]
+script = ExtResource("1_o6bqw")
+id = "astraliteore"
+display_name = "Astralite Ore"
+icon = ExtResource("1_83q36")
+prefab = ExtResource("2_hvyee")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"

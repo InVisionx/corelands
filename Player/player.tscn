@@ -76,10 +76,10 @@ offset_bottom = -358.0
 
 [node name="ChatBox" parent="UI_Layer/UI" instance=ExtResource("7_vtle1")]
 layout_mode = 1
-offset_left = -1204.0
-offset_top = -65.0
-offset_right = -1204.0
-offset_bottom = -65.0
+offset_left = -911.0
+offset_top = -59.0
+offset_right = -911.0
+offset_bottom = -59.0
 font_size = 10
 
 [node name="Teleports" parent="UI_Layer/UI" node_paths=PackedStringArray("fade_overlay") instance=ExtResource("9_00tjw")]
@@ -120,44 +120,11 @@ billboard = 1
 [node name="CameraTarget" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5849468, 0)
 
-[node name="Button" type="Button" parent="."]
-custom_minimum_size = Vector2(45, 45)
-offset_right = 8.0
-offset_bottom = 8.0
-text = "attack"
-
-[node name="Button2" type="Button" parent="."]
-custom_minimum_size = Vector2(45, 45)
-offset_left = 63.0
-offset_top = 1.0
-offset_right = 120.0
-offset_bottom = 46.0
-text = "teleport"
-
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_height_offset = 0.3
 path_max_distance = 20.01
 
-[node name="Button3" type="Button" parent="."]
-offset_left = 148.0
-offset_top = 9.0
-offset_right = 195.0
-offset_bottom = 40.0
-text = "mine"
-
-[node name="Button4" type="Button" parent="."]
-offset_left = 205.0
-offset_top = 9.0
-offset_right = 252.0
-offset_bottom = 40.0
-text = "chop"
-
 [node name="InteractionManager" type="Node3D" parent="."]
 script = ExtResource("10_x3vf3")
-
-[connection signal="pressed" from="Button" to="." method="start_attack"]
-[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="Button4" to="." method="_on_button_4_pressed"]
 
 [editable path="PlayerModel"]

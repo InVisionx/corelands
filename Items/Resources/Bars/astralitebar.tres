@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://ce4lg5lfbylgo"]
+
+[ext_resource type="Texture2D" uid="uid://d3mivinnudofp" path="res://icons/icon_AstraliteBar.png" id="1_43txg"]
+[ext_resource type="Script" uid="uid://crh42ufhek2sj" path="res://Resources/ItemData.gd" id="1_ox1om"]
+[ext_resource type="PackedScene" uid="uid://dtskx11a6b17x" path="res://Items/Resources/Bars/bar_scenes/astralite_bar.tscn" id="2_8dsdr"]
+
+[resource]
+script = ExtResource("1_ox1om")
+id = "astralitebar"
+display_name = "Asralite Bar"
+icon = ExtResource("1_43txg")
+prefab = ExtResource("2_8dsdr")
+metadata/_custom_type_script = "uid://crh42ufhek2sj"
