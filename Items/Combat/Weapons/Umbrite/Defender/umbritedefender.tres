@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://82ror5d3o552"]
+
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_ur5c3"]
+[ext_resource type="Texture2D" uid="uid://s615falfwvp7" path="res://icons/icon_umbrite_defender.png" id="1_w4637"]
+[ext_resource type="PackedScene" uid="uid://ci7fseeufh2sg" path="res://Items/Combat/Weapons/Umbrite/Defender/umbrite_defender.tscn" id="2_lc2wa"]
+
+[resource]
+script = ExtResource("1_ur5c3")
+offhand = true
+id = "umbritedefender"
+display_name = "Umbrite Defender"
+icon = ExtResource("1_w4637")
+prefab = ExtResource("2_lc2wa")
+item_type = 1
+equip_slot = "offhand"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

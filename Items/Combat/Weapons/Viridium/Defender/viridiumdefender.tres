@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://ckrepbjrep0s4"]
+
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_iuojx"]
+[ext_resource type="Texture2D" uid="uid://bbbfl8lecoa4u" path="res://icons/icon_viridium_defender.png" id="1_wekv1"]
+[ext_resource type="PackedScene" uid="uid://c6xckdmyv0qbr" path="res://Items/Combat/Weapons/Viridium/Defender/viridium_defender.tscn" id="2_0vlpn"]
+
+[resource]
+script = ExtResource("1_iuojx")
+offhand = true
+id = "viridiumdefender"
+display_name = "Viridium Defender"
+icon = ExtResource("1_wekv1")
+prefab = ExtResource("2_0vlpn")
+item_type = 1
+equip_slot = "offhand"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

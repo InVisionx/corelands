@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://c5xmu3vduy53c"]
+
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_cxydq"]
+[ext_resource type="Texture2D" uid="uid://b1mnj7lnj24af" path="res://icons/icon_igneous_defender.png" id="1_ubrvt"]
+[ext_resource type="PackedScene" uid="uid://bc6owetk3jxum" path="res://Items/Combat/Weapons/Igneous/Defender/igneous_defender.tscn" id="2_1qs3q"]
+
+[resource]
+script = ExtResource("1_cxydq")
+accuracy = 10.0
+strength = 10.0
+offhand = true
+id = "igneousdefender"
+display_name = "Igneous Defender"
+icon = ExtResource("1_ubrvt")
+prefab = ExtResource("2_1qs3q")
+item_type = 1
+equip_slot = "offhand"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

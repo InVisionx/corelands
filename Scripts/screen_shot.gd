@@ -44,14 +44,16 @@ func bake_all():
 		pivot.add_child(instance)
 		
 		# 3. ROTATE (RPG Style logic preserved)
-		var item_name = instance.name.to_lower()
-		
-		if "cape" in item_name or "raw" in item_name:
+		# We convert to lower ONCE here, so 'item_name' is clean
+		var item_name = instance.name.to_lower() 
+
+		if "cape" in item_name.to_lower() or "raw" in item_name.to_lower():
 			pass 
-		elif "sword" in item_name or "defender" in item_name or "scim" in item_name:
+		elif "sword" in item_name.to_lower() or "defender" in item_name.to_lower() or "scim" in item_name.to_lower():
 			instance.rotation_degrees.z = -25 
-		elif "bar" in item_name:
-			instance.rotation.x = -90
+		elif "bar" in item_name.to_lower():
+			instance.rotation_degrees.y = 90 
+			instance.rotation_degrees.z = 75
 		else:
 			instance.rotation_degrees.x = -20
 			instance.rotation_degrees.y = 25

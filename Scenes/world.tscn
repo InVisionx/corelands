@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bojrgt8pa7d0w" path="res://Scripts/world.gd" id="1_a02cp"]
 [ext_resource type="PackedScene" uid="uid://6rmhtkq8mjbh" path="res://Scenes/hub.tscn" id="2_5ukr8"]
-[ext_resource type="Shader" uid="uid://cke68btwgs3mk" path="res://sky_shader.gdshader" id="2_o06y3"]
+[ext_resource type="Shader" uid="uid://cke68btwgs3mk" path="res://Shaders/sky_shader.gdshader" id="2_o06y3"]
 [ext_resource type="PackedScene" uid="uid://cxi4p71x2cgs2" path="res://Assests/Monsters/Zombie/zombie.tscn" id="4_8j60k"]
 [ext_resource type="PackedScene" uid="uid://bpjkh6kt1u1oq" path="res://Assests/Trees/Ash Tree/ash_tree.tscn" id="5_5ukr8"]
 [ext_resource type="Script" uid="uid://cpu3ldj5yr223" path="res://Scripts/mine_manager.gd" id="7_5v1tr"]

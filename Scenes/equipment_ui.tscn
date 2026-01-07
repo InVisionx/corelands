@@ -94,16 +94,6 @@ texture_normal = ExtResource("5_ryunv")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="OffhandSlot" type="TextureButton" parent="PanelContainer/VBoxContainer/GridContainer"]
-modulate = Color(1.1638972, 1.1638972, 1.1638972, 1)
-custom_minimum_size = Vector2(45, 45)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-texture_normal = ExtResource("6_bktt7")
-ignore_texture_size = true
-stretch_mode = 5
-
 [node name="ChestSlot" type="TextureButton" parent="PanelContainer/VBoxContainer/GridContainer"]
 modulate = Color(1.1638972, 1.1638972, 1.1638972, 1)
 custom_minimum_size = Vector2(45, 45)
@@ -114,13 +104,13 @@ texture_normal = ExtResource("6_6x6fk")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="LegsSlot" type="TextureButton" parent="PanelContainer/VBoxContainer/GridContainer"]
+[node name="OffhandSlot" type="TextureButton" parent="PanelContainer/VBoxContainer/GridContainer"]
 modulate = Color(1.1638972, 1.1638972, 1.1638972, 1)
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-texture_normal = ExtResource("7_lulfy")
+texture_normal = ExtResource("6_bktt7")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -131,6 +121,16 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture_normal = ExtResource("8_5fd6p")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="LegsSlot" type="TextureButton" parent="PanelContainer/VBoxContainer/GridContainer"]
+modulate = Color(1.1638972, 1.1638972, 1.1638972, 1)
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("7_lulfy")
 ignore_texture_size = true
 stretch_mode = 5
 

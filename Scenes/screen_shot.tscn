@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ccpkda70647kr"]
 
 [ext_resource type="Script" uid="uid://1axfpyy3xciu" path="res://Scripts/screen_shot.gd" id="1_8k57t"]
-[ext_resource type="Shader" uid="uid://cke68btwgs3mk" path="res://sky_shader.gdshader" id="2_8cu5o"]
+[ext_resource type="Shader" uid="uid://cke68btwgs3mk" path="res://Shaders/sky_shader.gdshader" id="2_8cu5o"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_wx42t"]
 noise_type = 3

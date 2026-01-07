@@ -4,87 +4,133 @@ extends Control
 @onready var recipe_list = $PanelContainer/HBoxContainer/RecipeList
 @onready var details_panel = $PanelContainer/HBoxContainer/DetailsPanel
 
+# We keep track of the currently selected recipe to refresh the UI after crafting
+var current_recipe_id: String = ""
+var current_recipe_data: Dictionary = {}
+
 func _ready():
-	# 1. Grab furnace recipes from the Manager
-	var recipes = CraftingManager.get_recipes_by_station("furnace")
+	_populate_list()
+	# Optional: Listen for inventory changes to update the UI in real-time
+	InventoryManager.inventory_updated.connect(_on_inventory_updated)
+
+func _populate_list():
+	# Clear existing children if we ever re-run this
+	for child in recipe_list.get_children():
+		child.queue_free()
+
+	# 1. Grab recipes directly so we have the ID (Key) and the Data (Value)
+	var all_recipes = CraftingManager.recipes
 	
-	# 2. Loop through and make buttons
-	for recipe in recipes:
-		var btn = Button.new()
-		btn.text = recipe["name"]
-		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		btn.flat = true
-		# This "bind" trick passes the specific recipe data to the function when clicked
-		btn.pressed.connect(_on_recipe_clicked.bind(recipe))
-		recipe_list.add_child(btn)
+	for id in all_recipes:
+		var data = all_recipes[id]
+		
+		# Filter for furnace only
+		if data["station"] == "furnace":
+			var btn = Button.new()
+			btn.text = data["name"]
+			btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			btn.flat = true
+			btn.alignment = HORIZONTAL_ALIGNMENT_CENTER
+			
+			# We bind both the ID and the Data
+			btn.pressed.connect(_on_recipe_clicked.bind(id, data))
+			recipe_list.add_child(btn)
 
 # This runs when you click a specific recipe button
-func _on_recipe_clicked(recipe_data):
-	# 3. Clear previous details
+func _on_recipe_clicked(id: String, data: Dictionary):
+	current_recipe_id = id
+	current_recipe_data = data
+	_refresh_details_panel()
+
+func _refresh_details_panel():
+	if current_recipe_id == "": return
+
+	# 1. Clear previous details
 	for child in details_panel.get_children():
 		child.queue_free()
 
 	# --- CONTAINER SETUP ---
 	var content_box = VBoxContainer.new()
-	# Expands to fill vertical space above button
 	content_box.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	# Centers children vertically and horizontally
 	content_box.alignment = BoxContainer.ALIGNMENT_CENTER
-	# Adds a tiny gap between the title, header, and items for readability
 	content_box.add_theme_constant_override("separation", 5) 
 	details_panel.add_child(content_box)
 	
-	# 4. Show the Name (Header)
+	# 2. Show the Name (Header)
 	var title = Label.new()
-	title.text = "Crafting: " + recipe_data["name"] + "\n"
+	title.text = current_recipe_data["name"] + "\n"
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	title.add_theme_font_size_override("font_size", 12)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 16)
 	content_box.add_child(title)
 	
-	# 5. Show "Requires" Header (RichTextLabel)
-	var _req_label = RichTextLabel.new()
+	# 2.5 icon
+	var icon = TextureRect.new()
+	icon.texture = ItemDataBase.get_icon(current_recipe_data["output"])
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.custom_minimum_size = Vector2(0,64)
+	content_box.add_child(icon)
 	
-	# REQUIRED for [u] and [center] tags to work
-	_req_label.bbcode_enabled = true 
-	# REQUIRED so the label doesn't collapse to 0 height
-	_req_label.fit_content = true 
-	
-	_req_label.add_theme_font_size_override("normal_font_size", 14)
-	_req_label.text = "[center][u]Requires[/u][/center]"
-	
-	content_box.add_child(_req_label)
+	# 3. Show "Requires" Header
+	var req_header = Label.new()
+	req_header.text = "- Requires -"
+	req_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	req_header.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
+	content_box.add_child(req_header)
 
-	# 6. Loop through inputs
-	var inputs = recipe_data["inputs"]
-	for item_name in inputs:
+	# 4. Loop through inputs
+	var inputs = current_recipe_data["inputs"]
+	
+	for item_id in inputs:
+		var amount_needed = inputs[item_id]
+		# Ask the Helper function we wrote in CraftingManager how many we actually have
+		var amount_have = CraftingManager._get_total_item_count(item_id)
+		
 		var req_label = Label.new()
-		req_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		req_label.add_theme_font_size_override("font_size", 12)
 		req_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		var amount = inputs[item_name]
-		req_label.text = str(amount) + " " + item_name
+		
+		# Color code: Green if we have enough, Red if we don't
+		var color = Color.GREEN if amount_have >= amount_needed else Color.RED
+		req_label.add_theme_color_override("font_color", color)
+		
+		# Display: "Bone Ore: 1 / 5"
+		var item_name_display = ItemDataBase.get_item(item_id).display_name if ItemDataBase.get_item(item_id) else item_id
+		req_label.text = "%s: %d / %d" % [item_name_display, amount_have, amount_needed]
+		
 		content_box.add_child(req_label)
 
-	# 7. Add the "SMELT!" Button (Outside the centered box, at the bottom)
+	# 5. Add the "SMELT!" Button
 	var craft_btn = Button.new()
 	craft_btn.text = "SMELT!"
-	craft_btn.flat = true
-	# Adding a minimum height makes the button easier to click
 	craft_btn.custom_minimum_size.y = 40 
-	craft_btn.pressed.connect(_attempt_craft.bind(recipe_data))
+	
+	# CHECK IF WE CAN CRAFT
+	var can_craft = CraftingManager.can_craft(current_recipe_id)
+	
+	if can_craft:
+		craft_btn.disabled = false
+		craft_btn.pressed.connect(_attempt_craft)
+	else:
+		craft_btn.disabled = true
+		craft_btn.text = "Missing Materials"
+		
 	details_panel.add_child(craft_btn)
 
-func _attempt_craft(recipe_data):
-	# Assuming you have a reference to player inventory
-	# For now, let's just print to console
-	print("Trying to craft: ", recipe_data["name"])
+func _attempt_craft():
+	if current_recipe_id == "": return
 	
-	# This is where you'd call:
-	# CraftingManager.craft_item(recipe_data, player.inventory)
+	# 1. Run the logic
+	CraftingManager.craft_item(current_recipe_id)
+	
+	# 2. Refresh the UI immediately so numbers update and button disables if we run out
+	_refresh_details_panel()
 
-# --- NEW: INPUT HANDLING ---
+# If the inventory changes while the window is open (e.g. dropping something), update UI
+func _on_inventory_updated():
+	if current_recipe_id != "":
+		_refresh_details_panel()
+
 func _input(event):
-	# "ui_cancel" maps to Escape by default in Godot
 	if event.is_action_pressed("ui_cancel"):
 		queue_free()

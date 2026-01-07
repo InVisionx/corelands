@@ -1,23 +1,37 @@
 [gd_scene load_steps=6 format=3 uid="uid://ljlawaq4d71c"]
 
-[ext_resource type="PackedScene" uid="uid://4y2jw6kcm4m2" path="res://Items/Combat/Weapons/Pyrium/Scim/pyrium_scim.glb" id="1_axwrh"]
-[ext_resource type="Texture2D" uid="uid://cpybtrlbrpbdl" path="res://Items/Combat/Weapons/Pyrium/Scim/pyrium_scim_Image_0.jpg" id="2_eu1rf"]
-[ext_resource type="Texture2D" uid="uid://tj4ppwusnsyd" path="res://Items/Combat/Weapons/Pyrium/Scim/pyrium_scim_Image_1.jpg" id="3_x3s0t"]
-[ext_resource type="Texture2D" uid="uid://dfx7ihxkebt65" path="res://Items/Combat/Weapons/Pyrium/Scim/pyrium_scim_Image_2.jpg" id="4_fwhw7"]
+[ext_resource type="PackedScene" uid="uid://ph6rcsh3i24c" path="res://Items/Combat/Weapons/metal_scim.glb" id="1_rjs2m"]
+[ext_resource type="Shader" uid="uid://d2u5symora71o" path="res://Shaders/black_red_blue_shader.gdshader" id="2_lr7mj"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bw4ge"]
-albedo_texture = ExtResource("2_eu1rf")
-metallic = 0.7
-metallic_specular = 0.0
-metallic_texture = ExtResource("3_x3s0t")
-roughness_texture = ExtResource("3_x3s0t")
-normal_enabled = true
-normal_texture = ExtResource("4_fwhw7")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_03mpu"]
+frequency = 0.0368
 
-[node name="pyrium_scim" instance=ExtResource("1_axwrh")]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rjs2m"]
+noise = SubResource("FastNoiseLite_03mpu")
 
-[node name="pyrium_scim_mesh" parent="." index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_bw4ge")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_axwrh"]
+render_priority = 0
+shader = ExtResource("2_lr7mj")
+shader_parameter/base_albedo = Color(0, 0, 0, 1)
+shader_parameter/base_metallic = 0.0
+shader_parameter/base_roughness = 0.800000038
+shader_parameter/red_albedo = Color(0.54901963, 0.1764706, 0.1764706, 1)
+shader_parameter/red_metallic = 0.90000004275
+shader_parameter/red_roughness = 0.6000000285
+shader_parameter/blue_albedo = Color(0.54901963, 0.1764706, 0.1764706, 1)
+shader_parameter/blue_metallic = 0.90000004275
+shader_parameter/blue_roughness = 0.6000000285
+shader_parameter/brush_texture = SubResource("NoiseTexture2D_rjs2m")
+shader_parameter/brush_scale = Vector2(6, 1)
+shader_parameter/brush_strength = 0.5
+shader_parameter/wear_amount = 1.0
+shader_parameter/wear_sharpness = 1.4000000632401202
+shader_parameter/wear_color = Color(0, 0, 0, 1)
+
+[node name="pyrium_scim" instance=ExtResource("1_rjs2m")]
+
+[node name="scim" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_axwrh")
 
 [node name="IdleTransform" type="Node3D" parent="." index="1"]
 transform = Transform3D(0.008304156, 0.47185716, 0.16517213, -0.48089755, -0.03760893, 0.1316172, 0.13663293, -0.1610477, 0.45320532, 0.022250667, 0.1166535, 0.0849075)

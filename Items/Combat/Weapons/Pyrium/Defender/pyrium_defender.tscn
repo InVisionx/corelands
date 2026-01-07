@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://clpj713uhunfd"]
+
+[ext_resource type="PackedScene" uid="uid://1j8ok2u8s6il" path="res://Items/Combat/Weapons/metal_defender.glb" id="1_hyj8u"]
+[ext_resource type="Shader" uid="uid://d2u5symora71o" path="res://Shaders/black_red_blue_shader.gdshader" id="2_g6w2e"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_03mpu"]
+frequency = 0.0368
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rjs2m"]
+noise = SubResource("FastNoiseLite_03mpu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mxavo"]
+render_priority = 0
+shader = ExtResource("2_g6w2e")
+shader_parameter/base_albedo = Color(0, 0, 0, 1)
+shader_parameter/base_metallic = 0.0
+shader_parameter/base_roughness = 0.800000038
+shader_parameter/red_albedo = Color(0.54901963, 0.1764706, 0.1764706, 1)
+shader_parameter/red_metallic = 0.90000004275
+shader_parameter/red_roughness = 0.6000000285
+shader_parameter/blue_albedo = Color(0.54901963, 0.1764706, 0.1764706, 1)
+shader_parameter/blue_metallic = 0.90000004275
+shader_parameter/blue_roughness = 0.6000000285
+shader_parameter/brush_texture = SubResource("NoiseTexture2D_rjs2m")
+shader_parameter/brush_scale = Vector2(6, 1)
+shader_parameter/brush_strength = 0.5
+shader_parameter/wear_amount = 1.0
+shader_parameter/wear_sharpness = 1.4000000632401202
+shader_parameter/wear_color = Color(0, 0, 0, 1)
+
+[node name="pyrium_defender" instance=ExtResource("1_hyj8u")]
+
+[node name="defender" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_mxavo")
+
+[node name="IdleTransform" type="Node3D" parent="." index="1"]
+transform = Transform3D(0.095937766, -0.1754037, -0.0054304567, 0.0013458336, -0.005453401, 0.19992112, -0.17548257, -0.09593647, -0.0014356147, -0.103878826, 0.11044127, -0.0071898997)

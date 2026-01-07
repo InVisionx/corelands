@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://b7h8n5mit858i"]
+
+[ext_resource type="Texture2D" uid="uid://bnbl62uo17boa" path="res://icons/icon_astralite_defender.png" id="1_0lywq"]
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_6frdu"]
+[ext_resource type="PackedScene" uid="uid://cw42wxmod4cjl" path="res://Items/Combat/Weapons/Astralite/Defender/astralite_defender.tscn" id="2_a6rtp"]
+
+[resource]
+script = ExtResource("1_6frdu")
+offhand = true
+id = "astralitedefender"
+display_name = "Astralite Defender"
+icon = ExtResource("1_0lywq")
+prefab = ExtResource("2_a6rtp")
+item_type = 1
+equip_slot = "offhand"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

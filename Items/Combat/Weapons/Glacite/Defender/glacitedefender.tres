@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://cjy1u0knhhet"]
+
+[ext_resource type="Script" uid="uid://bku12hjgowldo" path="res://Resources/weapon_item.gd" id="1_qn085"]
+[ext_resource type="Texture2D" uid="uid://cuejsai4067uc" path="res://icons/icon_glacite_defender.png" id="1_xa341"]
+[ext_resource type="PackedScene" uid="uid://bgh76t1ji65hj" path="res://Items/Combat/Weapons/Glacite/Defender/glacite_defender.tscn" id="2_sjngu"]
+
+[resource]
+script = ExtResource("1_qn085")
+offhand = true
+id = "glacitedefender"
+display_name = "Glacite Defender"
+icon = ExtResource("1_xa341")
+prefab = ExtResource("2_sjngu")
+item_type = 1
+equip_slot = "offhand"
+metadata/_custom_type_script = "uid://bku12hjgowldo"

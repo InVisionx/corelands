@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://q3n24cg532ur"]
+[gd_scene load_steps=22 format=3 uid="uid://q3n24cg532ur"]
 
 [ext_resource type="PackedScene" uid="uid://vj5fqr08nknt" path="res://Assests/Mining_Zone/mining_zone_building.glb" id="1_8lclq"]
 [ext_resource type="PackedScene" uid="uid://c4v86c7t8rkye" path="res://Assests/Mining_Zone/mining_zone_arena.glb" id="5_x8uft"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cdkre6gacefsh" path="res://Assests/Mining_Zone/concrete_wall_normal.png" id="11_2fkgf"]
 [ext_resource type="Script" uid="uid://ihioaxdqbeg6" path="res://Assests/Mining_Zone/mining_zone_barrier.gd" id="11_tm81r"]
 [ext_resource type="Texture2D" uid="uid://b38n7pl2flxnp" path="res://Assests/Mining_Zone/concrete_wall_roughness.png" id="12_t0a76"]
+[ext_resource type="PackedScene" uid="uid://ch7lp7n02megn" path="res://Assests/Anvil/anvil.tscn" id="13_x8uft"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_v4b67"]
 size = Vector3(5, 5, 6)
@@ -120,6 +121,9 @@ visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="mining_zone_building/Mesh_0/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_tm81r")
+
+[node name="Anvil" parent="." instance=ExtResource("13_x8uft")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.485276, 0.52202725, -6.5808377)
 
 [connection signal="mouse_entered" from="MeshInstance3D2/BarrierBody" to="MeshInstance3D2/BarrierBody" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MeshInstance3D2/BarrierBody" to="MeshInstance3D2/BarrierBody" method="_on_mouse_exited"]

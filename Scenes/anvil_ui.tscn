@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtuh03qu8d1ld"]
+
+[ext_resource type="Script" uid="uid://rmd1jrvjtv3h" path="res://Scripts/anvil_ui.gd" id="1_2a1xp"]
+[ext_resource type="StyleBox" uid="uid://bo32xq4cdcmx1" path="res://Materials/UI/panel_ui_bg.tres" id="2_rt3qg"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_o4vx4"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+color = Color(0.5, 0.5, 0.5, 1)
+thickness = 5
+vertical = true
+
+[node name="AnvilUI" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_2a1xp")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_rt3qg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="RecipeList" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 5
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_o4vx4")
+
+[node name="DetailsPanel" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/DetailsPanel"]
+layout_mode = 2

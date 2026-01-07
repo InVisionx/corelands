@@ -85,17 +85,30 @@ func _do_attack():
 	if attack_timer > 0: return
 	if attacker == null or target == null: return
 
-	var weapon_id = EquipmentManager._get_equipped("weapon")
-	var weapon = ItemDataBase.get_item(weapon_id)
-
+	# 1. Setup Defaults
 	var base_damage := 5.0
 	var strength_bonus := 0.0
 	var cooldown := 2.4
+
+	# 2. Add Main Hand Stats
+	var weapon_id = EquipmentManager._get_equipped("weapon")
+	var weapon = ItemDataBase.get_item(weapon_id)
 
 	if weapon != null:
 		base_damage = weapon.base_damage
 		strength_bonus = weapon.strength
 		cooldown = weapon.speed
+
+	# 3. Add Offhand Stats (New)
+	# We use += to stack on top of the weapon stats
+	var offhand_id = EquipmentManager._get_equipped("offhand")
+	var offhand = ItemDataBase.get_item(offhand_id)
+
+	if offhand != null:
+		base_damage += offhand.base_damage
+		strength_bonus += offhand.strength
+		# Note: We usually don't touch cooldown here so the 
+		# weapon defines the attack interval.
 
 	# --- ANIMATION SPEED LOGIC ---
 	var calculated_speed = 1.0
@@ -104,8 +117,6 @@ func _do_attack():
 	if attacker.anim_player.has_animation(anim_name):
 		var anim_len = attacker.anim_player.get_animation(anim_name).length
 		
-		# If weapon is faster than animation, speed up.
-		# If weapon is slower, keep speed at 1.0 (chill/idle after anim).
 		if cooldown < anim_len:
 			calculated_speed = anim_len / cooldown
 		else:
@@ -115,7 +126,9 @@ func _do_attack():
 	attacker.start_attack()
 
 	# --- DAMAGE LOGIC ---
+	# Now includes (Base + Weapon + Offhand)
 	var max_hit = base_damage * (1.0 + strength_bonus / 100.0)
+	print(max_hit)
 	var dmg = randi_range(0, int(max_hit))
 
 	if target.has_method("take_damage"):
@@ -125,7 +138,7 @@ func _do_attack():
 		dmg_label.label.text = str(dmg)
 		dmg_label.global_position = target.global_position + Vector3(0, 1.2, 0)
 
-	# --- TIMER LOGIC (Fix drift) ---
+	# --- TIMER LOGIC ---
 	attack_timer += cooldown
 
 func _rotate_towards_target(delta):
