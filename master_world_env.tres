@@ -1,0 +1,52 @@
+[gd_resource type="Environment" load_steps=6 format=3 uid="uid://je4pxsc7swk"]
+
+[ext_resource type="Shader" uid="uid://cke68btwgs3mk" path="res://Shaders/sky_shader.gdshader" id="1_iqxeu"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5w6vm"]
+noise_type = 3
+frequency = 0.003
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5v1tr"]
+noise = SubResource("FastNoiseLite_5w6vm")
+seamless = true
+in_3d_space = true
+seamless_blend_skirt = 0.569
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_15f8a"]
+shader = ExtResource("1_iqxeu")
+shader_parameter/top_color = Color(0.7882353, 0.88235295, 1, 1)
+shader_parameter/horizon_color = Color(0, 0, 0, 1)
+shader_parameter/star_density = 0.150000007125
+shader_parameter/star_brightness = 3.274000155515
+shader_parameter/twinkle_speed = 0.5290000251275
+shader_parameter/moon_color = Color(1, 1, 1, 1)
+shader_parameter/moon_size = 0.0870000041325
+shader_parameter/moon_glow = 0.0
+shader_parameter/moon_pos_norm = Vector3(0.5, 0.5, 0)
+shader_parameter/cloud_texture = SubResource("NoiseTexture2D_5v1tr")
+shader_parameter/cloud_color = Color(1, 1, 1, 1)
+shader_parameter/cloud_speed = 0.01
+shader_parameter/cloud_density = 0.626000029735
+shader_parameter/cloud_edge_softness = 0.2000000095
+
+[sub_resource type="Sky" id="Sky_ikia7"]
+sky_material = SubResource("ShaderMaterial_15f8a")
+
+[resource]
+background_mode = 2
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("Sky_ikia7")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.1
+ambient_light_energy = 0.2
+reflected_light_source = 1
+tonemap_exposure = 2.0
+ssao_radius = 0.6
+ssao_intensity = 0.3
+glow_bloom = 0.1
+fog_light_energy = 0.2
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.16470589, 0.17254902, 0.20392157, 1)
+volumetric_fog_sky_affect = 0.2
+adjustment_brightness = 1.2

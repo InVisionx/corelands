@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://mgxo72htd2re" path="res://Assests/Bank Chest/bank chest_roughness.png" id="4_48j3g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nfgmh"]
-albedo_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
 albedo_texture = ExtResource("2_wibbs")
+metallic_specular = 0.0
 roughness_texture = ExtResource("4_48j3g")
 normal_enabled = true
 normal_texture = ExtResource("3_fqf7s")

@@ -1,6 +1,6 @@
 extends Clickable
 
-@export var gather_id: String = "ashlog"
+@export var gather_id: String = ""
 @export var gather_interval: float = 1.8
 @export var success_chance: float = 1.0
 

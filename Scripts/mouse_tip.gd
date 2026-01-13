@@ -1,6 +1,6 @@
 extends Label
 
-var blockers: Array = ["MiningZoneUI", "BankUI", "FurnanceUI"]
+var blockers: Array = ["MiningZoneUI", "BankUI", "FurnanceUI", "AnvilUI"]
 
 func _ready():
 	# Hide it by default

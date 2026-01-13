@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://cbllke041tykf"]
+[gd_scene load_steps=15 format=3 uid="uid://cbllke041tykf"]
 
 [ext_resource type="Script" uid="uid://epse2n6q4uku" path="res://Player/player.gd" id="1_4ntmi"]
 [ext_resource type="PackedScene" uid="uid://ct34bja6hgcy3" path="res://Player/player_model.tscn" id="1_l8h54"]
+[ext_resource type="Texture2D" uid="uid://cabbwgt3ae1sl" path="res://Player/T_Superhero_Male_Dark.png" id="3_5htga"]
 [ext_resource type="PackedScene" uid="uid://cmrrlwgvbhjgs" path="res://Scenes/inventory_ui.tscn" id="3_btcbx"]
 [ext_resource type="Script" uid="uid://bljtt5cc54ftm" path="res://Scripts/player_camera.gd" id="3_gwnis"]
 [ext_resource type="Script" uid="uid://ce81v27udnwv1" path="res://Player/animation_player.gd" id="3_od3ui"]
@@ -11,6 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://vctkds25cnty" path="res://Scenes/teleports.tscn" id="9_00tjw"]
 [ext_resource type="Script" uid="uid://ckjhb6g038uoi" path="res://Scripts/performance.gd" id="10_apopc"]
 [ext_resource type="Script" uid="uid://dan02tg2ddi82" path="res://Player/interaction_manager.gd" id="10_x3vf3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5o4e"]
+albedo_texture = ExtResource("3_5htga")
+metallic_specular = 0.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x3vf3"]
 
@@ -23,6 +28,9 @@ face_offset_degrees = 180.0
 
 [node name="GeneralSkeleton" parent="PlayerModel/Armature" index="0"]
 bones/1/position = Vector3(-0.01858352, 0.87064046, -0.049801946)
+
+[node name="Base" parent="PlayerModel/Armature/GeneralSkeleton" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_p5o4e")
 
 [node name="WeaponAttach" parent="PlayerModel/Armature/GeneralSkeleton" index="2"]
 transform = Transform3D(0.07860344, -0.1540537, 0.9849308, 0.48294282, -0.8584304, -0.17280951, 0.8721167, 0.48924866, 0.0069236904, -0.30889338, 0.95835215, -0.17490791)

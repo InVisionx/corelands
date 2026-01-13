@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 signal stop_interactions
 
-var ui_check: Array = ["MiningZoneUI", "BankUI", "FurnanceUI"]
+var ui_check: Array = ["MiningZoneUI", "BankUI", "FurnanceUI", "AnvilUI"]
 
 @export var username: String = ""
 @export var move_speed: float = 4.0

@@ -1,0 +1,158 @@
+[gd_scene load_steps=5 format=3 uid="uid://duave7neewhig"]
+
+[ext_resource type="Script" uid="uid://comh4h04ts6cu" path="res://addons/web_terrain/terrain_dock.gd" id="1_s8cqy"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_s8cqy"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+thickness = 2
+vertical = true
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_nt8xk"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+thickness = 4
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8kh2v"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+thickness = 2
+vertical = true
+
+[node name="TerrainDock" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_s8cqy")
+
+[node name="MainScroll" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ModeLabel" type="Label" parent="MainScroll/VBoxContainer"]
+layout_mode = 2
+text = "MODE: DISCONNECTED"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainScroll/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PaintButton" type="Button" parent="MainScroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PAINT"
+
+[node name="VSeparator2" type="VSeparator" parent="MainScroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_s8cqy")
+
+[node name="RaiseButton" type="Button" parent="MainScroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RAISE"
+
+[node name="VSeparator3" type="VSeparator" parent="MainScroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_s8cqy")
+
+[node name="LowerButton" type="Button" parent="MainScroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "LOWER"
+
+[node name="VSeparator4" type="VSeparator" parent="MainScroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_s8cqy")
+
+[node name="FlattenButton" type="Button" parent="MainScroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "FLATTEN"
+
+[node name="VSeparator" type="VSeparator" parent="MainScroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_s8cqy")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MainScroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="BrushSizeLabel" type="Label" parent="MainScroll/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Brush Size :"
+
+[node name="BrushSizeSlider" type="SpinBox" parent="MainScroll/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 0.5
+max_value = 20.0
+step = 0.1
+value = 0.5
+
+[node name="VSeparator2" type="HSeparator" parent="MainScroll/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_nt8xk")
+
+[node name="OpacityLabel" type="Label" parent="MainScroll/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Opacity :"
+horizontal_alignment = 1
+
+[node name="OpacitySlider" type="HSlider" parent="MainScroll/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="VSeparator" type="HSeparator" parent="MainScroll/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_nt8xk")
+
+[node name="HeightLabel" type="Label" parent="MainScroll/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Height :"
+
+[node name="HeightSpinBox" type="SpinBox" parent="MainScroll/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = -100.0
+step = 0.5
+
+[node name="VSeparator5" type="VSeparator" parent="MainScroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_8kh2v")
+
+[node name="ColorPicker" type="ColorPickerButton" parent="MainScroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RefreshButton" type="Button" parent="MainScroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Refresh"

@@ -1,0 +1,67 @@
+Implicit Recipe Progression (For your notes)
+Just so you know what players will need to hunt for:
+
+Steel: Ore + Nothing
+
+Viridium: Ore + Flux (Clean the oxidation)
+
+Glacite: Ore + Frost Salt (Keep it cold while smelting)
+
+Pyrium: Ore + Magma Geode (Keep it hot)
+
+Aurium: Ore + Sunstone Dust (Polishing agent)
+
+Umbrite: Ore + Shadow Essence (Bind the void)
+
+Astralite: Ore + Star Fragment (The rarest drop)
+
+Here is a "RuneScape Palette" specifically tuned for your shader setup.
+
+Since your ambient light is Blue-ish, I have pushed the "Warm" colors (Dirt/Sand) slightly more yellow/orange to prevent them from looking purple in the shadows.
+
+🌿 Grasses (The "R" Channel)
+Classic OSRS Green: #527038 (The gold standard. Not too bright, not too dead.)
+
+Lush / Stylized: #6EA335 (Brighter, healthier. Good for safe zones.)
+
+Dead / Swamp: #4A4F38 (Desaturated and brownish. Good for the Wilderness.)
+
+Autumn / Savannah: #8F8743 (Yellowish dry grass.)
+
+🟤 Dirt & Paths (The "G" Channel)
+Standard Path: #5C4633 (The classic "Road" color.)
+
+Red Clay: #754C38 (Good for mining areas or canyons.)
+
+Wet Mud: #36291F (Dark and rich. Use near water.)
+
+Sand / Beach: #A89F71 (Muted yellow. Don't use neon yellow, it looks like pee.)
+
+🌑 Stone & Base (The "Base" / Black Channel)
+Standard Rock: #454545 (Perfect neutral grey background.)
+
+Warm Grey: #524E48 (Earthy rock. Blends better with dirt.)
+
+Cold / Dungeon: #383D45 (Blue-tinted stone. Scary vibe.)
+
+Deep Abyss: #1A1A1A (Almost black. Good for pits.)
+
+🏛️ Urban / Hard Surface (The "B" Channel)
+Castle Stone: #75787B (Clean, light grey for walls/floors.)
+
+Gravel: #6B685F (Noisy, brownish grey.)
+
+Old Concrete: #767873 (Green-tinted grey, looks mossy/old.)
+
+Pavement: #4A4A52 (Dark blue-grey, good for "modern" or magical ruins.)
+
+🎨 My Recommended "Starter Palette"
+Configure your shader with these 4 to start your Basin area:
+
+Color Base (Black): #454545 (Standard Rock) -> Cliffs & Mountains
+
+Color R (Red Paint): #527038 (Classic Green) -> Grass
+
+Color G (Green Paint): #5C4633 (Standard Path) -> Roads & Dirt patches
+
+Color B (Blue Paint): #6B685F (Gravel) -> River beds or Cave floors

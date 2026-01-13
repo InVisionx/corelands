@@ -10,11 +10,11 @@ config_version=5
 
 [application]
 
-config/name="browser"
+config/name="corelands_browser"
 run/main_scene="uid://0boakbawrrm"
 config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-boot_splash/image="uid://cs4b45pvi7ixy"
+boot_splash/image="uid://cy8qdi7itbmi7"
 config/icon="res://icon.svg"
 
 [autoload]
@@ -33,6 +33,10 @@ CraftingManager="*res://Autoloads/CraftingManager.gd"
 window/size/viewport_width=1200
 window/size/viewport_height=800
 window/vsync/vsync_mode=0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/web_terrain/plugin.cfg")
 
 [navigation]
 

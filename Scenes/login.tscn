@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://0boakbawrrm"]
 
 [ext_resource type="Script" uid="uid://doa7qqpr4npr8" path="res://Scripts/login.gd" id="1_5cd0j"]
-[ext_resource type="Texture2D" uid="uid://cpmp05xcoif03" path="res://Materials/UI/login_screen.png" id="2_hbxdl"]
+[ext_resource type="Texture2D" uid="uid://cs4b45pvi7ixy" path="res://Materials/UI/login_screen.png" id="2_hbxdl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hbxdl"]
 
@@ -40,8 +40,6 @@ grow_vertical = 2
 
 [node name="ProfileList" type="OptionButton" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8784314, 0.6666667, 1, 1)
-theme_override_colors/font_focus_color = Color(0.8784314, 0.6666667, 1, 1)
 alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
@@ -50,7 +48,6 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_hbxdl")
 
 [node name="LoginButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8784314, 0.6666667, 1, 1)
 text = "Login"
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
@@ -60,13 +57,11 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_hbxdl")
 
 [node name="NameInput" type="LineEdit" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8784314, 0.6666667, 1, 1)
 placeholder_text = "Username"
 alignment = 1
 
 [node name="CreateButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8784314, 0.6666667, 1, 1)
 text = "Create"
 
 [connection signal="pressed" from="VBoxContainer/LoginButton" to="." method="_on_LoginButton_pressed"]
